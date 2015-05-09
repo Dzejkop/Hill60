@@ -10,6 +10,18 @@ public class Hill60Main extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 
+    // Singleton
+    static Hill60Main instance;
+    public static Hill60Main getInstance() {
+        return instance;
+    }
+
+    public Hill60Main() {
+
+        instance = this;
+
+    }
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();

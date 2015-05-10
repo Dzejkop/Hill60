@@ -2,9 +2,6 @@ package com.hilldev.hill60;
 
 import com.badlogic.gdx.Screen;
 
-/**
- * Created by Jakub on 2015-05-09.
- */
 public class GameScreen implements Screen {
 
     @Override

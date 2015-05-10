@@ -18,12 +18,11 @@ public class Hill60Main extends ApplicationAdapter {
     public Hill60Main() {
 
         instance = this;
-
-        renderingManager = new RenderingManager();
     }
 
 	@Override
 	public void create () {
+		renderingManager = new RenderingManager();
 	}
 
 	@Override

@@ -1,0 +1,58 @@
+package com.hilldev.hill60;
+
+import java.util.List;
+
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hilldev.hill60.components.SpriteRenderer;
+import com.hilldev.hill60.components.WorldPosition;
+
+public class RenderingSystem extends EntitySystem {
+	
+    SpriteBatch batch;
+    Camera camera;
+
+    public RenderingSystem(Engine engine) {
+    	super(engine);
+    	
+        camera = new OrthographicCamera(800, 600);
+        batch = new SpriteBatch();
+    }
+    
+    // Renders all objects with required components
+    private void render() {
+        batch.begin();
+        
+        List<GameObject> list = engine.getObjectList();
+
+        for(GameObject o : list) {
+        	if(meetsConditions(o)) processObject(o);
+        }
+        
+        batch.end();
+    }
+
+    // Checks if given objects contains WorldPosition and SpriteRenderer
+    private boolean meetsConditions(GameObject o) {
+    	return o.hasComponent(WorldPosition.class) && o.hasComponent(SpriteRenderer.class);
+    }
+    
+    // Draws an object
+    private void processObject(GameObject obj) {
+    	Sprite s = obj.<SpriteRenderer>getComponent(SpriteRenderer.class).sprite;
+    	
+    	float x = obj.<WorldPosition>getComponent(WorldPosition.class).x;
+    	float y = obj.<WorldPosition>getComponent(WorldPosition.class).y;
+    	
+    	s.setPosition(x, y);
+    	s.draw(batch);
+    }
+   
+
+	@Override
+	public void update() {
+		render();
+	}
+}

@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.components.WorldPosition;
 
-public class Hill60Main extends ApplicationAdapter implements Engine {
+public class Hill60Main extends ApplicationAdapter implements IEngine {
 	
     // Singleton
     static Hill60Main instance;
@@ -22,12 +22,12 @@ public class Hill60Main extends ApplicationAdapter implements Engine {
     List<GameObject> gameObjects;
     
     // Systems
-    List<EntitySystem> systems;
+    List<IEntitySystem> systems;
 
     public Hill60Main() {
         instance = this;
         
-        systems = new ArrayList<EntitySystem>();
+        systems = new ArrayList<IEntitySystem>();
         gameObjects = new ArrayList<GameObject>();
     }
 
@@ -48,7 +48,7 @@ public class Hill60Main extends ApplicationAdapter implements Engine {
 	@Override
 	public void render () {
 
-		for(EntitySystem e : systems) {
+		for(IEntitySystem e : systems) {
 			e.update();
 		}
 

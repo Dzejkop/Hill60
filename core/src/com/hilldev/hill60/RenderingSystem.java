@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.components.WorldPosition;
 
-public class RenderingSystem extends EntitySystem {
+public class RenderingSystem extends IEntitySystem {
 	
     SpriteBatch batch;
     Camera camera;
 
-    public RenderingSystem(Engine engine) {
+    public RenderingSystem(IEngine engine) {
     	super(engine);
     	
         camera = new OrthographicCamera(800, 600);

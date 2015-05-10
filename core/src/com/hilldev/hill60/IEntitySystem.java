@@ -1,10 +1,10 @@
 package com.hilldev.hill60;
 
-public abstract class EntitySystem {
+public abstract class IEntitySystem {
 
-	Engine engine;
+	IEngine engine;
 	
-	public EntitySystem(Engine engine) {
+	public IEntitySystem(IEngine engine) {
 		this.engine = engine;
 	}
 	

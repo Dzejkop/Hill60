@@ -2,6 +2,7 @@ package com.hilldev.hill60.systems;
 
 import com.hilldev.hill60.GameObject;
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.components.BehaviourComponent;
 import com.hilldev.hill60.components.SimpleScript;
 
 public class BehaviourSystem extends IEntitySystem {
@@ -24,11 +25,11 @@ public class BehaviourSystem extends IEntitySystem {
 
     @Override
     protected boolean meetsConditions(GameObject obj) {
-        return obj.hasComponent(SimpleScript.class);
+        return obj.hasComponent(BehaviourComponent.class);
     }
 
     @Override
     protected void processObject(GameObject obj) {
-        obj.getComponent(SimpleScript.class).run();
+        obj.getComponent(BehaviourComponent.class).run();
     }
 }

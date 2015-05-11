@@ -45,14 +45,14 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new InputSystem(this));
 		
 		// TESTING !!!!!!
-		GameObject logo = new GameObject();
+		GameObject smiley = new GameObject();
 		Sprite sp = new Sprite(new Texture(new FileHandle("assets/Player.png")));
-		logo.addComponent(new SpriteRenderer(sp));      // The image
-		logo.addComponent(new WorldPosition(0, 20));    // The continuous position in game world
-        logo.addComponent(new InputResponder());        // Responds to input from InputSystem
-        logo.addComponent(new SimpleScript());          // Simple movement script
-		
-		gameObjects.add(logo);
+		smiley.addComponent(new SpriteRenderer(sp));      // The image
+		smiley.addComponent(new WorldPosition(0, 20));    // The continuous position in game world
+        smiley.addComponent(new InputResponder());        // Responds to input from InputSystem
+        smiley.addComponent(new BehaviourComponent(new SimpleScript()));  // Simple movmeent script
+
+		gameObjects.add(smiley);
 	}
 
 	@Override

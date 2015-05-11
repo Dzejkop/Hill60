@@ -1,7 +1,18 @@
 package com.hilldev.hill60.components;
 
+import com.hilldev.hill60.GameObject;
+
 // More for debug purposes than anything else
-public class SimpleScript extends BehaviourComponent {
+public class SimpleScript implements Behaviour {
+
+    GameObject parent;
+    BehaviourComponent parentComponent;
+
+    @Override
+    public void create(BehaviourComponent parentComponent) {
+        this.parentComponent = parentComponent;
+        parent = parentComponent.parent;
+    }
 
     @Override
     public void run() {

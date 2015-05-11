@@ -9,10 +9,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.hilldev.hill60.components.*;
-import com.hilldev.hill60.systems.BehaviourSystem;
-import com.hilldev.hill60.systems.IEntitySystem;
-import com.hilldev.hill60.systems.InputSystem;
-import com.hilldev.hill60.systems.RenderingSystem;
+import com.hilldev.hill60.systems.*;
 
 public class Hill60Main extends Game implements IEngine {
 	
@@ -43,6 +40,7 @@ public class Hill60Main extends Game implements IEngine {
 		systems.add(new RenderingSystem(this));
         systems.add(new BehaviourSystem(this));
         systems.add(new InputSystem(this));
+        systems.add(new BoardSystem(this));
 		
 		// TESTING !!!!!!
 		GameObject smiley = new GameObject();
@@ -51,6 +49,18 @@ public class Hill60Main extends Game implements IEngine {
 		smiley.addComponent(new WorldPosition(0, 20));    // The continuous position in game world
         smiley.addComponent(new InputResponder());        // Responds to input from InputSystem
         smiley.addComponent(new BehaviourComponent(new SimpleScript()));  // Simple movmeent script
+
+        // TESTING P2 !!!!!
+        for(int x = 0; x < 10; x++) {
+            for(int y = 0; y < 10; y++) {
+                GameObject wall = new GameObject();
+                wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Wall.png")))));
+                wall.addComponent(new BoardPosition(x, y));
+                wall.addComponent(new WorldPosition(0, 0));
+
+                gameObjects.add(wall);
+            }
+        }
 
 		gameObjects.add(smiley);
 	}

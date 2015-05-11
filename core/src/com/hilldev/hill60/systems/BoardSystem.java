@@ -30,7 +30,13 @@ public class BoardSystem extends IEntitySystem {
     	float tileSize = BoardPosition.TILE_SIZE;
 		BoardPosition boardPos = obj.getComponent(BoardPosition.class);
 		WorldPosition worldPos = obj.getComponent(WorldPosition.class);
-		worldPos.x = boardPos.x*tileSize;
-        worldPos.y = boardPos.y*tileSize;
+		
+		if(worldPos.boardDependent) {
+			worldPos.x = boardPos.x*tileSize;
+			worldPos.y = boardPos.y*tileSize;
+		} else {
+			boardPos.x = (int) (worldPos.x/tileSize);
+			boardPos.y = (int) (worldPos.y/tileSize);
+		}
     }
 }

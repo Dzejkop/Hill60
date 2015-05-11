@@ -16,12 +16,15 @@ public class SimpleScript implements Behaviour {
 
     @Override
     public void run() {
-        WorldPosition w = parent.getComponent(WorldPosition.class);
+        Velocity v = parent.getComponent(Velocity.class);
         InputResponder i = parent.getComponent(InputResponder.class);
 
-        if(i.upArrow) w.y += 2;
-        if(i.downArrow) w.y -= 2;
-        if(i.leftArrow) w.x -= 2;
-        if(i.rightArrow) w.x += 2;
+        v.x = 0;
+        v.y = 0;
+
+        if(i.upArrow) v.y = 2;
+        if(i.downArrow) v.y = -2;
+        if(i.leftArrow) v.x = -2;
+        if(i.rightArrow) v.x = 2;
     }
 }

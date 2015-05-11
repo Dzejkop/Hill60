@@ -42,6 +42,7 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new InputSystem(this));
         systems.add(new BoardSystem(this));
         systems.add(new CameraSystem(this));
+        systems.add(new PhysicsSystem(this));
 
         start();
 		
@@ -54,14 +55,19 @@ public class Hill60Main extends Game implements IEngine {
         smiley.addComponent(new InputResponder());                          // Responds to input from InputSystem
         smiley.addComponent(new BehaviourComponent(new SimpleScript()));    // Simple movmeent script
         smiley.addComponent(new CameraTag());                               // Camera should follow this object
+        smiley.addComponent(new Collider(20, 20));
+        smiley.addComponent(new Velocity(0, 0));
 
         // TESTING P2 !!!!!
         for(int x = 0; x < 10; x++) {
             for(int y = 0; y < 10; y++) {
                 GameObject wall = new GameObject();
 
-                if(x%2 == 0)    wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Floor.png")))));
-                else            wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Wall.png")))));
+                if(x%2 == 0)    {wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Floor.png")))));}
+                else            {
+                    wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Wall.png")))));
+                    wall.addComponent(new Collider(100, 100));
+                }
                 wall.addComponent(new BoardPosition(x, y));
                 wall.addComponent(new WorldPosition(0, 0));
 

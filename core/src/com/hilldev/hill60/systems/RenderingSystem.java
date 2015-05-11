@@ -56,10 +56,10 @@ public class RenderingSystem extends IEntitySystem {
     // Draws an object
     @Override
     protected void processObject(GameObject obj) {
-    	Sprite s = obj.<SpriteRenderer>getComponent(SpriteRenderer.class).sprite;
+    	Sprite s = obj.getComponent(SpriteRenderer.class).sprite;
     	
-    	float x = obj.<WorldPosition>getComponent(WorldPosition.class).x;
-    	float y = obj.<WorldPosition>getComponent(WorldPosition.class).y;
+    	float x = obj.getComponent(WorldPosition.class).x;
+    	float y = obj.getComponent(WorldPosition.class).y;
     	
     	s.setPosition(x, y);
     	s.draw(batch);

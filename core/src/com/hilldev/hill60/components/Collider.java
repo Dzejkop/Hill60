@@ -9,8 +9,8 @@ public class Collider extends Component {
         height = h;
     }
 
-    float width;
-    float height;
+    public float width;
+    public float height;
 
     @Override
     public void setParent(GameObject parent) {

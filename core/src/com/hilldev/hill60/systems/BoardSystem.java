@@ -20,14 +20,17 @@ public class BoardSystem extends IEntitySystem {
     
     @Override
     protected boolean meetsConditions(GameObject obj) {
-        return obj.hasComponent(BoardPosition.class);
+        if(obj.hasComponent(BoardPosition.class)
+        && obj.hasComponent(WorldPosition.class)) return true;
+        return false;
     }
     
     @Override
     protected void processObject(GameObject obj) {
-    	float worldX = obj.getComponent(WorldPosition.class).x;
-    	float worldY = obj.getComponent(WorldPosition.class).y;
-        obj.getComponent(BoardPosition.class).x = (int) (worldX/25);
-        obj.getComponent(BoardPosition.class).x = (int) (worldY/25);
+    	float tileSize = BoardPosition.TILE_SIZE;
+		BoardPosition boardPos = obj.getComponent(BoardPosition.class);
+		WorldPosition worldPos = obj.getComponent(WorldPosition.class);
+		worldPos.x = boardPos.x*tileSize;
+        worldPos.y = boardPos.y*tileSize;
     }
 }

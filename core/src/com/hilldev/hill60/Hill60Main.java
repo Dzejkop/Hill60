@@ -46,7 +46,8 @@ public class Hill60Main extends Game implements IEngine {
 		GameObject smiley = new GameObject();
 		Sprite sp = new Sprite(new Texture(new FileHandle("assets/Player.png")));
 		smiley.addComponent(new SpriteRenderer(sp));      // The image
-		smiley.addComponent(new WorldPosition(0, 20));    // The continuous position in game world
+		smiley.addComponent(new WorldPosition(0, 20, false));    // The continuous position in game world
+		smiley.addComponent(new BoardPosition(0, 0));
         smiley.addComponent(new InputResponder());        // Responds to input from InputSystem
         smiley.addComponent(new BehaviourComponent(new SimpleScript()));  // Simple movmeent script
 

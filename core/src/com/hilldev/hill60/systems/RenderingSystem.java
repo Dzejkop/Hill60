@@ -1,5 +1,6 @@
 package com.hilldev.hill60.systems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -12,6 +13,7 @@ import com.hilldev.hill60.GameObject;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.components.WorldPosition;
+import com.hilldev.hill60.components.BoardPosition;;
 
 public class RenderingSystem extends IEntitySystem {
 	
@@ -39,10 +41,12 @@ public class RenderingSystem extends IEntitySystem {
         batch.begin();
         
         List<GameObject> list = engine.getObjectList();
-
-        for(GameObject o : list) {
-        	if(meetsConditions(o)) processObject(o);
-        }
+        
+        int boardHeight = 100;
+        for(int i=boardHeight; i>=0; i--)
+        	for(GameObject o : list)
+        		if(meetsConditions(o) && o.getComponent(BoardPosition.class).y == i)
+        			processObject(o);
         
         batch.end();
     }
@@ -50,7 +54,7 @@ public class RenderingSystem extends IEntitySystem {
     // Checks if given objects contains WorldPosition and SpriteRenderer
     @Override
     protected boolean meetsConditions(GameObject o) {
-    	return o.hasComponent(WorldPosition.class) && o.hasComponent(SpriteRenderer.class);
+    	return o.hasComponent(BoardPosition.class) && o.hasComponent(WorldPosition.class) && o.hasComponent(SpriteRenderer.class);
     }
     
     // Draws an object
@@ -65,7 +69,6 @@ public class RenderingSystem extends IEntitySystem {
     	s.draw(batch);
     }
    
-
 	@Override
 	public void update() {
 		render();

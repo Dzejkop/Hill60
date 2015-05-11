@@ -10,7 +10,11 @@ public abstract class IEntitySystem {
 	public IEntitySystem(IEngine engine) {
 		this.engine = engine;
 	}
-	
+
+    public void start() {
+
+    }
+
 	public abstract void update();
     protected abstract boolean meetsConditions(GameObject obj);
     protected abstract void processObject(GameObject obj);

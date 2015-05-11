@@ -41,21 +41,27 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new BehaviourSystem(this));
         systems.add(new InputSystem(this));
         systems.add(new BoardSystem(this));
+        systems.add(new CameraSystem(this));
+
+        start();
 		
 		// TESTING !!!!!!
 		GameObject smiley = new GameObject();
 		Sprite sp = new Sprite(new Texture(new FileHandle("assets/Player.png")));
-		smiley.addComponent(new SpriteRenderer(sp));      // The image
-		smiley.addComponent(new WorldPosition(0, 20, false));    // The continuous position in game world
-		smiley.addComponent(new BoardPosition(0, 0));
-        smiley.addComponent(new InputResponder());        // Responds to input from InputSystem
-        smiley.addComponent(new BehaviourComponent(new SimpleScript()));  // Simple movmeent script
+		smiley.addComponent(new SpriteRenderer(sp));                        // The image
+		smiley.addComponent(new WorldPosition(0, 20, false));               // The continuous position in game world
+		smiley.addComponent(new BoardPosition(0, 0));                       // Position on the board
+        smiley.addComponent(new InputResponder());                          // Responds to input from InputSystem
+        smiley.addComponent(new BehaviourComponent(new SimpleScript()));    // Simple movmeent script
+        smiley.addComponent(new CameraTag());                               // Camera should follow this object
 
         // TESTING P2 !!!!!
         for(int x = 0; x < 10; x++) {
             for(int y = 0; y < 10; y++) {
                 GameObject wall = new GameObject();
-                wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Wall.png")))));
+
+                if(x%2 == 0)    wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Floor.png")))));
+                else            wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Wall.png")))));
                 wall.addComponent(new BoardPosition(x, y));
                 wall.addComponent(new WorldPosition(0, 0));
 
@@ -66,10 +72,23 @@ public class Hill60Main extends Game implements IEngine {
 		gameObjects.add(smiley);
 	}
 
-	@Override
-	public void render () {
-        //inputSystem
+    @Override
+    public void start() {
+        for(IEntitySystem s : systems) {
+            s.start();
+        }
+    }
 
+    @Override
+    public <T extends IEntitySystem> T getSystem(Class<T> type) {
+        for(IEntitySystem s : systems) {
+            if(s.getClass() == type) return (T)s;
+        }
+        return null;
+    }
+
+    @Override
+	public void render () {
 		update();
 		
 	}

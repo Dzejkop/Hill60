@@ -39,14 +39,16 @@ public class RenderingSystem extends IEntitySystem {
 
         // Begin rendering
         batch.begin();
-        
+
+        // Get the objects
         List<GameObject> list = engine.getObjectList();
         
         int boardHeight = 100;
-        for(int i=boardHeight; i>=0; i--)
-        	for(GameObject o : list)
-        		if(meetsConditions(o) && o.getComponent(BoardPosition.class).y == i)
-        			processObject(o);
+        for(int i=boardHeight; i>=0; i--) {
+            for (GameObject o : list)
+                if (meetsConditions(o) && o.getComponent(BoardPosition.class).y == i)
+                    processObject(o);
+        }
         
         batch.end();
     }

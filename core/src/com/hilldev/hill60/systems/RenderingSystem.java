@@ -1,11 +1,15 @@
-package com.hilldev.hill60;
+package com.hilldev.hill60.systems;
 
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hilldev.hill60.GameObject;
+import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.components.WorldPosition;
 
@@ -23,6 +27,15 @@ public class RenderingSystem extends IEntitySystem {
     
     // Renders all objects with required components
     private void render() {
+
+        // Prepare the camera
+    	camera.update();
+    	batch.setProjectionMatrix(camera.combined);
+
+        // Clear the screen
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // Begin rendering
         batch.begin();
         
         List<GameObject> list = engine.getObjectList();
@@ -35,12 +48,14 @@ public class RenderingSystem extends IEntitySystem {
     }
 
     // Checks if given objects contains WorldPosition and SpriteRenderer
-    private boolean meetsConditions(GameObject o) {
+    @Override
+    protected boolean meetsConditions(GameObject o) {
     	return o.hasComponent(WorldPosition.class) && o.hasComponent(SpriteRenderer.class);
     }
     
     // Draws an object
-    private void processObject(GameObject obj) {
+    @Override
+    protected void processObject(GameObject obj) {
     	Sprite s = obj.<SpriteRenderer>getComponent(SpriteRenderer.class).sprite;
     	
     	float x = obj.<WorldPosition>getComponent(WorldPosition.class).x;

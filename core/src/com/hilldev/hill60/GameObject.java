@@ -33,7 +33,7 @@ public class GameObject {
     }
 
     // Checks if the object has a component of such type
-    public <T extends Component> boolean hasComponent(Class<T> type) {
+    public boolean hasComponent(Class type) {
     	
     	for(Component c : componentList) {
     		if(c.getClass() == type) return true;

@@ -22,22 +22,14 @@ public class PhysicsSystem extends AEntitySystem {
         WorldPosition p2 = obj2.getComponent(WorldPosition.class);
         Velocity v = obj1.getComponent(Velocity.class);
 
-		float x11 = p1.x
-				- ((c1.width) / 2);
-		float x12 = p1.x
-				+ ((c1.width) / 2);
-		float y11 = p1.y
-				- ((c1.height) / 2);
-		float y12 = p1.y
-				+ ((c1.height) / 2);
-		float x21 = p2.x
-				- ((c2.width) / 2);
-		float x22 = p2.x
-				+ ((c2.width) / 2);
-		float y21 = p2.y
-				- ((c2.height) / 2);
-		float y22 = p2.y
-				+ ((c2.height) / 2);
+		float x11 = p1.x;
+		float x12 = p1.x + c1.width;
+		float y11 = p1.y;
+		float y12 = p1.y + c1.height;
+		float x21 = p2.x;
+		float x22 = p2.x + c2.width;
+		float y21 = p2.y;
+		float y22 = p2.y + c2.height;
 
         /* Twoj zachowany kod
         if (x11 > x22 && x12 < x21 && y11 > y22 && y12 < y21)
@@ -49,29 +41,29 @@ public class PhysicsSystem extends AEntitySystem {
             }
         */
 
-        // Vertical collision detected
-        if (Math.abs(p1.x - p2.x) < c1.width + c2.width ) {
+        // Horizontal collision detected
+        if ((y11 <= y21 && y21 <= y12) || (y11 <= y22 && y22 <= y12)) {
 
             // Case 1 - Object on left
-            if(v.x < 0 && x11 < x22 && x12 > x22) {
+            if(v.x <= 0 && x11 <= x22 && x12 >= x22) {
                 v.x = 0;
             }
 
             // Case 2 - object on right
-            if(v.x > 0 && x11 < x21 && x12 > x21) {
+            if(v.x >= 0 && x11 <= x21 && x12 >= x21) {
                 v.x = 0;
             }
         }
 
-        // Horizontal collision detected
-        if(Math.abs(p1.y - p2.y) < c1.height + c2.height) {
+        // Vertical collision detected
+        if((x11 <= x21 && x21 <= x12) || (x11 <= x22 && x22 <= x12)) {
             // Case 1 - Object above
-            if(v.y > 0 && y11 < y21 && y12 > y21) {
+            if(v.y >= 0 && y11 <= y21 && y12 >= y21) {
                 v.y = 0;
             }
 
             // Case 2 - Object below
-            if(v.y < 0 && y11 < y22 && y12 > y21) {
+            if(v.y <= 0 && y11 <= y22 && y12 >= y22) {
                 v.y = 0;
             }
         }

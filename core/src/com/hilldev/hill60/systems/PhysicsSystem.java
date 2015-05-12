@@ -39,6 +39,16 @@ public class PhysicsSystem extends IEntitySystem {
 		float y22 = p2.y
 				+ ((c2.height) / 2);
 
+        /* Twoj zachowany kod
+        if (x11 > x22 && x12 < x21 && y11 > y22 && y12 < y21)
+            if(x11 > x22 && x12 < x21 ){
+
+            }else
+            if(y11 > y22 && y12 < y21){
+
+            }
+        */
+
         // Vertical collision detected
         if (Math.abs(p1.x - p2.x) < c1.width + c2.width ) {
 
@@ -51,12 +61,6 @@ public class PhysicsSystem extends IEntitySystem {
             if(v.x > 0 && x11 < x21 && x12 > x21) {
                 v.x = 0;
             }
-
-            /*if (x11 > x22 && x12 < x21) {
-
-            } else if (y11 > y22 && y12 < y21) {
-
-            }*/
         }
 
         // Horizontal collision detected

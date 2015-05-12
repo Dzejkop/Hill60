@@ -8,7 +8,7 @@ import com.hilldev.hill60.components.Collider;
 import com.hilldev.hill60.components.Velocity;
 import com.hilldev.hill60.components.WorldPosition;
 
-public class PhysicsSystem extends IEntitySystem {
+public class PhysicsSystem extends AEntitySystem {
 
 	public PhysicsSystem(IEngine engine) {
 		super(engine);

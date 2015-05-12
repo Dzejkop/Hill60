@@ -3,7 +3,7 @@ package com.hilldev.hill60;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hilldev.hill60.components.Component;
+import com.hilldev.hill60.components.AComponent;
 
 /*
  * Every object in the game descends from this class
@@ -15,11 +15,11 @@ public class GameObject {
     private int objectID;
     
     // A list of components
-    List<Component> componentList;
+    List<AComponent> componentList;
 
     public GameObject() {
         objectID = ID++;    // Unique id
-        componentList = new ArrayList<Component>();
+        componentList = new ArrayList<AComponent>();
     }
 
     public int getID() {
@@ -27,7 +27,7 @@ public class GameObject {
     }
     
     // Adds a new component to list
-    public void addComponent(Component component) {
+    public void addComponent(AComponent component) {
         component.setParent(this);
         componentList.add(component);
     }
@@ -35,7 +35,7 @@ public class GameObject {
     // Checks if the object has a component of such type
     public boolean hasComponent(Class type) {
     	
-    	for(Component c : componentList) {
+    	for(AComponent c : componentList) {
     		if(c.getClass() == type) return true;
     	}
     	
@@ -44,9 +44,9 @@ public class GameObject {
     
     // Returns a component of specified type, returns null if there's no such component
 	@SuppressWarnings("unchecked")
-	public <T extends Component> T getComponent(Class<T> type) {
+	public <T extends AComponent> T getComponent(Class<T> type) {
 
-    	for(Component c : componentList) {
+    	for(AComponent c : componentList) {
     		if(c.getClass() == type) return (T)c;
     	}
     	

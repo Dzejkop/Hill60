@@ -1,6 +1,6 @@
 package com.hilldev.hill60.components;
 
-public class WorldPosition extends Component {
+public class WorldPosition extends AComponent {
 
 	public WorldPosition(float x, float y, boolean boardDependent) {
 		this.x = x;

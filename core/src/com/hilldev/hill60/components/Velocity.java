@@ -1,6 +1,6 @@
 package com.hilldev.hill60.components;
 
-public class Velocity extends Component {
+public class Velocity extends AComponent {
 
     public Velocity(float x, float y) {
         this.x = x;

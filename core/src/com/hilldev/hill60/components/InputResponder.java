@@ -1,6 +1,6 @@
 package com.hilldev.hill60.components;
 
-public class InputResponder extends Component {
+public class InputResponder extends AComponent {
 	
 	public InputResponder() {
 		downArrow = false;

@@ -3,11 +3,11 @@ package com.hilldev.hill60.systems;
 import com.hilldev.hill60.GameObject;
 import com.hilldev.hill60.IEngine;
 
-public abstract class IEntitySystem {
+public abstract class AEntitySystem {
 
 	IEngine engine;
 	
-	public IEntitySystem(IEngine engine) {
+	public AEntitySystem(IEngine engine) {
 		this.engine = engine;
 	}
 

@@ -3,9 +3,8 @@ package com.hilldev.hill60.systems;
 import com.hilldev.hill60.GameObject;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BehaviourComponent;
-import com.hilldev.hill60.components.SimpleScript;
 
-public class BehaviourSystem extends IEntitySystem {
+public class BehaviourSystem extends AEntitySystem {
 
     public BehaviourSystem(IEngine engine) {
         super(engine);

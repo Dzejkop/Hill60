@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -23,7 +22,7 @@ public class Hill60Main extends Game implements IEngine {
     List<GameObject> gameObjects;
     
     // Systems
-    List<IEntitySystem> systems;
+    List<AEntitySystem> systems;
 
     // TEMPORAL
     InputSystem inputSystem;
@@ -31,7 +30,7 @@ public class Hill60Main extends Game implements IEngine {
     public Hill60Main() {
         instance = this;
 
-        systems = new ArrayList<IEntitySystem>();
+        systems = new ArrayList<AEntitySystem>();
         gameObjects = new ArrayList<GameObject>();
     }
 
@@ -82,14 +81,14 @@ public class Hill60Main extends Game implements IEngine {
 
     @Override
     public void start() {
-        for(IEntitySystem s : systems) {
+        for(AEntitySystem s : systems) {
             s.start();
         }
     }
 
     @Override
-    public <T extends IEntitySystem> T getSystem(Class<T> type) {
-        for(IEntitySystem s : systems) {
+    public <T extends AEntitySystem> T getSystem(Class<T> type) {
+        for(AEntitySystem s : systems) {
             if(s.getClass() == type) return (T)s;
         }
         return null;
@@ -122,7 +121,7 @@ public class Hill60Main extends Game implements IEngine {
 	@Override
 	public void update() {
 		// Update entity systems
-		for(IEntitySystem e : systems) {
+		for(AEntitySystem e : systems) {
 			e.update();
 		}
 	}

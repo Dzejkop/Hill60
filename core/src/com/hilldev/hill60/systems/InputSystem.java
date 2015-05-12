@@ -2,14 +2,13 @@ package com.hilldev.hill60.systems;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.hilldev.hill60.GameObject;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.InputResponder;
 
 import java.util.List;
 
-public class InputSystem extends IEntitySystem {
+public class InputSystem extends AEntitySystem {
 
     // The state of arrow keys
     boolean[] arrowsState;

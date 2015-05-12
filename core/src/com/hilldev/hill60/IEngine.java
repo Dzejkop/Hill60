@@ -1,6 +1,6 @@
 package com.hilldev.hill60;
 
-import com.hilldev.hill60.systems.IEntitySystem;
+import com.hilldev.hill60.systems.AEntitySystem;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface IEngine {
     public void start();                        // Called AFTER initializing all the systems
 	public void update();						// Updates all entity systems
 
-    public <T extends IEntitySystem> T getSystem(Class<T> type);
+    public <T extends AEntitySystem> T getSystem(Class<T> type);
 
 	// [To be implemented]
 	//public void sendMessage(int receiverId, String message, int senderId);

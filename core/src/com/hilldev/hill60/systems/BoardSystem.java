@@ -5,7 +5,7 @@ import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.components.WorldPosition;
 
-public class BoardSystem extends IEntitySystem {
+public class BoardSystem extends AEntitySystem {
 	
     public BoardSystem(IEngine engine) {
 		super(engine);

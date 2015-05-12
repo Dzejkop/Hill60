@@ -1,12 +1,11 @@
 package com.hilldev.hill60.systems;
 
-import com.badlogic.gdx.math.Vector3;
 import com.hilldev.hill60.GameObject;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.CameraTag;
 import com.hilldev.hill60.components.WorldPosition;
 
-public class CameraSystem extends IEntitySystem {
+public class CameraSystem extends AEntitySystem {
 
     public CameraSystem(IEngine engine) {
         super(engine);

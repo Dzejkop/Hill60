@@ -2,7 +2,7 @@ package com.hilldev.hill60.components;
 
 import com.hilldev.hill60.GameObject;
 
-public class Collider extends Component {
+public class Collider extends AComponent {
 
     public Collider(float w, float h) {
         width = w;

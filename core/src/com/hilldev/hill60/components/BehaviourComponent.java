@@ -7,7 +7,7 @@ import java.util.List;
 
 // Contains Behaviour objects which are basically scripts
 // Can contain multiple scripts
-public class BehaviourComponent extends Component {
+public class BehaviourComponent extends AComponent {
 
     private List<Behaviour> behaviours;
 

@@ -1,6 +1,5 @@
 package com.hilldev.hill60.systems;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -15,7 +14,7 @@ import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.components.WorldPosition;
 import com.hilldev.hill60.components.BoardPosition;;
 
-public class RenderingSystem extends IEntitySystem {
+public class RenderingSystem extends AEntitySystem {
 	
     SpriteBatch batch;
     Camera camera;

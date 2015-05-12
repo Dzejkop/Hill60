@@ -20,6 +20,7 @@ public class PhysicsSystem extends IEntitySystem {
         Collider c2 = obj2.getComponent(Collider.class);
         WorldPosition p1 = obj1.getComponent(WorldPosition.class);
         WorldPosition p2 = obj2.getComponent(WorldPosition.class);
+        Velocity v = obj1.getComponent(Velocity.class);
 
 		float x11 = p1.x
 				- ((c1.width) / 2);
@@ -38,35 +39,64 @@ public class PhysicsSystem extends IEntitySystem {
 		float y22 = p2.y
 				+ ((c2.height) / 2);
 
-		if (x11 > x22 && x12 < x21 && y11 > y22 && y12 < y21)
-			if(x11 > x22 && x12 < x21 ){
-				
-			}else
-			if(y11 > y22 && y12 < y21){
-				
-			}
+        // Vertical collision detected
+        if (Math.abs(p1.x - p2.x) < c1.width + c2.width ) {
+
+            // Case 1 - Object on left
+            if(v.x < 0 && x11 < x22 && x12 > x22) {
+                v.x = 0;
+            }
+
+            // Case 2 - object on right
+            if(v.x > 0 && x11 < x21 && x12 > x21) {
+                v.x = 0;
+            }
+
+            /*if (x11 > x22 && x12 < x21) {
+
+            } else if (y11 > y22 && y12 < y21) {
+
+            }*/
+        }
+
+        // Horizontal collision detected
+        if(Math.abs(p1.y - p2.y) < c1.height + c2.height) {
+            // Case 1 - Object above
+            if(v.y > 0 && y11 < y21 && y12 > y21) {
+                v.y = 0;
+            }
+
+            // Case 2 - Object below
+            if(v.y < 0 && y11 < y22 && y12 > y21) {
+                v.y = 0;
+            }
+        }
 	}
-
-
 
 	@Override
 	public void update() {
 		List<GameObject> list = engine.getObjectList();
 		for (GameObject o1 : list) {
-			if (meetsConditions(o1)) {
 
-                // Execute movement
-                WorldPosition w = o1.getComponent(WorldPosition.class);
-                Velocity v = o1.getComponent(Velocity.class);
+            // Get components
+            WorldPosition w = o1.getComponent(WorldPosition.class);
+            Velocity v = o1.getComponent(Velocity.class);
 
-                w.x += v.x;
-                w.y += v.y;
+            // Only consider collisions if the object is moving
+			if (meetsConditions(o1) && !v.isZero()) {
 
+                // Check for collisions and block movement
 				for (GameObject o2 : list) {
+
+                    // Make sure it's a different object
 					if (o1.equals(o2) == false && canCollide(o2)) {
 						checkAndResolveCollision(o1, o2);
 					}
 				}
+
+                // Execute movement if possible
+                w.x += v.x;
+                w.y += v.y;
 			}
 		}
 	}

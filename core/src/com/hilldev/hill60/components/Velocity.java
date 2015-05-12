@@ -10,4 +10,12 @@ public class Velocity extends Component {
     public float x;
     public float y;
 
+    public float length() {
+        return (float)Math.sqrt((double)(x*x) + (double)(y*y));
+    }
+
+    public boolean isZero() {
+        return x == 0 && y == 0;
+    }
+
 }

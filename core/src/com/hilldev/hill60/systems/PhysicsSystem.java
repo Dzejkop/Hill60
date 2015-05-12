@@ -20,7 +20,6 @@ public class PhysicsSystem extends AEntitySystem {
 		Collider c2 = obj2.getComponent(Collider.class);
 		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
-		//Velocity v = obj1.getComponent(Velocity.class);
 
 		float x1 = p1.x + c1.width + c2.width;
 		float y1 = p1.y + c2.height + c1.height;
@@ -31,26 +30,6 @@ public class PhysicsSystem extends AEntitySystem {
 			return true; //
 		} else
 			return false;
-
-		/*
-		 * Twoj zachowany kod
-		 * 
-		 * // Horizontal collision detected if ((y11 <= y21 && y21 <= y12) ||
-		 * (y11 <= y22 && y22 <= y12)) {
-		 * 
-		 * // Case 1 - Object on left if(v.x <= 0 && x11 <= x22 && x12 >= x22) {
-		 * v.x = 0; }
-		 * 
-		 * // Case 2 - object on right if(v.x >= 0 && x11 <= x21 && x12 >= x21)
-		 * { v.x = 0; } }
-		 * 
-		 * // Vertical collision detected if((x11 <= x21 && x21 <= x12) || (x11
-		 * <= x22 && x22 <= x12)) { // Case 1 - Object above if(v.y >= 0 && y11
-		 * <= y21 && y12 >= y21) { v.y = 0; }
-		 * 
-		 * // Case 2 - Object below if(v.y <= 0 && y11 <= y22 && y12 >= y22) {
-		 * v.y = 0; } }
-		 */
 	}
 
 	@Override
@@ -70,8 +49,8 @@ public class PhysicsSystem extends AEntitySystem {
 
 					// Make sure it's a different object
 					if (o1.equals(o2) == false && canCollide(o2)) {
-						if (checkCollision(o1, o2)){
-							
+						if (checkCollision(o1, o2)) {
+							collisonHandling(o1, o2);
 						}
 					}
 				}
@@ -81,6 +60,45 @@ public class PhysicsSystem extends AEntitySystem {
 				w.y += v.y;
 			}
 		}
+	}
+
+	private void collisonHandling(GameObject obj1, GameObject obj2) {
+		Collider c1 = obj1.getComponent(Collider.class);
+		Collider c2 = obj2.getComponent(Collider.class);
+		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
+		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
+		Velocity v = obj1.getComponent(Velocity.class);
+		float x1 = p1.x + c1.width + c2.width;
+		float y1 = p1.y + c2.height + c1.height;
+		float x2 = p2.x + c2.width + c1.width;
+		float y2 = p2.y + c2.height + c1.height;
+		// Horizontal collision detected
+		if ((y1 <= y2 && y2 <= p1.y) || (y1 <= p2.y && p2.y <= p1.y)) {
+
+			// Case 1 - Object on left
+			if (v.x <= 0 && x1 <= p2.x && p1.x >= p2.x) {
+				v.x = 0;
+			}
+
+			// Case 2 - object on right
+			if (v.x >= 0 && x1 <= x2 && p1.x >= x2) {
+				v.x = 0;
+			}
+		}
+
+		// Vertical collision detected
+		if ((x1 <= x2 && x2 <= p1.x) || (x1 <= p2.x && p2.x <= p1.x)) {
+			// Case 1 - Object above
+			if (v.y >= 0 && y1 <= y2 && p1.y >= y2) {
+				v.y = 0;
+			}
+
+			// Case 2 - Object below
+			if (v.y <= 0 && y1 <= p2.y && p1.y >= p2.y) {
+				v.y = 0;
+			}
+		}
+
 	}
 
 	@Override

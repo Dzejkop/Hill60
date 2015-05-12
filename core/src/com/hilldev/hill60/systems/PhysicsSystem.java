@@ -14,59 +14,43 @@ public class PhysicsSystem extends AEntitySystem {
 		super(engine);
 	}
 
-	public void checkAndResolveCollision(GameObject obj1, GameObject obj2) {
+	public boolean checkCollision(GameObject obj1, GameObject obj2) {
 
-        Collider c1 = obj1.getComponent(Collider.class);
-        Collider c2 = obj2.getComponent(Collider.class);
-        WorldPosition p1 = obj1.getComponent(WorldPosition.class);
-        WorldPosition p2 = obj2.getComponent(WorldPosition.class);
-        Velocity v = obj1.getComponent(Velocity.class);
+		Collider c1 = obj1.getComponent(Collider.class);
+		Collider c2 = obj2.getComponent(Collider.class);
+		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
+		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
+		//Velocity v = obj1.getComponent(Velocity.class);
 
-		float x11 = p1.x;
-		float x12 = p1.x + c1.width;
-		float y11 = p1.y;
-		float y12 = p1.y + c1.height;
-		float x21 = p2.x;
-		float x22 = p2.x + c2.width;
-		float y21 = p2.y;
-		float y22 = p2.y + c2.height;
+		float x1 = p1.x + c1.width + c2.width;
+		float y1 = p1.y + c2.height + c1.height;
+		float x2 = p2.x + c2.width + c1.width;
+		float y2 = p2.y + c2.height + c1.height;
 
-        /* Twoj zachowany kod
-        if (x11 > x22 && x12 < x21 && y11 > y22 && y12 < y21)
-            if(x11 > x22 && x12 < x21 ){
+		if (x1 > p2.x && p1.x < x2 && y1 > p2.y && p1.y < y2) {
+			return true; //
+		} else
+			return false;
 
-            }else
-            if(y11 > y22 && y12 < y21){
-
-            }
-        */
-
-        // Horizontal collision detected
-        if ((y11 <= y21 && y21 <= y12) || (y11 <= y22 && y22 <= y12)) {
-
-            // Case 1 - Object on left
-            if(v.x <= 0 && x11 <= x22 && x12 >= x22) {
-                v.x = 0;
-            }
-
-            // Case 2 - object on right
-            if(v.x >= 0 && x11 <= x21 && x12 >= x21) {
-                v.x = 0;
-            }
-        }
-
-        // Vertical collision detected
-        if((x11 <= x21 && x21 <= x12) || (x11 <= x22 && x22 <= x12)) {
-            // Case 1 - Object above
-            if(v.y >= 0 && y11 <= y21 && y12 >= y21) {
-                v.y = 0;
-            }
-
-            // Case 2 - Object below
-            if(v.y <= 0 && y11 <= y22 && y12 >= y22) {
-                v.y = 0;
-            }
-        }
+		/*
+		 * Twoj zachowany kod
+		 * 
+		 * // Horizontal collision detected if ((y11 <= y21 && y21 <= y12) ||
+		 * (y11 <= y22 && y22 <= y12)) {
+		 * 
+		 * // Case 1 - Object on left if(v.x <= 0 && x11 <= x22 && x12 >= x22) {
+		 * v.x = 0; }
+		 * 
+		 * // Case 2 - object on right if(v.x >= 0 && x11 <= x21 && x12 >= x21)
+		 * { v.x = 0; } }
+		 * 
+		 * // Vertical collision detected if((x11 <= x21 && x21 <= x12) || (x11
+		 * <= x22 && x22 <= x12)) { // Case 1 - Object above if(v.y >= 0 && y11
+		 * <= y21 && y12 >= y21) { v.y = 0; }
+		 * 
+		 * // Case 2 - Object below if(v.y <= 0 && y11 <= y22 && y12 >= y22) {
+		 * v.y = 0; } }
+		 */
 	}
 
 	@Override
@@ -74,25 +58,27 @@ public class PhysicsSystem extends AEntitySystem {
 		List<GameObject> list = engine.getObjectList();
 		for (GameObject o1 : list) {
 
-            // Get components
-            WorldPosition w = o1.getComponent(WorldPosition.class);
-            Velocity v = o1.getComponent(Velocity.class);
+			// Get components
+			WorldPosition w = o1.getComponent(WorldPosition.class);
+			Velocity v = o1.getComponent(Velocity.class);
 
-            // Only consider collisions if the object is moving
+			// Only consider collisions if the object is moving
 			if (meetsConditions(o1) && !v.isZero()) {
 
-                // Check for collisions and block movement
+				// Check for collisions and block movement
 				for (GameObject o2 : list) {
 
-                    // Make sure it's a different object
+					// Make sure it's a different object
 					if (o1.equals(o2) == false && canCollide(o2)) {
-						checkAndResolveCollision(o1, o2);
+						if (checkCollision(o1, o2)){
+							
+						}
 					}
 				}
 
-                // Execute movement if possible
-                w.x += v.x;
-                w.y += v.y;
+				// Execute movement if possible
+				w.x += v.x;
+				w.y += v.y;
 			}
 		}
 	}

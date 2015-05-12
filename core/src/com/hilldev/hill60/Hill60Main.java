@@ -38,23 +38,23 @@ public class Hill60Main extends Game implements IEngine {
 	public void create () {
 		systems.add(new RenderingSystem(this));
         systems.add(new BehaviourSystem(this));
+        systems.add(new PhysicsSystem(this));
         systems.add(new InputSystem(this));
         systems.add(new BoardSystem(this));
         systems.add(new CameraSystem(this));
-        systems.add(new PhysicsSystem(this));
 
         start();
 		
 		// TESTING !!!!!!
 		GameObject smiley = new GameObject();
-		Sprite sp = new Sprite(new Texture(new FileHandle("assets/Player.png")));
+		Sprite sp = new Sprite(new Texture(new FileHandle("assets/Player.png"))); //image size is 100!!!
 		smiley.addComponent(new SpriteRenderer(sp));                        // The image
 		smiley.addComponent(new WorldPosition(0, 20, false));               // The continuous position in game world
 		smiley.addComponent(new BoardPosition(0, 0));                       // Position on the board
         smiley.addComponent(new InputResponder());                          // Responds to input from InputSystem
         smiley.addComponent(new BehaviourComponent(new SimpleScript()));    // Simple movmeent script
         smiley.addComponent(new CameraTag());                               // Camera should follow this object
-        smiley.addComponent(new Collider(40, 40));
+        smiley.addComponent(new Collider(60, 60));
         smiley.addComponent(new Velocity(0, 0));
 
         // TESTING P2 !!!!!

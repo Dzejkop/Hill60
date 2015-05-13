@@ -83,16 +83,16 @@ public class PhysicsSystem extends AEntitySystem {
 
 		// Case 1 - Object on left
 		if (v.x > 0 && xO2 - distanceX < xO1 && xO1 < xO2
-				&& xO2 - distanceX - xO1 > yO1 - distanceY - yO2
-				&& xO2 - distanceX - xO1 > yO2 - distanceY - yO1) {
+				&& xO2 - distanceX - xO1 >= yO1 - distanceY - yO2
+				&& xO2 - distanceX - xO1 >= yO2 - distanceY - yO1) {
 			v.x = 0;
 
 		} else
 
 		// Case 2 - Object on right
 		if (v.x < 0 && xO1 - distanceX < xO2 && xO1 > xO2
-				&& xO1 - distanceX - xO2 > yO2 - distanceY - yO1
-				&& xO1 - distanceX - xO2 > yO1 - distanceY - yO2) {
+				&& xO1 - distanceX - xO2 >= yO2 - distanceY - yO1
+				&& xO1 - distanceX - xO2 >= yO1 - distanceY - yO2) {
 			v.x = 0;
 
 		} else

@@ -55,7 +55,7 @@ public class Hill60Main extends Game implements IEngine {
         smiley.addComponent(new InputResponder());                          // Responds to input from InputSystem
         smiley.addComponent(new BehaviourComponent(new SimpleScript()));    // Simple movmeent script
         smiley.addComponent(new CameraTag());                               // Camera should follow this object
-        smiley.addComponent(new Collider(60, 60));
+        smiley.addComponent(new Collider(100, 100));
         smiley.addComponent(new Velocity(0, 0));
 
         // TESTING P2 !!!!!

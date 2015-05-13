@@ -30,9 +30,8 @@ public class ForcingFramerateSystem extends AEntitySystem {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(1000/(thisFrameTime-lastFrameTime));
+		lastFrameTime=thisFrameTime;
 	}
-	
 	@Override
 	public void start(){
 		lastFrameTime = System.currentTimeMillis();

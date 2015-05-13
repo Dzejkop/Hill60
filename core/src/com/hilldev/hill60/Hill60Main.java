@@ -42,6 +42,7 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new InputSystem(this));
         systems.add(new BoardSystem(this));
         systems.add(new CameraSystem(this));
+        systems.add(new ForcingFramerateSystem(this));
 
         start();
 		

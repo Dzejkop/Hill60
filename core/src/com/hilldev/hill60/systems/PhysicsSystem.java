@@ -2,9 +2,11 @@ package com.hilldev.hill60.systems;
 
 import java.util.List;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.hilldev.hill60.GameObject;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.Collider;
+import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.components.Velocity;
 import com.hilldev.hill60.components.WorldPosition;
 
@@ -50,12 +52,14 @@ public class PhysicsSystem extends AEntitySystem {
 		Collider c2 = obj2.getComponent(Collider.class);
 		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
-		float xO1 = p1.x + c2.width / 2;
-		float yO1 = p1.y + c2.height / 2;
-		float xO2 = p2.x + c2.width / 2;
-		float yO2 = p2.y + c2.height / 2;
-		float distanceX = (c1.width + c2.width)/2 ;
-		float distanceY = (c1.height + c2.height)/2 ;
+		Sprite sprite1 = obj2.getComponent(SpriteRenderer.class).sprite;
+		Sprite sprite2 = obj2.getComponent(SpriteRenderer.class).sprite;
+		float xO1 = p1.x + sprite1.getWidth() / 2;
+		float yO1 = p1.y + sprite1.getHeight() / 2;
+		float xO2 = p2.x + sprite2.getWidth() / 2;
+		float yO2 = p2.y + sprite2.getHeight() / 2;
+		float distanceX = (c1.width + c2.width) / 2;
+		float distanceY = (c1.height + c2.height) / 2;
 		if (xO2 + distanceX > xO1 && xO2 - distanceX < xO1
 				&& yO2 + distanceY > yO1 && yO2 - distanceY < yO1) {
 			return true;
@@ -68,29 +72,35 @@ public class PhysicsSystem extends AEntitySystem {
 		Collider c2 = obj2.getComponent(Collider.class);
 		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
+		Sprite sprite1 = obj2.getComponent(SpriteRenderer.class).sprite;
+		Sprite sprite2 = obj2.getComponent(SpriteRenderer.class).sprite;
 		Velocity v = obj1.getComponent(Velocity.class);
-		float distanceX = (c1.width + c2.width)/2;
-		float distanceY = (c1.width  + c2.width)/2;
-		float xO1 = p1.x + (c2.width/ 2);
-		float yO1 = p1.y + (c2.height / 2);
-		float xO2 = p2.x + (c2.width / 2);
-		float yO2 = p2.y + (c2.height / 2);
+		float distanceX = (c1.width + c2.width) / 2;
+		float distanceY = (c1.width + c2.width) / 2;
+		float xO1 = p1.x + sprite1.getWidth() / 2;
+		float yO1 = p1.y + sprite1.getHeight() / 2;
+		float xO2 = p2.x + sprite2.getWidth() / 2;
+		float yO2 = p2.y + sprite2.getHeight() / 2;
 
 		// Case 1 - Object on left
-		if (v.x > 0 && xO2 - distanceX < xO1 && xO1 < xO2) {
-			v.x = xO2 - distanceX - xO1-3;
-		}
+		if (v.x > 0 && xO2 - distanceX < xO1 && xO1 < xO2
+				&& xO2 - distanceX - xO1 >= yO2 - distanceY - yO1
+				&& xO2 - distanceX - xO1 >= yO1 - distanceY - yO2) {
+			v.x = - 5;
+		} else
 		// Case 2 - Object on right
-		if (v.x < 0 && xO1 - distanceX < xO2 && xO1 > xO2) {
-			v.x = xO2 + distanceX - xO1+3;
-		}
+		if (v.x < 0 && xO1 - distanceX < xO2 && xO1 > xO2
+				&& xO1 - distanceX - xO2 >= yO2 - distanceY - yO1
+				&& xO1 - distanceX - xO2 >= yO1 - distanceY - yO2) {
+			v.x = + 5;
+		} else
 		// Case 1 - Object above
 		if (v.y > 0 && yO1 + distanceY > yO2 && yO1 < yO2) {
-			v.y = yO2 - distanceY - yO1-3;
-		}
+			v.y = - 5;
+		} else
 		// Case 2 - Object below
 		if (v.y < 0 && yO1 - distanceY < yO2 && yO1 > yO2) {
-			v.y = yO2 + distanceY - yO1+3;
+			v.y = + 5;
 		}
 	}
 

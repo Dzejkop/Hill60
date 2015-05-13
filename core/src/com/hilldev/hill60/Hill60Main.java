@@ -52,6 +52,7 @@ public class Hill60Main extends Game implements IEngine {
 		smiley.addComponent(new SpriteRenderer(sp));                        // The image
 		smiley.addComponent(new WorldPosition(0, 20, false));               // The continuous position in game world
 		smiley.addComponent(new BoardPosition(0, 0));                       // Position on the board
+        smiley.addComponent(new Layer(2));									// Rendering layer (0 - floor, 1 - bombs, 2 - player and bots, 3 - walls)
         smiley.addComponent(new InputResponder());                          // Responds to input from InputSystem
         smiley.addComponent(new BehaviourComponent(new SimpleScript()));    // Simple movmeent script
         smiley.addComponent(new CameraTag());                               // Camera should follow this object
@@ -65,10 +66,12 @@ public class Hill60Main extends Game implements IEngine {
 
                 if(x%2 == 0)    {
                     wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Floor.png")))));
+                    wall.addComponent(new Layer(0));
                 }
                 else            {
                     wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Wall.png")))));
                     wall.addComponent(new Collider(100, 100));
+                    wall.addComponent(new Layer(3));
                 }
                 wall.addComponent(new BoardPosition(x, y));
                 wall.addComponent(new WorldPosition(0, 0));

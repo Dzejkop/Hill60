@@ -81,8 +81,8 @@ public class RenderingSystem extends AEntitySystem {
     	// While debugging renders colliders green shapes
     	if(DEBUG && obj.hasComponent(Collider.class)) {
     		Collider collider = obj.getComponent(Collider.class);
-    		shape.rect(worldPosition.x + s.getWidth()/2 - collider.width/2,
-    				worldPosition.y + s.getHeight()/2 - collider.height/2,
+    		shape.rect(worldPosition.midX - collider.width/2,
+    				worldPosition.midY- collider.height/2,
     				collider.width, collider.height);
     	}
     }

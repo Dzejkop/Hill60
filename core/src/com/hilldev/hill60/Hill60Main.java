@@ -58,6 +58,7 @@ public class Hill60Main extends Game implements IEngine {
         smiley.addComponent(new CameraTag());                               // Camera should follow this object
         smiley.addComponent(new Collider(75, 75));
         smiley.addComponent(new Velocity(0, 0));
+        smiley.addComponent(new ObjectID("player"));
 
         // TESTING P2 !!!!!
         for(int x = 0; x < 10; x++) {
@@ -66,10 +67,12 @@ public class Hill60Main extends Game implements IEngine {
 
                 if(x%2 == 0)    {
                     wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Floor.png")))));
+                    wall.addComponent(new ObjectID("floor"));
                     wall.addComponent(new Layer(0));
                 }
                 else            {
                     wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Wall.png")))));
+                    wall.addComponent(new ObjectID("wall"));
                     wall.addComponent(new Collider(100, 100));
                     wall.addComponent(new Layer(3));
                 }

@@ -80,7 +80,7 @@ public class Hill60Main extends Game implements IEngine {
                     wall.addComponent(new ObjectID("floor"));
                     wall.addComponent(new Layer(0));
                 }
-                else            {
+                else {
                     wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Wall.png")))));
                     wall.addComponent(new ObjectID("wall"));
                     wall.addComponent(new Collider(100, 100));

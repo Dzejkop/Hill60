@@ -21,7 +21,7 @@ import com.hilldev.hill60.components.Collider;
 public class RenderingSystem extends AEntitySystem {
 	
 	boolean DEBUG = true;
-    Camera camera;
+    OrthographicCamera camera;
     SpriteBatch batch;
 	ShapeRenderer shape;
 	

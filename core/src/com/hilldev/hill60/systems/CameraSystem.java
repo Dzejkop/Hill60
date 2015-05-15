@@ -39,5 +39,6 @@ public class CameraSystem extends AEntitySystem {
         WorldPosition w = obj.getComponent(WorldPosition.class);
 
         renderingSystem.camera.position.set(w.x, w.y, 0);
+        renderingSystem.camera.zoom = 1;
     }
 }

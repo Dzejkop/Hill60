@@ -24,6 +24,9 @@ public class Hill60Main extends Game implements IEngine {
     // Systems
     List<AEntitySystem> systems;
 
+    // Resource manager
+    ResourceManager resourceManager;
+
     // TEMPORAL
     InputSystem inputSystem;
 
@@ -32,10 +35,17 @@ public class Hill60Main extends Game implements IEngine {
 
         systems = new ArrayList<AEntitySystem>();
         gameObjects = new ArrayList<GameObject>();
+
+        resourceManager = new ResourceManager();
     }
 
 	@Override
 	public void create () {
+
+        // Load assets
+        resourceManager.loadTextures();
+
+        // Initialize all the systems
 		systems.add(new RenderingSystem(this));
         systems.add(new BehaviourSystem(this));
         systems.add(new PhysicsSystem(this));
@@ -48,8 +58,8 @@ public class Hill60Main extends Game implements IEngine {
 		
 		// TESTING !!!!!!
 		GameObject smiley = new GameObject();
-		Sprite sp = new Sprite(new Texture(new FileHandle("assets/Player.png"))); //image size is 100!!!
-		smiley.addComponent(new SpriteRenderer(sp));                        // The image
+		Sprite sp = resourceManager.getSprite("Player.png");                //image size is 100!!!
+		smiley.addComponent(new SpriteRenderer(sp));                          // The image
 		smiley.addComponent(new WorldPosition(0, 20, false));               // The continuous position in game world
 		smiley.addComponent(new BoardPosition(0, 0));                       // Position on the board
         smiley.addComponent(new Layer(2));									// Rendering layer (0 - floor, 1 - bombs, 2 - player and bots, 3 - walls)
@@ -65,7 +75,7 @@ public class Hill60Main extends Game implements IEngine {
             for(int y = 0; y < 10; y++) {
                 GameObject wall = new GameObject();
 
-                if(x%2 == 0)    {
+                if(y%2 == 0)    {
                     wall.addComponent(new SpriteRenderer(new Sprite(new Texture(new FileHandle("assets/Floor.png")))));
                     wall.addComponent(new ObjectID("floor"));
                     wall.addComponent(new Layer(0));
@@ -110,6 +120,8 @@ public class Hill60Main extends Game implements IEngine {
     @Override
     public void dispose() {
         super.dispose();
+
+        resourceManager.dispose();
     }
 
 	@Override

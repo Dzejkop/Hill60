@@ -23,9 +23,8 @@ public class BoardSystem extends AEntitySystem {
     
     @Override
     protected boolean meetsConditions(GameObject obj) {
-        if(obj.hasComponent(BoardPosition.class)
-        && obj.hasComponent(WorldPosition.class)) return true;
-        return false;
+        return obj.hasComponent(BoardPosition.class) && obj.hasComponent(WorldPosition.class);
+
     }
     
     private void setMidXY(GameObject obj){

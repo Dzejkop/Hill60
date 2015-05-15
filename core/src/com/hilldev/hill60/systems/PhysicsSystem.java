@@ -69,8 +69,6 @@ public class PhysicsSystem extends AEntitySystem {
 		Collider c2 = obj2.getComponent(Collider.class);
 		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
-		Sprite sprite1 = obj2.getComponent(SpriteRenderer.class).sprite;
-		Sprite sprite2 = obj2.getComponent(SpriteRenderer.class).sprite;
 		Velocity v = obj1.getComponent(Velocity.class);
 		float distanceX = (c1.width + c2.width) / 2 +1;
 		float distanceY = (c1.width + c2.width) / 2 +1;

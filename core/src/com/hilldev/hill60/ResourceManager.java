@@ -31,7 +31,7 @@ public class ResourceManager implements Disposable {
         }
     }
 
-    Sprite getSprite(String n) {
+    public Sprite getSprite(String n) {
         return new Sprite(loadedTextures.get(n));
     }
 

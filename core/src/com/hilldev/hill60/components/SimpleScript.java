@@ -22,9 +22,11 @@ public class SimpleScript implements Behaviour {
         v.x = 0;
         v.y = 0;
 
-        if(i.upArrow) v.y = 2;
-        if(i.downArrow) v.y = -2;
-        if(i.leftArrow) v.x = -2;
-        if(i.rightArrow) v.x = 2;
+        float veloc = 6;
+
+        if(i.upArrow) v.y = veloc;
+        if(i.downArrow) v.y = -veloc;
+        if(i.leftArrow) v.x = -veloc;
+        if(i.rightArrow) v.x = veloc;
     }
 }

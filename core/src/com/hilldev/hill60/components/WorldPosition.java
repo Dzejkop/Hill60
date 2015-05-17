@@ -14,7 +14,5 @@ public class WorldPosition extends AComponent {
 
 	public float x;
 	public float y;
-	public float midX;
-	public float midY;
 	public boolean boardDependent;
 }

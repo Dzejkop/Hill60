@@ -27,18 +27,6 @@ public class BoardSystem extends AEntitySystem {
 
     }
     
-    private void setMidXY(GameObject obj){
-		WorldPosition worldPos = obj.getComponent(WorldPosition.class);
-		Sprite sprite = obj.getComponent(SpriteRenderer.class).sprite;
-		if(obj.getComponent(ObjectID.class).getID()=="wall")
-		{
-			worldPos.midX=worldPos.x+sprite.getWidth()/2;
-			worldPos.midY=worldPos.y+(sprite.getHeight()-20)/2;
-		}else{
-			worldPos.midX=worldPos.x+sprite.getWidth()/2;
-			worldPos.midY=worldPos.y+sprite.getHeight()/2;	
-		}
-    }
     
     @Override
     protected void processObject(GameObject obj) {
@@ -46,12 +34,11 @@ public class BoardSystem extends AEntitySystem {
 		BoardPosition boardPos = obj.getComponent(BoardPosition.class);
 		WorldPosition worldPos = obj.getComponent(WorldPosition.class);
 		if(worldPos.boardDependent) {
-			worldPos.x = boardPos.x*tileSize;
-			worldPos.y = boardPos.y*tileSize;
+			worldPos.x = boardPos.x*tileSize+tileSize/2;
+			worldPos.y = boardPos.y*tileSize+tileSize/2;
 		} else {
-			boardPos.x = (int) (worldPos.x/tileSize);
-			boardPos.y = (int) (worldPos.y/tileSize);
+			boardPos.x = (int) (worldPos.x/tileSize+tileSize/2);
+			boardPos.y = (int) (worldPos.y/tileSize+tileSize/2);
 		}
-		setMidXY(obj);
     }
 }

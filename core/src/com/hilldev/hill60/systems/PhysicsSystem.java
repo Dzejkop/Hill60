@@ -55,14 +55,15 @@ public class PhysicsSystem extends AEntitySystem {
 		Collider c2 = obj2.getComponent(Collider.class);
 		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
+		Velocity v = obj1.getComponent(Velocity.class);
 
         float xO1 = p1.x + c1.x;    // Middle x coord of the first collider
         float yO1 = p1.y + c1.y;    // Middle y
         float xO2 = p2.x + c2.x;    // Middle x coord of the second collider
         float yO2 = p2.y + c2.y;    // Middle y
 
-		float distanceX = (c1.width + c2.width+2) / 2;
-		float distanceY = (c1.height + c2.height+2) / 2;
+		float distanceX = ((c1.width + c2.width) / 2 + Math.abs(v.x));
+		float distanceY = ((c1.height + c2.height) / 2)+ Math.abs(v.y);
 
 		if (xO2 + distanceX > xO1 && xO2 - distanceX < xO1
 				&& yO2 + distanceY > yO1 && yO2 - distanceY < yO1) {
@@ -79,18 +80,13 @@ public class PhysicsSystem extends AEntitySystem {
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
 		Velocity v = obj1.getComponent(Velocity.class);
 
-		float distanceX = (c1.width + c2.width) / 2;
-		float distanceY = (c1.height + c2.height) / 2;
-
-		double distanceXY2 = Math.sqrt((distanceX * distanceX) +(distanceY * distanceY));
+		float distanceX = ((c1.width + c2.width) / 2 + Math.abs(v.x));
+		float distanceY = ((c1.height + c2.height) / 2)+ Math.abs(v.y);
 
 		float xO1 = p1.x + c1.x;    // Middle x coord of the first collider
 		float yO1 = p1.y + c1.y;    // Middle y
 		float xO2 = p2.x + c2.x;    // Middle x coord of the second collider
 		float yO2 = p2.y + c2.y;    // Middle y
-		float deltaX = Math.abs(xO1 - xO2);
-		float deltaY = Math.abs(yO1 - yO2);
-		double deltaXY2 = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
 
 		// Case 1 - Object on left
 		if (v.x > 0 && xO2 - distanceX < xO1 && xO2 > xO1

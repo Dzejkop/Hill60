@@ -1,6 +1,6 @@
 package com.hilldev.hill60.components;
 
-import com.hilldev.hill60.GameObject;
+import com.hilldev.hill60.objects.GameObject;
 
 public class Layer extends AComponent {
 	

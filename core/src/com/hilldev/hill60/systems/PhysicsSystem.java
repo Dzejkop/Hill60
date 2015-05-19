@@ -2,7 +2,7 @@ package com.hilldev.hill60.systems;
 
 import java.util.List;
 
-import com.hilldev.hill60.GameObject;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.Collider;
 import com.hilldev.hill60.components.Velocity;
@@ -45,16 +45,20 @@ public class PhysicsSystem extends AEntitySystem {
 	}
 
 	public boolean checkCollision(GameObject obj1, GameObject obj2) {
+        // Get  components
 		Collider c1 = obj1.getComponent(Collider.class);
 		Collider c2 = obj2.getComponent(Collider.class);
 		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
-		float xO1 = p1.x;
-		float yO1 = p1.y;
-		float xO2 = p2.x;
-		float yO2 = p2.y;
+
+        float xO1 = p1.x + c1.x;    // Middle x coord of the first collider
+        float yO1 = p1.y + c1.y;    // Middle y
+        float xO2 = p2.x + c2.x;    // Middle x coord of the second collider
+        float yO2 = p2.y + c2.y;    // Middle y
+
 		float distanceX = (c1.width + c2.width+2) / 2;
 		float distanceY = (c1.height + c2.height+2) / 2;
+
 		if (xO2 + distanceX > xO1 && xO2 - distanceX < xO1
 				&& yO2 + distanceY > yO1 && yO2 - distanceY < yO1) {
 			return true;
@@ -63,21 +67,25 @@ public class PhysicsSystem extends AEntitySystem {
 	}
 
 	private void collisonHandling(GameObject obj1, GameObject obj2) {
+        // Get  components
 		Collider c1 = obj1.getComponent(Collider.class);
 		Collider c2 = obj2.getComponent(Collider.class);
 		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
 		Velocity v = obj1.getComponent(Velocity.class);
+
 		float distanceX = (c1.width + c2.width) / 2;
 		float distanceY = (c1.height + c2.height) / 2;
 		double distanceXY2 = Math.sqrt((distanceX * distanceX) +(distanceY * distanceY));
-		float xO1 = p1.x;
-		float yO1 = p1.y;
-		float xO2 = p2.x;
-		float yO2 = p2.y;
+
+		float xO1 = p1.x + c1.x;    // Middle x coord of the first collider
+		float yO1 = p1.y + c1.y;    // Middle y
+		float xO2 = p2.x + c2.x;    // Middle x coord of the second collider
+		float yO2 = p2.y + c2.y;    // Middle y
 		float deltaX = Math.abs(xO1 - xO2);
 		float deltaY = Math.abs(yO1 - yO2);
 		double deltaXY2 = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+
 		if ((deltaXY2>=distanceXY2)) {
 			v.x = 0;
 			v.y = 0;

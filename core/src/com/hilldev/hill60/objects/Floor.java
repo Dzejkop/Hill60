@@ -1,6 +1,5 @@
 package com.hilldev.hill60.objects;
 
-import com.hilldev.hill60.GameObject;
 import com.hilldev.hill60.Hill60Main;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;

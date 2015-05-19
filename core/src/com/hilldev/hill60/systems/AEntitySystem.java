@@ -1,6 +1,6 @@
 package com.hilldev.hill60.systems;
 
-import com.hilldev.hill60.GameObject;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
 
 public abstract class AEntitySystem {

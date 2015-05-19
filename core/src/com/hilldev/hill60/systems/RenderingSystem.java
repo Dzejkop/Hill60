@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.hilldev.hill60.GameObject;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.components.WorldPosition;
@@ -57,11 +57,11 @@ public class RenderingSystem extends AEntitySystem {
         int boardHeight = 100;
         int lastLayer = 4;
 
-        // For each rendering layer
-        for(int j=0; j<=lastLayer; j++) {
+        // For each y position on board
+        for(int i=boardHeight; i>=0; i--) {
 
-            // For each y position on board
-            for(int i=boardHeight; i>=0; i--) {
+            // For each rendering layer
+            for(int j=0; j<=lastLayer; j++) {
 
                 // Render an object...
                 for(GameObject o : list) {
@@ -93,16 +93,14 @@ public class RenderingSystem extends AEntitySystem {
     	Sprite s = spriteRenderer.sprite;
 
     	WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
-    	s.setPosition(worldPosition.x-50, worldPosition.y-50);
+    	s.setPosition(worldPosition.x + spriteRenderer.x - (s.getWidth()/2), worldPosition.y + spriteRenderer.y - (s.getHeight()/2));
 
     	s.draw(batch);
     	
     	// While debugging renders colliders green shapes
     	if(inDebugMode && obj.hasComponent(Collider.class)) {
     		Collider collider = obj.getComponent(Collider.class);
-    		shape.rect(worldPosition.x - collider.width/2,
-    				worldPosition.y- collider.height/2,
-    				collider.width, collider.height);
+    		shape.rect(worldPosition.x + collider.x - (collider.width/2), worldPosition.y + collider.y - (collider.height/2), collider.width, collider.height);
     	}
     }
     

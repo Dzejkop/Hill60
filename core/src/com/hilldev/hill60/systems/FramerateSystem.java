@@ -1,15 +1,15 @@
 package com.hilldev.hill60.systems;
 
-import com.hilldev.hill60.GameObject;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
 
-public class ForcingFramerateSystem extends AEntitySystem {
+public class FramerateSystem extends AEntitySystem {
 	final int FPS_MAX = 60;
 	int fpsMax = 0;
 	long lastFrameTime = 0;
 	long thisFrameTime = 0;
 
-	public ForcingFramerateSystem(IEngine engine) {
+	public FramerateSystem(IEngine engine) {
 		super(engine);
 	}
 	/**

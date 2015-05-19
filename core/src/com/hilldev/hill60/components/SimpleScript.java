@@ -1,6 +1,6 @@
 package com.hilldev.hill60.components;
 
-import com.hilldev.hill60.GameObject;
+import com.hilldev.hill60.objects.GameObject;
 
 // More for debug purposes than anything else
 public class SimpleScript implements Behaviour {
@@ -22,7 +22,7 @@ public class SimpleScript implements Behaviour {
         v.x = 0;
         v.y = 0;
 
-        float veloc = 6;
+        float veloc = 4;
 
         if(i.upArrow) v.y = veloc;
         if(i.downArrow) v.y = -veloc;

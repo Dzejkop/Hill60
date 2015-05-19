@@ -2,11 +2,11 @@ package com.hilldev.hill60.systems;
 
 import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
-import com.hilldev.hill60.components.BehaviourComponent;
+import com.hilldev.hill60.components.Explosion;
 
-public class BehaviourSystem extends AEntitySystem {
+public class ExplosionSystem extends AEntitySystem {
 
-    public BehaviourSystem(IEngine engine) {
+    public ExplosionSystem(IEngine engine) {
         super(engine);
     }
 
@@ -17,18 +17,13 @@ public class BehaviourSystem extends AEntitySystem {
         }
     }
 
-    /* !!!!!!!!!!!!!!!!!
-        For now the system uses SimpleScript,
-        It should use BehaviourComponent to run these scripts
-     */
-
     @Override
     protected boolean meetsConditions(GameObject obj) {
-        return obj.hasComponent(BehaviourComponent.class);
+        return obj.hasComponent(Explosion.class);
     }
 
     @Override
     protected void processObject(GameObject obj) {
-        obj.getComponent(BehaviourComponent.class).run();
+
     }
 }

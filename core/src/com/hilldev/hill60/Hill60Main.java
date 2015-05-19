@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.hilldev.hill60.components.*;
 import com.hilldev.hill60.objects.Floor;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.objects.Wall;
 import com.hilldev.hill60.systems.*;
@@ -31,14 +27,11 @@ public class Hill60Main extends Game implements IEngine {
     // Resource manager
     public ResourceManager resourceManager;
 
-    // TEMPORAL
-    InputSystem inputSystem;
-
     public Hill60Main() {
         instance = this;
 
-        systems = new ArrayList<AEntitySystem>();
-        gameObjects = new ArrayList<GameObject>();
+        systems = new ArrayList<>();
+        gameObjects = new ArrayList<>();
 
         resourceManager = new ResourceManager();
     }
@@ -56,7 +49,7 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new InputSystem(this));
         systems.add(new BoardSystem(this));
         systems.add(new CameraSystem(this));
-        //systems.add(new ForcingFramerateSystem(this));
+        //systems.add(new FramerateSystem(this));
 
         start();
 		

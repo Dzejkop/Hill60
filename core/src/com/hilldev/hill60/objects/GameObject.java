@@ -1,4 +1,4 @@
-package com.hilldev.hill60;
+package com.hilldev.hill60.objects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,8 @@ public class GameObject {
 
     private static int ID = 1;
     private int objectID;
+
+    public String tag = "Default";
     
     // A list of components
     List<AComponent> componentList;

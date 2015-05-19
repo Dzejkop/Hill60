@@ -1,5 +1,6 @@
 package com.hilldev.hill60;
 
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.systems.AEntitySystem;
 
 import java.util.List;

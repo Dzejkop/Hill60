@@ -12,7 +12,7 @@ import java.util.Map;
 public class ResourceManager implements Disposable {
 
     public static final String ASSETS_PATH = "assets/";
-    public static final String[] ASSETS_TO_LOAD = {"Player.png", "Floor.png", "Wall.png"};
+    public static final String[] ASSETS_TO_LOAD = {"Character.png", "Player.png", "Floor.png", "Wall.png", "WhiteTile.png"};
 
     Map<String, Texture> loadedTextures;
     List<String> loadedTextureNames;

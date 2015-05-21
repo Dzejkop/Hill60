@@ -1,6 +1,5 @@
 package com.hilldev.hill60.components;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class SpriteRenderer extends AComponent {

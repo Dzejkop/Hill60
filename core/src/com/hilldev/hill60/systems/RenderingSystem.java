@@ -10,13 +10,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
-import com.hilldev.hill60.components.SpriteRenderer;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.components.WorldPosition;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.components.Layer;
 import com.hilldev.hill60.components.Collider;
+import com.hilldev.hill60.components.SpriteRenderer;
 
 public class RenderingSystem extends AEntitySystem {
 	
@@ -77,7 +77,7 @@ public class RenderingSystem extends AEntitySystem {
         batch.end();
     }
 
-    // Checks if given objects contains WorldPosition and SpriteRenderer
+    // Checks if given objects contains BoardPosition, WorldPosition, Layer and SpriteRenderer
     @Override
     protected boolean meetsConditions(GameObject o) {
     	return o.hasComponent(BoardPosition.class) && o.hasComponent(WorldPosition.class) && o.hasComponent(Layer.class) && o.hasComponent(SpriteRenderer.class);

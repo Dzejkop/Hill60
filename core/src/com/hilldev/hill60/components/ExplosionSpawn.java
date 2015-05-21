@@ -4,5 +4,4 @@ public class ExplosionSpawn extends AComponent {
 
     public int bombPower;
     public int countdown;
-
 }

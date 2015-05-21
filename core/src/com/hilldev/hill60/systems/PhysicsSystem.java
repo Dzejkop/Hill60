@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.objects.GameObject;
+import com.hilldev.hill60.components.WorldPosition;
 import com.hilldev.hill60.components.Collider;
 import com.hilldev.hill60.components.Velocity;
-import com.hilldev.hill60.components.WorldPosition;
 
 public class PhysicsSystem extends AEntitySystem {
 
@@ -50,6 +50,7 @@ public class PhysicsSystem extends AEntitySystem {
 	}
 
 	public boolean checkCollision(GameObject obj1, GameObject obj2) {
+		
         // Get  components
 		Collider c1 = obj1.getComponent(Collider.class);
 		Collider c2 = obj2.getComponent(Collider.class);
@@ -68,11 +69,14 @@ public class PhysicsSystem extends AEntitySystem {
 		if (xO2 + distanceX > xO1 && xO2 - distanceX < xO1
 				&& yO2 + distanceY > yO1 && yO2 - distanceY < yO1) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
+		
 	}
 
 	private void collisonHandling(GameObject obj1, GameObject obj2) {
+		
         // Get  components
 		Collider c1 = obj1.getComponent(Collider.class);
 		Collider c2 = obj2.getComponent(Collider.class);
@@ -93,41 +97,28 @@ public class PhysicsSystem extends AEntitySystem {
 				&& xO2 - distanceX - xO1 > yO2 - distanceY - yO1
 				&& xO2 - distanceX - xO1 > yO1 - distanceY - yO2) {
 			v.x = 0;
-			if (inDebugMode) {
-				System.out.println("-------");
-				System.out.println("left");
-			}
+			if (inDebugMode) System.out.println("Collision on the left");
 		} else
 		// Case 2 - Object on right
 		if (v.x < 0 && xO1 - distanceX < xO2 && xO1 > xO2
 				&& xO1 - distanceX - xO2 > yO2 - distanceY - yO1
 				&& xO1 - distanceX - xO2 > yO1 - distanceY - yO2) {
 			v.x = 0;
-			if (inDebugMode) {
-				System.out.println("-------");
-				System.out.println("right");
-			}
+			if (inDebugMode) System.out.println("Collision on the right");
 		} else
 		// Case 3 - Object bellow
 		if (v.y > 0 && yO2 - distanceY < yO1 && yO2 > yO1
 				&& yO2 - distanceY - yO1 > xO1 - distanceX - xO2
 				&& yO2 - distanceY - yO1 > xO2 - distanceX - xO1) {
 			v.y = 0;
-			if (inDebugMode) {
-				System.out.println("-------");
-				System.out.println("bellow");
-			}
-
+			if (inDebugMode) System.out.println("Collision on bellow");
 		} else
 		// Case 4 - Object above
 		if (v.y < 0 && yO1 - distanceY < yO2 && yO1 > yO2
 				&& yO1 - distanceY - yO2 > xO1 - distanceX - xO2
 				&& yO1 - distanceY - yO2 > xO2 - distanceX - xO1) {
 			v.y = 0;
-			if (inDebugMode) {
-				System.out.println("-------");
-				System.out.println("above");
-			}
+			if (inDebugMode) System.out.println("Collision on above");
 		} else
 		// Case 5 - left corners
 		if (v.x != 0
@@ -138,11 +129,7 @@ public class PhysicsSystem extends AEntitySystem {
 						- distanceX - xO1 == yO1 - distanceY - yO2)) {
 			v.x = 0;
 			v.y = 0;
-			if (inDebugMode) {
-				System.out.println("-------");
-				System.out.println("left");
-				System.out.println("corners");
-			}
+			if (inDebugMode) System.out.println("Collision on the left corners");
 		} else
 		// Case 6 - right corners
 		if (v.x != 0
@@ -153,16 +140,9 @@ public class PhysicsSystem extends AEntitySystem {
 						- distanceX - xO2 == yO2 - distanceY - yO1)) {
 			v.x = 0;
 			v.y = 0;
-			if (inDebugMode) {
-				System.out.println("-------");
-				System.out.println("right");
-				System.out.println("corners");
-			}
-		}else
-		{
-			if (inDebugMode) {
-				System.out.println("-------");
-				System.out.println("other?");}
+			if (inDebugMode) System.out.println("Collision on the right corners");
+		} else {
+			if (inDebugMode) System.out.println("Other collision(?)");
 		}
 	}
 
@@ -179,7 +159,5 @@ public class PhysicsSystem extends AEntitySystem {
 	}
 
 	@Override
-	protected void processObject(GameObject obj) {
-
-	}
+	protected void processObject(GameObject obj) {}
 }

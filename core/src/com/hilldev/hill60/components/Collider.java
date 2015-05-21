@@ -5,7 +5,7 @@ import com.hilldev.hill60.objects.GameObject;
 public class Collider extends AComponent {
 
     public Collider(float x, float y, float w, float h) {
-        this.x  =x;
+        this.x = x;
         this.y = y;
         this.width = w;
         this.height = h;

@@ -18,8 +18,8 @@ public class BehaviourSystem extends AEntitySystem {
     }
 
     /* !!!!!!!!!!!!!!!!!
-        For now the system uses SimpleScript,
-        It should use BehaviourComponent to run these scripts
+       For now the system uses SimpleScript,
+       It should use BehaviourComponent to run these scripts
      */
 
     @Override

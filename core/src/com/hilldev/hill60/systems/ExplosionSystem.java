@@ -1,7 +1,7 @@
 package com.hilldev.hill60.systems;
 
-import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.components.Explosion;
 
 public class ExplosionSystem extends AEntitySystem {
@@ -24,6 +24,6 @@ public class ExplosionSystem extends AEntitySystem {
 
     @Override
     protected void processObject(GameObject obj) {
-
+    	
     }
 }

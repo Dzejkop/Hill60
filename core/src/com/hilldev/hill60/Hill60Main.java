@@ -73,7 +73,8 @@ public class Hill60Main extends Game implements IEngine {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public <T extends AEntitySystem> T getSystem(Class<T> type) {
         for(AEntitySystem s : systems) {
             if(s.getClass() == type) return (T)s;
@@ -84,7 +85,6 @@ public class Hill60Main extends Game implements IEngine {
     @Override
 	public void render () {
 		update();
-		
 	}
 
     @Override

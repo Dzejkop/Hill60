@@ -6,7 +6,7 @@ import com.hilldev.hill60.components.ExplosionSpawn;
 import com.hilldev.hill60.objects.GameObject;
 
 /*
-    Spawns explosions, executes countdown on bombs and such
+ * Spawns explosions, executes countdown on bombs and such
  */
 public class BombSystem extends AEntitySystem {
 
@@ -39,6 +39,7 @@ public class BombSystem extends AEntitySystem {
     }
 
     private void explode(GameObject center) {
+    	
         // Get components
         ExplosionSpawn spawn = center.getComponent(ExplosionSpawn.class);
         BoardPosition boardPosition = center.getComponent(BoardPosition.class);
@@ -61,7 +62,7 @@ public class BombSystem extends AEntitySystem {
 
     private void spawnExplosion(int x, int y, int power) {
         /*
-        TO BE FILLED, HAS TO SPAWN AN EXPLOSION OBJECT
+         * TO BE FILLED, HAS TO SPAWN AN EXPLOSION OBJECT
          */
     }
 }

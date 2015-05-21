@@ -53,7 +53,6 @@ public class GameObject {
     	}
     	
     	return null;
-        
     }
     
     // Receives messages

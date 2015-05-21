@@ -1,7 +1,7 @@
 package com.hilldev.hill60.systems;
 
-import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.objects.GameObject;
 
 public abstract class AEntitySystem {
 
@@ -11,9 +11,7 @@ public abstract class AEntitySystem {
 		this.engine = engine;
 	}
 
-    public void start() {
-
-    }
+    public void start() {}
 
 	public abstract void update();
     protected abstract boolean meetsConditions(GameObject obj);

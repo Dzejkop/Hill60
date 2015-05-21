@@ -1,12 +1,12 @@
 package com.hilldev.hill60.systems;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.components.InputResponder;
-
-import java.util.List;
 
 public class InputSystem extends AEntitySystem {
 

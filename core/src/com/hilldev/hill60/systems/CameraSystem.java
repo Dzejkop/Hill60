@@ -1,9 +1,9 @@
 package com.hilldev.hill60.systems;
 
-import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
-import com.hilldev.hill60.components.CameraTag;
+import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.components.WorldPosition;
+import com.hilldev.hill60.components.CameraTag;
 
 public class CameraSystem extends AEntitySystem {
 
@@ -23,7 +23,7 @@ public class CameraSystem extends AEntitySystem {
         for(GameObject obj : engine.getObjectList()) {
             if(meetsConditions(obj)) {
                 processObject(obj);
-                return; // Only one camera pos allowed
+                return; // Only one camera position allowed
             }
         }
     }

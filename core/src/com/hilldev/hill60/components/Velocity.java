@@ -17,5 +17,4 @@ public class Velocity extends AComponent {
     public boolean isZero() {
         return x == 0 && y == 0;
     }
-
 }

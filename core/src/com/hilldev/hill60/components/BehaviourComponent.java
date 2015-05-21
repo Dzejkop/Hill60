@@ -38,5 +38,4 @@ public class BehaviourComponent extends AComponent {
             b.run();
         }
     }
-
 }

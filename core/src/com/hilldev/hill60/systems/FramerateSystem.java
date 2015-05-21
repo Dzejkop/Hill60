@@ -1,7 +1,7 @@
 package com.hilldev.hill60.systems;
 
-import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.objects.GameObject;
 
 public class FramerateSystem extends AEntitySystem {
 	final int FPS_MAX = 60;
@@ -12,7 +12,8 @@ public class FramerateSystem extends AEntitySystem {
 	public FramerateSystem(IEngine engine) {
 		super(engine);
 	}
-	/**
+	
+	/*
 	 * This function froze Thread till average time between 2 frames runs
 	 */
 	@Override
@@ -20,12 +21,10 @@ public class FramerateSystem extends AEntitySystem {
 		thisFrameTime = System.currentTimeMillis();
 		if (lastFrameTime + (1000 / fpsMax) > thisFrameTime) {
 			try {
-				do
-				{
+				do {
 					Thread.sleep((long) 1);
 					thisFrameTime = System.currentTimeMillis();
-				}
-				while (lastFrameTime + (1000 / fpsMax) > thisFrameTime);
+				} while (lastFrameTime + (1000 / fpsMax) > thisFrameTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -44,8 +43,5 @@ public class FramerateSystem extends AEntitySystem {
 	}
 
 	@Override
-	protected void processObject(GameObject obj) {
-
-	}
-
+	protected void processObject(GameObject obj) {}
 }

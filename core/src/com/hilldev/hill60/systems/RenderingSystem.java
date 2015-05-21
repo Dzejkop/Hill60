@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -20,16 +22,20 @@ import com.hilldev.hill60.components.Collider;
 import com.hilldev.hill60.components.SpriteRenderer;
 
 public class RenderingSystem extends AEntitySystem {
-	
+
+	public static int SCREEN_WIDTH = 800;
+	public static int SCREEN_HEIGHT = 600;
 	boolean inDebugMode = false;
-    OrthographicCamera camera;
+    OrthographicCamera dynamicCamera;
+    OrthographicCamera staticCamera;
     SpriteBatch batch;
 	ShapeRenderer shape;
 	
     public RenderingSystem(IEngine engine) {
     	super(engine);
-    	
-        camera = new OrthographicCamera(800, 600);
+
+        dynamicCamera = new OrthographicCamera(800, 600);
+        staticCamera = new OrthographicCamera(800, 600);
     }
     
     // Renders all objects with required components
@@ -59,14 +65,15 @@ public class RenderingSystem extends AEntitySystem {
         }
 
         // Prepare the camera
-        camera.update();
+        dynamicCamera.update();
+        staticCamera.update();
 
         // Clear the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        
         // Render the objects sprites
         batch = new SpriteBatch();
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(dynamicCamera.combined);
         batch.begin();
         
         for(GameObject obj : objListInOrder) {
@@ -74,13 +81,14 @@ public class RenderingSystem extends AEntitySystem {
         }
         
         batch.end();
-        
-        // Render the colliders shapes
+
+    	// While debugging
         if(inDebugMode) {
+        	// Render the colliders shapes
 	        shape = new ShapeRenderer();
-	        shape.setProjectionMatrix(camera.combined);
+	        shape.setProjectionMatrix(dynamicCamera.combined);
 	        shape.begin(ShapeType.Line);
-	        shape.setColor(0, 255, 0, 1);
+	        shape.setColor(Color.GREEN);
 	
 	        for(GameObject obj : objListInOrder) {
 	        	if(obj.hasComponent(Collider.class)) {
@@ -89,10 +97,29 @@ public class RenderingSystem extends AEntitySystem {
 	        }
 	        
 	    	shape.end();
+	    	
+	        // Display the debugging box
+	    	List<String> debuggingInfo = new ArrayList<>();
+	    	debuggingInfo.add("Player world position: x, y");
+	    	debuggingInfo.add("Player board position: x, y");
+	    	
+	        batch = new SpriteBatch();
+	        batch.setProjectionMatrix(staticCamera.combined);
+	        batch.begin();
+	        
+	        BitmapFont font = new BitmapFont();
+	        font.setColor(Color.GREEN);
+	        int i = 0;
+	        for(String str : debuggingInfo) {
+	        	font.draw(batch, str, -SCREEN_WIDTH/2+10, SCREEN_HEIGHT/2-10-20*i);
+	        	i++;
+	        }
+	        
+	        batch.end();
         }
     }
-    
-    private void drawObject(GameObject obj) {
+
+	private void drawObject(GameObject obj) {
         SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
     	Sprite sprite = spriteRenderer.sprite;
     	

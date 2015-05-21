@@ -1,5 +1,6 @@
 package com.hilldev.hill60.systems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -29,30 +30,14 @@ public class RenderingSystem extends AEntitySystem {
     	super(engine);
     	
         camera = new OrthographicCamera(800, 600);
-        batch = new SpriteBatch();
-        shape = new ShapeRenderer();
     }
     
     // Renders all objects with required components
     private void render() {
-
-        // Prepare the camera
-    	camera.update();
-    	batch.setProjectionMatrix(camera.combined);
-        if(inDebugMode) shape.setProjectionMatrix(camera.combined);
-
-        // Clear the screen
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        // Begin rendering
-        batch.begin();
-        if(inDebugMode) {
-        	shape.begin(ShapeType.Line);
-    		shape.setColor(0, 255, 0, 1);
-        }
-        
-        // Get the objects
-        List<GameObject> list = engine.getObjectList();
+    	
+        // Reorder the objects
+        List<GameObject> objList = engine.getObjectList();
+        List<GameObject> objListInOrder = new ArrayList<>();
         
         int boardHeight = 100;
         int lastLayer = 4;
@@ -64,45 +49,79 @@ public class RenderingSystem extends AEntitySystem {
             for(int j=0; j<=lastLayer; j++) {
 
                 // Render an object...
-                for(GameObject o : list) {
+                for(GameObject o : objList) {
 
                     // If the conditions are met
-                    if (meetsConditions(o) && o.getComponent(BoardPosition.class).y == i && o.getComponent(Layer.class).layer == j)
-                        processObject(o);
+                    if(meetsConditions(o) && o.getComponent(BoardPosition.class).y == i && o.getComponent(Layer.class).layer == j)
+                    	objListInOrder.add(o);
                 }
             }
         }
-        
-        if(inDebugMode) shape.end();
-        batch.end();
-    }
 
+        // Prepare the camera
+        camera.update();
+
+        // Clear the screen
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // Render the objects sprites
+        batch = new SpriteBatch();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        
+        for(GameObject obj : objListInOrder) {
+        	drawObject(obj);
+        }
+        
+        batch.end();
+        
+        // Render the colliders shapes
+        if(inDebugMode) {
+	        shape = new ShapeRenderer();
+	        shape.setProjectionMatrix(camera.combined);
+	        shape.begin(ShapeType.Line);
+	        shape.setColor(0, 255, 0, 1);
+	
+	        for(GameObject obj : objListInOrder) {
+	        	if(obj.hasComponent(Collider.class)) {
+	        		drawColliderShape(obj);
+	        	}
+	        }
+	        
+	    	shape.end();
+        }
+    }
+    
+    private void drawObject(GameObject obj) {
+        SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
+    	Sprite sprite = spriteRenderer.sprite;
+    	
+    	WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
+    	float x = worldPosition.x + spriteRenderer.x - (sprite.getWidth()/2);
+    	float y = worldPosition.y + spriteRenderer.y - (sprite.getHeight()/2);
+    	
+    	sprite.setPosition(x, y);
+    	sprite.draw(batch);
+    }
+    
+    private void drawColliderShape(GameObject obj) {
+		Collider collider = obj.getComponent(Collider.class);
+		
+    	WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
+		float x = worldPosition.x + collider.x - (collider.width/2);
+		float y = worldPosition.y + collider.y - (collider.height/2);
+		
+		shape.rect(x, y, collider.width, collider.height);
+    }
+    
     // Checks if given objects contains BoardPosition, WorldPosition, Layer and SpriteRenderer
     @Override
     protected boolean meetsConditions(GameObject o) {
     	return o.hasComponent(BoardPosition.class) && o.hasComponent(WorldPosition.class) && o.hasComponent(Layer.class) && o.hasComponent(SpriteRenderer.class);
     }
     
-    // Draws an object
     @Override
-    protected void processObject(GameObject obj) {
-
-        // Get components
-        SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
-
-    	Sprite s = spriteRenderer.sprite;
-
-    	WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
-    	s.setPosition(worldPosition.x + spriteRenderer.x - (s.getWidth()/2), worldPosition.y + spriteRenderer.y - (s.getHeight()/2));
-
-    	s.draw(batch);
-    	
-    	// While debugging renders colliders green shapes
-    	if(inDebugMode && obj.hasComponent(Collider.class)) {
-    		Collider collider = obj.getComponent(Collider.class);
-    		shape.rect(worldPosition.x + collider.x - (collider.width/2), worldPosition.y + collider.y - (collider.height/2), collider.width, collider.height);
-    	}
-    }
+    protected void processObject(GameObject obj) {}
     
 	@Override
 	public void update() {

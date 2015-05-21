@@ -72,7 +72,6 @@ public class PhysicsSystem extends AEntitySystem {
 		} else {
 			return false;
 		}
-		
 	}
 
 	private void collisonHandling(GameObject obj1, GameObject obj2) {
@@ -91,59 +90,85 @@ public class PhysicsSystem extends AEntitySystem {
 		float yO1 = p1.y + c1.y;    // Middle y
 		float xO2 = p2.x + c2.x;    // Middle x coord of the second collider
 		float yO2 = p2.y + c2.y;    // Middle y
-
-		// Case 1 - Object on left
-		if (v.x > 0 && xO2 - distanceX < xO1 && xO2 > xO1
-				&& xO2 - distanceX - xO1 > yO2 - distanceY - yO1
-				&& xO2 - distanceX - xO1 > yO1 - distanceY - yO2) {
+		
+		// Object on the right
+		if(objOnRight(v, distanceX, distanceY, xO1, yO1, xO2, yO2)) {
 			v.x = 0;
-			if (inDebugMode) System.out.println("Collision on the left");
-		} else
-		// Case 2 - Object on right
-		if (v.x < 0 && xO1 - distanceX < xO2 && xO1 > xO2
-				&& xO1 - distanceX - xO2 > yO2 - distanceY - yO1
-				&& xO1 - distanceX - xO2 > yO1 - distanceY - yO2) {
+			if(inDebugMode) System.out.println("Collision on the right");
+		
+		// Object on the left
+		} else if(objOnLeft(v, distanceX, distanceY, xO1, yO1, xO2, yO2)) {
 			v.x = 0;
-			if (inDebugMode) System.out.println("Collision on the right");
-		} else
-		// Case 3 - Object bellow
-		if (v.y > 0 && yO2 - distanceY < yO1 && yO2 > yO1
-				&& yO2 - distanceY - yO1 > xO1 - distanceX - xO2
-				&& yO2 - distanceY - yO1 > xO2 - distanceX - xO1) {
+			if(inDebugMode) System.out.println("Collision on the left");
+		
+		// Object above
+		} else if(objAbove(v, distanceX, distanceY, xO1, yO1, xO2, yO2)) {
 			v.y = 0;
-			if (inDebugMode) System.out.println("Collision on bellow");
-		} else
-		// Case 4 - Object above
-		if (v.y < 0 && yO1 - distanceY < yO2 && yO1 > yO2
-				&& yO1 - distanceY - yO2 > xO1 - distanceX - xO2
-				&& yO1 - distanceY - yO2 > xO2 - distanceX - xO1) {
+			if(inDebugMode) System.out.println("Collision above");
+		
+		// Object bellow
+		} else if(objBellow(v, distanceX, distanceY, xO1, yO1, xO2, yO2)) {
 			v.y = 0;
-			if (inDebugMode) System.out.println("Collision on above");
-		} else
-		// Case 5 - left corners
-		if (v.x != 0
-				&& v.y != 0
-				&& xO2 - distanceX < xO1
-				&& xO2 > xO1
-				&& (xO2 - distanceX - xO1 == yO2 - distanceY - yO1 || xO2
-						- distanceX - xO1 == yO1 - distanceY - yO2)) {
+			if(inDebugMode) System.out.println("Collision bellow");
+		
+		// Object in the right corners
+		} else if(objInRightCorners(v, distanceX, distanceY, xO1, yO1, xO2, yO2)) {
 			v.x = 0;
 			v.y = 0;
-			if (inDebugMode) System.out.println("Collision on the left corners");
-		} else
-		// Case 6 - right corners
-		if (v.x != 0
-				&& v.y != 0
-				&& xO2 - distanceX < xO1
-				&& xO2 > xO1
-				&& (xO1 - distanceX - xO2 == yO1 - distanceY - yO2 || xO1
-						- distanceX - xO2 == yO2 - distanceY - yO1)) {
+			if(inDebugMode) System.out.println("Collision in the right corners");
+		
+		// Object in the left corners
+		} else if(objInLeftCorners(v, distanceX, distanceY, xO1, yO1, xO2, yO2)) {
 			v.x = 0;
 			v.y = 0;
-			if (inDebugMode) System.out.println("Collision on the right corners");
+			if(inDebugMode) System.out.println("Collision in the left corners");
+		
+		// Object somewhere else
 		} else {
-			if (inDebugMode) System.out.println("Other collision(?)");
+			if(inDebugMode) System.out.println("Other collision(?)");
 		}
+	}
+
+	private boolean objOnRight(Velocity v, float distanceX, float distanceY,
+			float xO1, float yO1, float xO2, float yO2) {
+		return v.x < 0 && xO1 - distanceX < xO2 && xO1 > xO2
+				&& xO1 - distanceX - xO2 > yO2 - distanceY - yO1
+				&& xO1 - distanceX - xO2 > yO1 - distanceY - yO2;
+	}
+
+	private boolean objOnLeft(Velocity v, float distanceX, float distanceY,
+			float xO1, float yO1, float xO2, float yO2) {
+		return v.x > 0 && xO2 - distanceX < xO1 && xO2 > xO1
+				&& xO2 - distanceX - xO1 > yO2 - distanceY - yO1
+				&& xO2 - distanceX - xO1 > yO1 - distanceY - yO2;
+	}
+
+	private boolean objAbove(Velocity v, float distanceX, float distanceY,
+			float xO1, float yO1, float xO2, float yO2) {
+		return v.y > 0 && yO2 - distanceY < yO1 && yO2 > yO1
+				&& yO2 - distanceY - yO1 > xO1 - distanceX - xO2
+				&& yO2 - distanceY - yO1 > xO2 - distanceX - xO1;
+	}
+
+	private boolean objBellow(Velocity v, float distanceX, float distanceY,
+			float xO1, float yO1, float xO2, float yO2) {
+		return v.y < 0 && yO1 - distanceY < yO2 && yO1 > yO2
+				&& yO1 - distanceY - yO2 > xO1 - distanceX - xO2
+				&& yO1 - distanceY - yO2 > xO2 - distanceX - xO1;
+	}
+
+	private boolean objInRightCorners(Velocity v, float distanceX,
+			float distanceY, float xO1, float yO1, float xO2, float yO2) {
+		return v.x != 0 && v.y != 0 && xO2 - distanceX < xO1 && xO2 > xO1
+				&& (xO1 - distanceX - xO2 == yO1 - distanceY - yO2
+				|| xO1 - distanceX - xO2 == yO2 - distanceY - yO1);
+	}
+
+	private boolean objInLeftCorners(Velocity v, float distanceX,
+			float distanceY, float xO1, float yO1, float xO2, float yO2) {
+		return v.x != 0 && v.y != 0 && xO2 - distanceX < xO1 && xO2 > xO1
+				&& (xO2 - distanceX - xO1 == yO2 - distanceY - yO1
+				|| xO2 - distanceX - xO1 == yO1 - distanceY - yO2);
 	}
 
 	@Override

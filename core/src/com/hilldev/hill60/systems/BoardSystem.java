@@ -38,8 +38,14 @@ public class BoardSystem extends AEntitySystem {
 			worldPos.x = boardPos.x*tileSize;
 			worldPos.y = boardPos.y*tileSize;
 		} else {
-			boardPos.x = (int) (worldPos.x/tileSize);
-			boardPos.y = (int) (worldPos.y/tileSize);
+			if(worldPos.x>0)
+				boardPos.x = (int) ((worldPos.x+50)/tileSize);
+			else
+				boardPos.x = (int) ((worldPos.x-50)/tileSize);
+			if(worldPos.y>0)
+				boardPos.y = (int) ((worldPos.y+50)/tileSize);
+			else
+				boardPos.y = (int) ((worldPos.y-50)/tileSize);				
 		}
     }
 

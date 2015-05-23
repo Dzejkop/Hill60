@@ -18,15 +18,27 @@ public class SimpleScript implements Behaviour {
     public void run() {
         Velocity v = parent.getComponent(Velocity.class);
         InputResponder i = parent.getComponent(InputResponder.class);
-
+        SoundTrigger s = parent.getComponent(SoundTrigger.class);
         v.x = 0;
         v.y = 0;
 
         float veloc = 4;
 
-        if(i.upArrow) v.y = veloc;
-        if(i.downArrow) v.y = -veloc;
-        if(i.leftArrow) v.x = -veloc;
-        if(i.rightArrow) v.x = veloc;
+        if(i.upArrow){
+        	v.y = veloc;
+        	s.sound=2;
+        }
+        if(i.downArrow){
+        	v.y = -veloc;
+        	s.sound=2;
+        }
+        if(i.leftArrow){
+        	v.x = -veloc;
+        	s.sound=2;
+        }
+        if(i.rightArrow){
+        	v.x = veloc;
+        	s.sound=2;
+        }
     }
 }

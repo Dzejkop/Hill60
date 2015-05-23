@@ -41,7 +41,7 @@ public class Hill60Main extends Game implements IEngine {
 
         // Load assets
         resourceManager.loadTextures();
-
+        resourceManager.loadSounds();
         // Initialize all the systems
 		systems.add(new RenderingSystem(this));
         systems.add(new BehaviourSystem(this));
@@ -49,6 +49,7 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new InputSystem(this));
         systems.add(new BoardSystem(this));
         systems.add(new CameraSystem(this));
+        systems.add(new SoundSystem(this));
         //systems.add(new FramerateSystem(this));
 
         start();

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.hilldev.hill60.Hill60Main;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.components.WorldPosition;
@@ -36,6 +37,10 @@ public class RenderingSystem extends AEntitySystem {
 
         dynamicCamera = new OrthographicCamera(800, 600);
         staticCamera = new OrthographicCamera(800, 600);
+
+        // Initialize batchers
+        batch = new SpriteBatch();
+        shape = new ShapeRenderer();
     }
     
     // Renders all objects with required components
@@ -46,7 +51,7 @@ public class RenderingSystem extends AEntitySystem {
         List<GameObject> objListInOrder = new ArrayList<>();
         
         int boardHeight = 100;
-        int lastLayer = 4;
+        int lastLayer = 5;
 
         // For each y position on board
         for(int i=boardHeight; i>=0; i--) {
@@ -72,7 +77,6 @@ public class RenderingSystem extends AEntitySystem {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         // Render the objects sprites
-        batch = new SpriteBatch();
         batch.setProjectionMatrix(dynamicCamera.combined);
         batch.begin();
         
@@ -85,7 +89,6 @@ public class RenderingSystem extends AEntitySystem {
     	// While debugging
         if(inDebugMode) {
         	// Render the colliders shapes
-	        shape = new ShapeRenderer();
 	        shape.setProjectionMatrix(dynamicCamera.combined);
 	        shape.begin(ShapeType.Line);
 	        shape.setColor(Color.GREEN);
@@ -100,8 +103,12 @@ public class RenderingSystem extends AEntitySystem {
 	    	
 	        // Display the debugging box
 	    	List<String> debuggingInfo = new ArrayList<>();
-	    	debuggingInfo.add("Player world position: x, y");
-	    	debuggingInfo.add("Player board position: x, y");
+
+            WorldPosition pPos = Hill60Main.getInstance().player.getComponent(WorldPosition.class);
+            BoardPosition pbPos = Hill60Main.getInstance().player.getComponent(BoardPosition.class);
+
+	    	debuggingInfo.add("Player world position: x: " + pPos.x + " y: " + pPos.y);
+	    	debuggingInfo.add("Player board position: x: " + pbPos.x + " y: " + pbPos.y);
 	    	
 	        batch = new SpriteBatch();
 	        batch.setProjectionMatrix(staticCamera.combined);

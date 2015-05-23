@@ -2,13 +2,16 @@ package com.hilldev.hill60;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Game;
-import com.hilldev.hill60.objects.Floor;
-import com.hilldev.hill60.objects.GameObject;
-import com.hilldev.hill60.objects.Player;
-import com.hilldev.hill60.objects.Wall;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.hilldev.hill60.components.BoardPosition;
+import com.hilldev.hill60.components.WorldPosition;
+import com.hilldev.hill60.objects.*;
 import com.hilldev.hill60.systems.*;
+import com.sun.org.apache.xml.internal.security.utils.resolver.implementations.ResolverAnonymous;
 
 public class Hill60Main extends Game implements IEngine {
 	
@@ -36,6 +39,9 @@ public class Hill60Main extends Game implements IEngine {
         resourceManager = new ResourceManager();
     }
 
+    // DEBUG
+    public Player player;
+
 	@Override
 	public void create () {
 
@@ -49,15 +55,18 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new InputSystem(this));
         systems.add(new BoardSystem(this));
         systems.add(new CameraSystem(this));
+        systems.add(new BombSystem(this));
         //systems.add(new FramerateSystem(this));
 
         start();
 		
 		// TESTING !!!!!!
-		gameObjects.add(new Player());
+        player = new Player();
+		gameObjects.add(player);
+        Random r = new Random();
         for(int x = 0; x < 10; x++) {
             for(int y = 0; y < 10; y++) {
-                if(y%2 == 0) {
+                if(r.nextInt()%100 > 30) {
                     gameObjects.add(new Floor(x, y));
                 } else {
                     gameObjects.add(new Wall(x, y));
@@ -85,6 +94,12 @@ public class Hill60Main extends Game implements IEngine {
     @Override
 	public void render () {
 		update();
+
+        if(Gdx.input.isKeyPressed(Input.Keys.B)) {
+            BoardPosition p = player.getComponent(BoardPosition.class);
+
+            gameObjects.add(new Bomb(p.x, p.y));
+        }
 	}
 
     @Override
@@ -114,4 +129,19 @@ public class Hill60Main extends Game implements IEngine {
 			e.update();
 		}
 	}
+
+    @Override
+    public void destroyObject(GameObject object) {
+        gameObjects.remove(object);
+    }
+
+    @Override
+    public void destroyObject(int id) {
+        gameObjects.remove(getObject(id));
+    }
+
+    @Override
+    public void createObject(GameObject object) {
+        gameObjects.add(object);
+    }
 }

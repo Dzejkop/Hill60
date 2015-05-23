@@ -1,9 +1,10 @@
 package com.hilldev.hill60.systems;
 
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.components.ExplosionComponent;
 import com.hilldev.hill60.objects.GameObject;
-import com.hilldev.hill60.components.Explosion;
 
+// Deals with destroying object that collide with explosions
 public class ExplosionSystem extends AEntitySystem {
 
     public ExplosionSystem(IEngine engine) {
@@ -19,7 +20,7 @@ public class ExplosionSystem extends AEntitySystem {
 
     @Override
     protected boolean meetsConditions(GameObject obj) {
-        return obj.hasComponent(Explosion.class);
+        return obj.hasComponent(ExplosionComponent.class);
     }
 
     @Override

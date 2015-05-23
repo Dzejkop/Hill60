@@ -11,6 +11,10 @@ public interface IEngine {
     public void start();                        // Called AFTER initializing all the systems
 	public void update();						// Updates all entity systems
 
+    public void createObject(GameObject object);
+    public void destroyObject(GameObject object);   // Destroys an object
+    public void destroyObject(int id);              // Same only using id
+
     public <T extends AEntitySystem> T getSystem(Class<T> type);
 
 	// [To be implemented]

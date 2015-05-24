@@ -77,7 +77,10 @@ public class BombSystem extends AEntitySystem {
         int centerY = boardPosition.y;
         int basePotential = spawn.bombPower;
 
-        /*// First spawn the 4 corners
+        // First spawn the center
+        spawnExplosion(centerX, centerY, basePotential);
+
+        /*// Next spawn the 4 corners
         for(int x = -1; x <= 1; x+=2) {
             for(int y = -1; y <= 1; y+=2) {
                 if(canBeSpawned(centerX + x, centerY + y, basePotential-1)) spawnExplosion(centerX + x, centerY + y, 0);

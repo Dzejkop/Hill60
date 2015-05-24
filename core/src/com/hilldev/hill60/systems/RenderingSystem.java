@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.hilldev.hill60.Hill60Main;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.objects.GameObject;
+import com.hilldev.hill60.components.SoundTrigger;
 import com.hilldev.hill60.components.WorldPosition;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.components.Layer;
@@ -133,8 +134,7 @@ public class RenderingSystem extends AEntitySystem {
 
 	private void drawObject(GameObject obj) {
 		SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
-		Sprite sprite = spriteRenderer.sprite;
-
+		Sprite sprite = spriteRenderer.sprite;		
 		WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
 		float x = worldPosition.x
 				- ((sprite.getWidth() - spriteRenderer.x) / 2);
@@ -143,6 +143,11 @@ public class RenderingSystem extends AEntitySystem {
 
 		sprite.setPosition(x, y);
 		sprite.draw(batch);
+		if(obj.hasComponent(SoundTrigger.class)){
+			SoundTrigger soundtrigg= obj.getComponent(SoundTrigger.class);
+			if(soundtrigg.draw)
+			soundtrigg.sprite.draw(batch);
+		}
 	}
 
 	private void drawColliderShape(GameObject obj) {

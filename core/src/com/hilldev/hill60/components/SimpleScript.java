@@ -18,6 +18,7 @@ public class SimpleScript implements Behaviour {
     public void run() {
         Velocity v = parent.getComponent(Velocity.class);
         InputResponder i = parent.getComponent(InputResponder.class);
+        WorldPosition pos = parent.getComponent(WorldPosition.class);
         SoundTrigger s = parent.getComponent(SoundTrigger.class);
         v.x = 0;
         v.y = 0;
@@ -26,19 +27,19 @@ public class SimpleScript implements Behaviour {
 
         if(i.upArrow){
         	v.y = veloc;
-        	s.sound=2;
+        	s.setSound(2, 25, 80,pos.x,pos.y+v.y);
         }
         if(i.downArrow){
         	v.y = -veloc;
-        	s.sound=2;
+        	s.setSound(2, 25, 80,pos.x,pos.y+v.y);
         }
         if(i.leftArrow){
         	v.x = -veloc;
-        	s.sound=2;
+        	s.setSound(2, 25, 80,pos.x+v.x,pos.y);
         }
         if(i.rightArrow){
         	v.x = veloc;
-        	s.sound=2;
+        	s.setSound(2, 25, 80,pos.x+v.x,pos.y);
         }
     }
 }

@@ -30,15 +30,33 @@ public class SoundSystem extends AEntitySystem {
 	@Override
 	protected void processObject(GameObject obj) {
 		if (meetsConditions(obj)) {
-			//System.out.println(obj.getComponent(SoundTrigger.class).sound);
-			if(obj.getComponent(SoundTrigger.class).sound!=0){
-			Music sound;
-			sound = Hill60Main.getInstance().resourceManager.getSound(obj
-					.getComponent(SoundTrigger.class).sound);
-			if (!sound.isPlaying())
-				sound.play();
+			SoundTrigger soundTrigg = obj.getComponent(SoundTrigger.class);
+			if (soundTrigg.sound != 0) {
+				Music sound;
+				sound = Hill60Main.getInstance().resourceManager
+						.getSound(soundTrigg.sound);
+				if (!sound.isPlaying())
+					sound.play();
+				if (soundTrigg.animation == 0) {
+					System.out.println(soundTrigg.animation);
+					soundTrigg.animation = soundTrigg.animationFrames;
+					soundTrigg.sprite.setSize(soundTrigg.size, soundTrigg.size);
+					soundTrigg.sprite.setPosition(soundTrigg.x
+							- soundTrigg.size / 2, soundTrigg.y
+							- soundTrigg.size / 2);
+					soundTrigg.draw = true;
+				}
 			}
-			obj.getComponent(SoundTrigger.class).sound=0;
+			soundTrigg.sound = 0;
+			if (soundTrigg.animation > 0) {
+				soundTrigg.animation--;
+				soundTrigg.size *= soundTrigg.SCALE;
+				soundTrigg.sprite.setSize(soundTrigg.size, soundTrigg.size);
+				soundTrigg.sprite.setPosition(soundTrigg.x - soundTrigg.size
+						/ 2, soundTrigg.y - soundTrigg.size / 2);
+			} else {
+				soundTrigg.draw = false;
+			}
 		}
 	}
 }

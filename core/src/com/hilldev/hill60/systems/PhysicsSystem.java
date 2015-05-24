@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.objects.GameObject;
+import com.hilldev.hill60.components.SoundTrigger;
 import com.hilldev.hill60.components.WorldPosition;
 import com.hilldev.hill60.components.Collider;
 import com.hilldev.hill60.components.Velocity;
@@ -82,7 +83,9 @@ public class PhysicsSystem extends AEntitySystem {
 		WorldPosition p1 = obj1.getComponent(WorldPosition.class);
 		WorldPosition p2 = obj2.getComponent(WorldPosition.class);
 		Velocity v = obj1.getComponent(Velocity.class);
-
+		SoundTrigger soundTrigg = obj1.getComponent(SoundTrigger.class);
+		
+		soundTrigg.sound=1;
 		float distanceX = ((c1.width + c2.width) / 2 + Math.abs(v.x));
 		float distanceY = ((c1.height + c2.height) / 2)+ Math.abs(v.y);
 

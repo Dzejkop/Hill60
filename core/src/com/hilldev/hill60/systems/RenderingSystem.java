@@ -27,141 +27,154 @@ public class RenderingSystem extends AEntitySystem {
 	public static int SCREEN_WIDTH = 800;
 	public static int SCREEN_HEIGHT = 600;
 	boolean inDebugMode = false;
-    OrthographicCamera dynamicCamera;
-    OrthographicCamera staticCamera;
-    SpriteBatch batch;
+	OrthographicCamera dynamicCamera;
+	OrthographicCamera staticCamera;
+	SpriteBatch batch;
 	ShapeRenderer shape;
-	
-    public RenderingSystem(IEngine engine) {
-    	super(engine);
 
-        dynamicCamera = new OrthographicCamera(800, 600);
-        staticCamera = new OrthographicCamera(800, 600);
+	public RenderingSystem(IEngine engine) {
+		super(engine);
 
-        // Initialize batchers
-        batch = new SpriteBatch();
-        shape = new ShapeRenderer();
-    }
-    
-    // Renders all objects with required components
-    private void render() {
-    	
-        // Reorder the objects
-        List<GameObject> objList = engine.getObjectList();
-        List<GameObject> objListInOrder = new ArrayList<>();
-        
-        int boardHeight = 100;
-        int lastLayer = 5;
+		dynamicCamera = new OrthographicCamera(800, 600);
+		staticCamera = new OrthographicCamera(800, 600);
 
-        // For each y position on board
-        for(int i=boardHeight; i>=0; i--) {
+		// Initialize batchers
+		batch = new SpriteBatch();
+		shape = new ShapeRenderer();
+	}
 
-            // For each rendering layer
-            for(int j=0; j<=lastLayer; j++) {
+	// Renders all objects with required components
+	private void render() {
 
-                // Render an object...
-                for(GameObject o : objList) {
+		// Reorder the objects
+		List<GameObject> objList = engine.getObjectList();
+		List<GameObject> objListInOrder = new ArrayList<>();
 
-                    // If the conditions are met
-                    if(meetsConditions(o) && o.getComponent(BoardPosition.class).y == i && o.getComponent(Layer.class).layer == j)
-                    	objListInOrder.add(o);
-                }
-            }
-        }
+		int boardHeight = 100;
+		int lastLayer = 5;
 
-        // Prepare the camera
-        dynamicCamera.update();
-        staticCamera.update();
+		// For each rendering layer
+		for (int j = 0; j <= lastLayer; j++) {
+			// For each y position on board
+			for (int i = boardHeight; i >= 0; i--) {
 
-        // Clear the screen
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
-        // Render the objects sprites
-        batch.setProjectionMatrix(dynamicCamera.combined);
-        batch.begin();
-        
-        for(GameObject obj : objListInOrder) {
-        	drawObject(obj);
-        }
-        
-        batch.end();
+				// Render an object...
+				for (GameObject o : objList) {
 
-    	// While debugging
-        if(inDebugMode) {
-        	// Render the colliders shapes
-	        shape.setProjectionMatrix(dynamicCamera.combined);
-	        shape.begin(ShapeType.Line);
-	        shape.setColor(Color.GREEN);
-	
-	        for(GameObject obj : objListInOrder) {
-	        	if(obj.hasComponent(Collider.class)) {
-	        		drawColliderShape(obj);
-	        	}
-	        }
-	        
-	    	shape.end();
-	    	
-	        // Display the debugging box
-	    	List<String> debuggingInfo = new ArrayList<>();
+					// If the conditions are met
+					if (meetsConditions(o)
+							&& o.getComponent(BoardPosition.class).y == i
+							&& o.getComponent(Layer.class).layer == j)
+						objListInOrder.add(o);
+				}
+			}
+		}
 
-            WorldPosition pPos = Hill60Main.getInstance().player.getComponent(WorldPosition.class);
-            BoardPosition pbPos = Hill60Main.getInstance().player.getComponent(BoardPosition.class);
+		// Prepare the camera
+		dynamicCamera.update();
+		staticCamera.update();
 
-	    	debuggingInfo.add("Player world position: x: " + pPos.x + " y: " + pPos.y);
-	    	debuggingInfo.add("Player board position: x: " + pbPos.x + " y: " + pbPos.y);
-	    	
-	        batch = new SpriteBatch();
-	        batch.setProjectionMatrix(staticCamera.combined);
-	        batch.begin();
-	        
-	        BitmapFont font = new BitmapFont();
-	        font.setColor(Color.GREEN);
-	        int i = 0;
-	        for(String str : debuggingInfo) {
-	        	font.draw(batch, str, -SCREEN_WIDTH/2+10, SCREEN_HEIGHT/2-10-20*i);
-	        	i++;
-	        }
-	        
-	        batch.end();
-        }
-    }
+		// Clear the screen
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		// Render the objects sprites
+		batch.setProjectionMatrix(dynamicCamera.combined);
+		batch.begin();
+
+		for (GameObject obj : objListInOrder) {
+			drawObject(obj);
+		}
+
+		batch.end();
+
+		// While debugging
+		if (inDebugMode) {
+			// Render the colliders shapes
+			shape.setProjectionMatrix(dynamicCamera.combined);
+			shape.begin(ShapeType.Line);
+			shape.setColor(Color.GREEN);
+
+			for (GameObject obj : objListInOrder) {
+				if (obj.hasComponent(Collider.class)) {
+					drawColliderShape(obj);
+				}
+			}
+
+			shape.end();
+
+			// Display the debugging box
+			List<String> debuggingInfo = new ArrayList<>();
+
+			WorldPosition pPos = Hill60Main.getInstance().player
+					.getComponent(WorldPosition.class);
+			BoardPosition pbPos = Hill60Main.getInstance().player
+					.getComponent(BoardPosition.class);
+
+			debuggingInfo.add("Player world position: x: " + pPos.x + " y: "
+					+ pPos.y);
+			debuggingInfo.add("Player board position: x: " + pbPos.x + " y: "
+					+ pbPos.y);
+
+			batch = new SpriteBatch();
+			batch.setProjectionMatrix(staticCamera.combined);
+			batch.begin();
+
+			BitmapFont font = new BitmapFont();
+			font.setColor(Color.GREEN);
+			int i = 0;
+			for (String str : debuggingInfo) {
+				font.draw(batch, str, -SCREEN_WIDTH / 2 + 10, SCREEN_HEIGHT / 2
+						- 10 - 20 * i);
+				i++;
+			}
+
+			batch.end();
+		}
+	}
 
 	private void drawObject(GameObject obj) {
-        SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
-    	Sprite sprite = spriteRenderer.sprite;
-    	
-    	WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
-    	float x = worldPosition.x + spriteRenderer.x - (sprite.getWidth()/2);
-    	float y = worldPosition.y + spriteRenderer.y - (sprite.getHeight()/2);
-    	
-    	sprite.setPosition(x, y);
-    	sprite.draw(batch);
-    }
-    
-    private void drawColliderShape(GameObject obj) {
+		SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
+		Sprite sprite = spriteRenderer.sprite;
+
+		WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
+		float x = worldPosition.x
+				- ((sprite.getWidth() - spriteRenderer.x) / 2);
+		float y = worldPosition.y
+				- ((sprite.getHeight() - spriteRenderer.y) / 2);
+
+		sprite.setPosition(x, y);
+		sprite.draw(batch);
+	}
+
+	private void drawColliderShape(GameObject obj) {
 		Collider collider = obj.getComponent(Collider.class);
-		
-    	WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
-		float x = worldPosition.x + collider.x - (collider.width/2);
-		float y = worldPosition.y + collider.y - (collider.height/2);
-		
+
+		WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
+		float x = worldPosition.x + collider.x - (collider.width / 2);
+		float y = worldPosition.y + collider.y - (collider.height / 2);
+
 		shape.rect(x, y, collider.width, collider.height);
-    }
-    
-    // Checks if given objects contains BoardPosition, WorldPosition, Layer and SpriteRenderer
-    @Override
-    protected boolean meetsConditions(GameObject o) {
-    	return o.hasComponent(BoardPosition.class) && o.hasComponent(WorldPosition.class) && o.hasComponent(Layer.class) && o.hasComponent(SpriteRenderer.class);
-    }
-    
-    @Override
-    protected void processObject(GameObject obj) {}
-    
+	}
+
+	// Checks if given objects contains BoardPosition, WorldPosition, Layer and
+	// SpriteRenderer
+	@Override
+	protected boolean meetsConditions(GameObject o) {
+		return o.hasComponent(BoardPosition.class)
+				&& o.hasComponent(WorldPosition.class)
+				&& o.hasComponent(Layer.class)
+				&& o.hasComponent(SpriteRenderer.class);
+	}
+
+	@Override
+	protected void processObject(GameObject obj) {
+	}
+
 	@Override
 	public void update() {
 
-        // Debugging handle
-        inDebugMode = Gdx.input.isKeyPressed(Input.Keys.D);
+		// Debugging handle
+		inDebugMode = Gdx.input.isKeyPressed(Input.Keys.D);
 
 		render();
 	}

@@ -7,6 +7,12 @@ public class SpriteRenderer extends AComponent {
 	public SpriteRenderer(Sprite sprite) {
 		this.sprite = sprite;
 	}
+	
+	public SpriteRenderer(Sprite sprite,float x, float y) {
+		this.sprite = sprite;
+		this.x=x;
+		this.y=y;
+	}
 
     public Sprite sprite;
 

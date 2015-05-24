@@ -3,10 +3,13 @@ package com.hilldev.hill60.systems;
 import java.util.List;
 
 import com.badlogic.gdx.audio.Music;
+import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.Hill60Main;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.SoundTrigger;
+import com.hilldev.hill60.components.WorldPosition;
 import com.hilldev.hill60.objects.GameObject;
+import com.hilldev.hill60.objects.SoundWave;
 
 public class SoundSystem extends AEntitySystem {
 
@@ -30,37 +33,25 @@ public class SoundSystem extends AEntitySystem {
 	@Override
 	protected void processObject(GameObject obj) {
 		if (meetsConditions(obj)) {
-			SoundTrigger soundTrigg = obj.getComponent(SoundTrigger.class);
-			if (soundTrigg.sound != 0) {
-				Music sound;
-				sound = Hill60Main.getInstance().resourceManager
-						.getSound(soundTrigg.sound);
-				if (!sound.isPlaying())
-					sound.play();
-				if (soundTrigg.animation == 0) {
-					System.out.println(soundTrigg.animation);
-					soundTrigg.animation = soundTrigg.animationFrames;
-					soundTrigg.sprite.setSize(soundTrigg.size, soundTrigg.size);
-					soundTrigg.sprite.setPosition(soundTrigg.x
-							- soundTrigg.size / 2, soundTrigg.y
-							- soundTrigg.size / 2);
-					soundTrigg.draw = true;
-				}
-			}
-			soundTrigg.sound = 0;
-			if (soundTrigg.animation > 0) {
-				soundTrigg.animation--;
-				soundTrigg.size *= soundTrigg.SCALE;
-				soundTrigg.sprite.setSize(soundTrigg.size, soundTrigg.size);
-				soundTrigg.sprite.setPosition(soundTrigg.x - soundTrigg.size
-						/ 2, soundTrigg.y - soundTrigg.size / 2);
-			} else {
-				soundTrigg.draw = false;
-			}
+
+            WorldPosition p = obj.getComponent(WorldPosition.class);
+
+			SoundTrigger soundTrigger = obj.getComponent(SoundTrigger.class);
+
+            if(soundTrigger.triggered == true) {
+                if (soundTrigger.sound.isEmpty() == false) {
+                    Music sound;
+                    Debug.log("Sound name: " + soundTrigger.sound);
+                    sound = Hill60Main.getInstance().resourceManager.getSound(soundTrigger.sound);
+
+                    if (sound.isPlaying() == false)
+                        sound.play();
+
+                    Hill60Main.getInstance().createObject(new SoundWave(p.x, p.y));
+                }
+
+                soundTrigger.triggered = false;
+            }
 		}
 	}
-
-    private void spawnSound(float x, float y) {
-
-    }
 }

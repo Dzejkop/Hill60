@@ -64,7 +64,7 @@ public class RenderingSystem extends AEntitySystem {
 					// If the conditions are met
 					if (meetsConditions(o)
 							&& o.getComponent(BoardPosition.class).y == i
-							&& o.getComponent(Layer.class).layer == j)
+                            && o.getComponent(SpriteRenderer.class).layer == j)
 						objListInOrder.add(o);
 				}
 			}

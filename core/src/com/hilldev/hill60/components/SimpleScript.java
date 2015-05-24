@@ -14,6 +14,9 @@ public class SimpleScript implements Behaviour {
         parent = parentComponent.parent;
     }
 
+    // TEMPORAL SOLUTION
+    int sinceLastStep = 20;
+
     @Override
     public void run() {
         Velocity v = parent.getComponent(Velocity.class);
@@ -25,21 +28,31 @@ public class SimpleScript implements Behaviour {
 
         float veloc = 4;
 
+        float xv = 0;
+        float yv = 0;
+
         if(i.upArrow){
-        	v.y = veloc;
-        	s.setSound(2, 25, 80,pos.x,pos.y+v.y);
+            yv = veloc;
         }
         if(i.downArrow){
-        	v.y = -veloc;
-        	s.setSound(2, 25, 80,pos.x,pos.y+v.y);
+            yv = -veloc;
         }
         if(i.leftArrow){
-        	v.x = -veloc;
-        	s.setSound(2, 25, 80,pos.x+v.x,pos.y);
+            xv = -veloc;
         }
         if(i.rightArrow){
-        	v.x = veloc;
-        	s.setSound(2, 25, 80,pos.x+v.x,pos.y);
+            xv = veloc;
         }
+
+        if(Math.abs(xv) + Math.abs(yv) > 0) {
+            sinceLastStep--;
+            if(sinceLastStep < 0) {
+                sinceLastStep = 20;
+                s.triggered = true;
+            }
+        }
+
+        v.x = xv;
+        v.y = yv;
     }
 }

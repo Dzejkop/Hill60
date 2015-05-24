@@ -25,20 +25,33 @@ public class SoundWave extends GameObject {
 
             GameObject parentObject;
             BehaviourComponent parentComponent;
+            SpriteRenderer sprite;
 
             @Override
             public void create(BehaviourComponent parentComponent) {
                 this.parentComponent = parentComponent;
                 this.parentObject = parentComponent.getParent();
+
+                // Ease of access
+                this.sprite = parentObject.getComponent(SpriteRenderer.class);
             }
+
+            int life = 100;
+            float currentScale = 1.0f;
+            float scaleMultiplier = 1.1f;
 
             @Override
             public void run() {
 
-                /*
-                     IMPLEMENT ANIMATION, DEATH TIMING AND RESISIZING HERE
-                 */
+                life--;
+                if(life > 0 ) {
+                    currentScale*=scaleMultiplier;
 
+                    sprite.setScale(currentScale);
+
+                } else {
+                    Hill60Main.getInstance().destroyObject(parentObject);
+                }
             }
         }));
     }

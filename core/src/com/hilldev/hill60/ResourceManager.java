@@ -19,7 +19,7 @@ public class ResourceManager implements Disposable {
     
     Map<String, Texture> loadedTextures;
     List<String> loadedTextureNames;
-    Map<Integer, String> loadedSoundNames;
+    Map<String, Integer> loadedSoundNames;
     Map<Integer, Music> loadedSounds;    
 
     public ResourceManager() {
@@ -44,7 +44,7 @@ public class ResourceManager implements Disposable {
         	Music temp=Gdx.audio.newMusic(Gdx.files.internal(ASSETS_PATH + s));
         	temp.setLooping(false);
             loadedSounds.put(i,temp);
-            loadedSoundNames.put(i,s);
+            loadedSoundNames.put(s, i);
             i++;
         }
     }

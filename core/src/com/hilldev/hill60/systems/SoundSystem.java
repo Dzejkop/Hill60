@@ -59,4 +59,8 @@ public class SoundSystem extends AEntitySystem {
 			}
 		}
 	}
+
+    private void spawnSound(float x, float y) {
+
+    }
 }

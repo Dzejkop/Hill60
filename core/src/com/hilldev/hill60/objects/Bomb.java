@@ -18,10 +18,9 @@ public class Bomb extends GameObject {
         // Get the resource manager
         ResourceManager manager = main.resourceManager;
 
-        this.addComponent(new SpriteRenderer(manager.getSprite("Player.png")));
+        this.addComponent(new SpriteRenderer(manager.getSprite("Player.png"), 0, 0, 4));
         this.addComponent(new WorldPosition(0, 0));
         this.addComponent(new BoardPosition(x, y));
-        this.addComponent(new Layer(4));
         this.addComponent(new ExplosionSpawn(1, 5));
     }
 }

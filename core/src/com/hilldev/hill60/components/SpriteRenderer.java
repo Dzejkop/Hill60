@@ -10,12 +10,27 @@ public class SpriteRenderer extends AComponent {
 	
 	public SpriteRenderer(Sprite sprite,float x, float y) {
 		this.sprite = sprite;
-		this.x=x;
-		this.y=y;
+		this.x = x;
+		this.y = y;
 	}
+
+    public SpriteRenderer(Sprite sprite, float x, float y, int layer) {
+        this.sprite = sprite;
+        this.x = x;
+        this.y = y;
+        this.layer = layer;
+    }
 
     public Sprite sprite;
 
-    public float x = 0; // Horizontal offset
-    public float y = 0; // Vertical offset
+    // Rendering layer
+    public int layer = 1;
+
+    // Offset
+    public float x = 0;
+    public float y = 0;
+
+    // Scale
+    public float horizontalScale;
+    public float verticalScale;
 }

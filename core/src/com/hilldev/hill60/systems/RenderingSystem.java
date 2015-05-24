@@ -136,6 +136,10 @@ public class RenderingSystem extends AEntitySystem {
 		SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
 		Sprite sprite = spriteRenderer.sprite;		
 		WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
+
+        // Scaling first so that the middle stays in the middle
+        sprite.setScale(spriteRenderer.horizontalScale, spriteRenderer.verticalScale);
+
 		float x = worldPosition.x
 				- ((sprite.getWidth() - spriteRenderer.x) / 2);
 		float y = worldPosition.y
@@ -143,11 +147,6 @@ public class RenderingSystem extends AEntitySystem {
 
 		sprite.setPosition(x, y);
 		sprite.draw(batch);
-		if(obj.hasComponent(SoundTrigger.class)){
-			SoundTrigger soundtrigg= obj.getComponent(SoundTrigger.class);
-			if(soundtrigg.draw)
-			soundtrigg.sprite.draw(batch);
-		}
 	}
 
 	private void drawColliderShape(GameObject obj) {
@@ -166,7 +165,6 @@ public class RenderingSystem extends AEntitySystem {
 	protected boolean meetsConditions(GameObject o) {
 		return o.hasComponent(BoardPosition.class)
 				&& o.hasComponent(WorldPosition.class)
-				&& o.hasComponent(Layer.class)
 				&& o.hasComponent(SpriteRenderer.class);
 	}
 

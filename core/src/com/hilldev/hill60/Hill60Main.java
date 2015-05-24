@@ -22,10 +22,11 @@ public class Hill60Main extends Game implements IEngine {
     }
 
     // Game objects
-    List<GameObject> gameObjects;
+    private List<GameObject> gameObjects;
 
-    // Destruction queue
-    List<GameObject> destructionQueue;
+    // Destruction and creation queue
+    private List<GameObject> destructionQueue;
+    private List<GameObject> creationQueue;
 
     // Systems
     List<AEntitySystem> systems;
@@ -39,6 +40,7 @@ public class Hill60Main extends Game implements IEngine {
         systems = new ArrayList<>();
         gameObjects = new ArrayList<>();
         destructionQueue = new ArrayList<>();
+        creationQueue = new ArrayList<>();
 
         resourceManager = new ResourceManager();
     }
@@ -144,6 +146,13 @@ public class Hill60Main extends Game implements IEngine {
         }
 
         destructionQueue.clear();
+
+        // Create objects from the queue
+        for(GameObject o : creationQueue) {
+            gameObjects.add(o);
+        }
+
+        creationQueue.clear();
 	}
 
     @Override
@@ -160,6 +169,6 @@ public class Hill60Main extends Game implements IEngine {
 
     @Override
     public void createObject(GameObject object) {
-        gameObjects.add(object);
+        creationQueue.add(object);
     }
 }

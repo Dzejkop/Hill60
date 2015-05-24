@@ -34,6 +34,10 @@ public class SpriteRenderer extends AComponent {
         color = new Color(r, g, b, a);
     }
 
+   public void setAlpha(float a) {
+        color = new Color(color.r, color.g, color.b, a);
+    }
+
     public void setColor(float r, float g, float b) {
         setColor(r, g, b, 1);
     }

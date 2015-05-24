@@ -41,7 +41,6 @@ public class SoundSystem extends AEntitySystem {
             if(soundTrigger.triggered == true) {
                 if (soundTrigger.sound.isEmpty() == false) {
                     Music sound;
-                    Debug.log("Sound name: " + soundTrigger.sound);
                     sound = Hill60Main.getInstance().resourceManager.getSound(soundTrigger.sound);
 
                     if (sound.isPlaying() == false)

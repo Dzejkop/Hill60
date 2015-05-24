@@ -145,6 +145,7 @@ public class RenderingSystem extends AEntitySystem {
 		float y = worldPosition.y
 				- ((sprite.getHeight() - spriteRenderer.y) / 2);
 
+        sprite.setColor(spriteRenderer.color);
 		sprite.setPosition(x, y);
 		sprite.draw(batch);
 	}

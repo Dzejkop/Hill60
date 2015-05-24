@@ -36,7 +36,8 @@ public class SoundWave extends GameObject {
                 this.sprite = parentObject.getComponent(SpriteRenderer.class);
             }
 
-            int life = 100;
+            int maxLife = 25;
+            int life = maxLife;
             float currentScale = 1.0f;
             float scaleMultiplier = 1.1f;
 
@@ -48,6 +49,7 @@ public class SoundWave extends GameObject {
                     currentScale*=scaleMultiplier;
 
                     sprite.setScale(currentScale);
+                    sprite.setAlpha((float)life / (float)maxLife);
 
                 } else {
                     Hill60Main.getInstance().destroyObject(parentObject);

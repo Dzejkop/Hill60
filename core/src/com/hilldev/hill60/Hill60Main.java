@@ -23,7 +23,10 @@ public class Hill60Main extends Game implements IEngine {
 
     // Game objects
     List<GameObject> gameObjects;
-    
+
+    // Destruction queue
+    List<GameObject> destructionQueue;
+
     // Systems
     List<AEntitySystem> systems;
 
@@ -35,6 +38,7 @@ public class Hill60Main extends Game implements IEngine {
 
         systems = new ArrayList<>();
         gameObjects = new ArrayList<>();
+        destructionQueue = new ArrayList<>();
 
         resourceManager = new ResourceManager();
     }
@@ -57,6 +61,7 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new BoardSystem(this));
         systems.add(new CameraSystem(this));
         systems.add(new BombSystem(this));
+        systems.add(new ExplosionSystem(this));
         systems.add(new SoundSystem(this));
 
         //systems.add(new FramerateSystem(this));
@@ -72,6 +77,7 @@ public class Hill60Main extends Game implements IEngine {
                 if(r.nextInt()%100 > 30) {
                     gameObjects.add(new Floor(x, y));
                 } else {
+                    gameObjects.add(new Floor(x, y));
                     gameObjects.add(new Wall(x, y));
                 }
             }
@@ -98,7 +104,7 @@ public class Hill60Main extends Game implements IEngine {
 	public void render () {
 		update();
 
-        if(Gdx.input.isKeyPressed(Input.Keys.B)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             BoardPosition p = player.getComponent(BoardPosition.class);
 
             gameObjects.add(new Bomb(p.x, p.y));
@@ -131,16 +137,25 @@ public class Hill60Main extends Game implements IEngine {
 		for(AEntitySystem e : systems) {
 			e.update();
 		}
+
+        // Destroy objects from the queue
+        for(GameObject o : destructionQueue) {
+            gameObjects.remove(o);
+        }
+
+        destructionQueue.clear();
 	}
 
     @Override
     public void destroyObject(GameObject object) {
-        gameObjects.remove(object);
+        //gameObjects.remove(object);
+
+        destructionQueue.add(object);
     }
 
     @Override
     public void destroyObject(int id) {
-        gameObjects.remove(getObject(id));
+        destroyObject(getObject(id));
     }
 
     @Override

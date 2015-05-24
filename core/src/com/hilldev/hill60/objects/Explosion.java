@@ -18,10 +18,10 @@ public class Explosion extends GameObject {
         this.addComponent(new WorldPosition(0, 0));
         this.addComponent(new ExplosionComponent(power));
         this.addComponent(new SpriteRenderer(manager.getSprite("WhiteTile.png")));
-        this.addComponent(new Layer(5));
-        /*this.addComponent(new BehaviourComponent(new Behaviour() {
+        this.addComponent(new Layer(3));
+        this.addComponent(new BehaviourComponent(new Behaviour() {
 
-            public int life = 100;
+            public int life = 50;
 
             GameObject parentObject;
 
@@ -38,6 +38,6 @@ public class Explosion extends GameObject {
                     Hill60Main.getInstance().destroyObject(parentObject);
                 }
             }
-        }));*/
+        }));
     }
 }

@@ -21,6 +21,7 @@ public class BombSystem extends AEntitySystem {
 
     private static final int SIDE_NODE_SPAWN_COST = 2;
     private static final int SINGLE_TRANSITION_COST = 1;
+    private static final int DESTROY_WALL_BASE_COST = 0;
 
     public BombSystem(IEngine engine) {
         super(engine);
@@ -76,14 +77,12 @@ public class BombSystem extends AEntitySystem {
         int centerY = boardPosition.y;
         int basePotential = spawn.bombPower;
 
-        /*
-        // First spawn the 4 corners
+        /*// First spawn the 4 corners
         for(int x = -1; x <= 1; x+=2) {
             for(int y = -1; y <= 1; y+=2) {
-                if(canBeSpawned(centerX + x, centerY + y, basePotential-1)) spawnExplosion(centerX + x, centerY + y, basePotential - 1);
+                if(canBeSpawned(centerX + x, centerY + y, basePotential-1)) spawnExplosion(centerX + x, centerY + y, 0);
             }
-        }
-        */
+        }*/
 
         // Next spawn directional explosions on edges
         for(int x = -1; x <= 1; x+=2) {
@@ -113,26 +112,6 @@ public class BombSystem extends AEntitySystem {
         int explosionPotential = power;
 
         while(explosionPotential > 0) {
-            // Try spawning side nodes with reduced power
-            /**
-             * ENG
-             * I'm using a trick here, by switching y with x and x with y
-             * that way I'm essentially rotating everything by 90 degrees
-             *
-             * PL
-             * Taki trik, zamieniająć x z y oraz y z x
-             * właściwie wykonuje obrót o 90 stopni
-             */
-
-            // First one side
-            if(canBeSpawned(currentX + yDir, currentY + xDir, explosionPotential - SIDE_NODE_SPAWN_COST)) {
-                spawnExplosionNode(currentX + yDir, currentY + xDir, explosionPotential - SIDE_NODE_SPAWN_COST, yDir, xDir);
-            }
-            // And the other side
-            if(canBeSpawned(currentX - yDir, currentY - xDir, explosionPotential - SIDE_NODE_SPAWN_COST)) {
-                spawnExplosionNode(currentX - yDir, currentY - xDir, explosionPotential - SIDE_NODE_SPAWN_COST, -yDir, -xDir);
-            }
-
             // Now, go forward
             int res = getResistanceAt(currentX, currentY);
 
@@ -140,9 +119,33 @@ public class BombSystem extends AEntitySystem {
 
 
             if(explosionPotential > res) {
+
+                // Try spawning side nodes with reduced power
+                /**
+                 * ENG
+                 * I'm using a trick here, by switching y with x and x with y
+                 * that way I'm essentially rotating everything by 90 degrees
+                 *
+                 * PL
+                 * Taki trik, zamieniająć x z y oraz y z x
+                 * właściwie wykonuje obrót o 90 stopni
+                 */
+
+                // First one side
+                if(canBeSpawned(currentX + yDir, currentY + xDir, explosionPotential - SIDE_NODE_SPAWN_COST)) {
+                    spawnExplosionNode(currentX + yDir, currentY + xDir, explosionPotential - SIDE_NODE_SPAWN_COST, yDir, xDir);
+                }
+                // And the other side
+                if(canBeSpawned(currentX - yDir, currentY - xDir, explosionPotential - SIDE_NODE_SPAWN_COST)) {
+                    spawnExplosionNode(currentX - yDir, currentY - xDir, explosionPotential - SIDE_NODE_SPAWN_COST, -yDir, -xDir);
+                }
+
                 // Spawn the explosion, subtract from power
                 explosionPotential-=res;
                 explosionPotential-=SINGLE_TRANSITION_COST;
+
+                if(res != 0) explosionPotential-=DESTROY_WALL_BASE_COST;
+
                 spawnExplosion(currentX, currentY, explosionPotential);
 
                 // Move forward
@@ -157,7 +160,7 @@ public class BombSystem extends AEntitySystem {
     }
 
     private boolean canBeSpawned(int x, int y, int power) {
-        if(getResistanceAt(x, y) < power) return true;
+        if(getResistanceAt(x, y) <= power) return true;
         return false;
     }
 

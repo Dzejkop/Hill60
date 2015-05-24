@@ -45,7 +45,6 @@ public class RenderingSystem extends AEntitySystem {
 
 	// Renders all objects with required components
 	private void render() {
-
 		// Reorder the objects
 		List<GameObject> objList = engine.getObjectList();
 		List<GameObject> objListInOrder = new ArrayList<>();

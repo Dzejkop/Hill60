@@ -139,7 +139,14 @@ public class Hill60Main extends Game implements IEngine {
 
 		// Update entity systems
 		for(AEntitySystem e : systems) {
+
+            //long start = System.nanoTime();
+
 			e.update();
+
+            //long end = System.nanoTime();
+
+            //Debug.log(e.getClass().getSimpleName() + " execution time: " + (end-start) );
 		}
 
         // Destroy objects from the queue

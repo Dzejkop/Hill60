@@ -3,6 +3,7 @@ package com.hilldev.hill60.systems;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.components.WorldPosition;
@@ -69,7 +70,7 @@ public class BoardSystem extends AEntitySystem {
         BoardPosition boardPosition;
         
         for(GameObject o : engine.getObjectList()) {
-            if(meetsConditions(o) && o.tag == "Wall") {
+            if(meetsConditions(o) && o.tag.equals("Wall")) {
                 boardPosition = o.getComponent(BoardPosition.class);
                 if(boardPosition.x == x && boardPosition.y == y) return (Wall)o;
             }

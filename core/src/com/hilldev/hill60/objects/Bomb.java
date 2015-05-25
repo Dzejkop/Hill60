@@ -21,6 +21,7 @@ public class Bomb extends GameObject {
         this.addComponent(new SpriteRenderer(manager.getSprite("Player.png"), 0, 0, 4));
         this.addComponent(new WorldPosition(0, 0));
         this.addComponent(new BoardPosition(x, y));
-        this.addComponent(new ExplosionSpawn(1, 5));
+        this.addComponent(new ExplosionSpawn(5, 5));
+        this.addComponent(new Visibility());
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 public class ResourceManager implements Disposable {
 
     public static final String ASSETS_PATH = "assets/";
-    public static final String[] ASSETS_TO_LOAD = {"Character.png", "Player.png", "Floor.png", "Wall.png", "WhiteTile.png", "Ring.png"};
+    public static final String[] ASSETS_TO_LOAD = {"Character.png", "Player.png", "Floor.png", "Wall.png", "WhiteTile.png", "Ring.png", "X.png"};
     public static final String[] SOUNDS_TO_LOAD = {"footstepBrick.ogg", "footstepsDirt.ogg"};
     
     Map<String, Texture> loadedTextures;

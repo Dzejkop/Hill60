@@ -17,13 +17,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.Hill60Main;
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.ResourceManager;
+import com.hilldev.hill60.components.*;
 import com.hilldev.hill60.objects.GameObject;
-import com.hilldev.hill60.components.SoundTrigger;
-import com.hilldev.hill60.components.WorldPosition;
-import com.hilldev.hill60.components.BoardPosition;
-import com.hilldev.hill60.components.Layer;
-import com.hilldev.hill60.components.Collider;
-import com.hilldev.hill60.components.SpriteRenderer;
 
 public class RenderingSystem extends AEntitySystem {
 
@@ -35,6 +31,9 @@ public class RenderingSystem extends AEntitySystem {
 	SpriteBatch batch;
 	ShapeRenderer shape;
 
+    // Shadows
+    Sprite shadow;
+
 	public RenderingSystem(IEngine engine) {
 		super(engine);
 
@@ -45,6 +44,15 @@ public class RenderingSystem extends AEntitySystem {
 		batch = new SpriteBatch();
 		shape = new ShapeRenderer();
 	}
+
+    @Override
+    public void start() {
+        super.start();
+
+        ResourceManager manager = Hill60Main.getInstance().resourceManager;
+
+        shadow = manager.getSprite("X.png");
+    }
 
     private void insertToList(GameObject obj, List<List<GameObject>> list) {
 
@@ -183,6 +191,11 @@ public class RenderingSystem extends AEntitySystem {
 	}
 
 	private void drawObject(GameObject obj) {
+
+        if(obj.hasComponent(Visibility.class) && obj.getComponent(Visibility.class).isVisible == Visibility.Type.Invisible) {
+            return;
+        }
+
 		SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
 		Sprite sprite = spriteRenderer.sprite;		
 		WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
@@ -196,6 +209,11 @@ public class RenderingSystem extends AEntitySystem {
         sprite.setColor(spriteRenderer.color);
 		sprite.setPosition(x, y);
 		sprite.draw(batch);
+
+        if(obj.hasComponent(Visibility.class) && obj.getComponent(Visibility.class).isVisible == Visibility.Type.HalfVisible) {
+            shadow.setPosition(x, y);
+            shadow.draw(batch);
+        }
 	}
 
 	private void drawColliderShape(GameObject obj) {

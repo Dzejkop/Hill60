@@ -3,6 +3,7 @@ package com.hilldev.hill60.systems;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -45,35 +46,55 @@ public class RenderingSystem extends AEntitySystem {
 		shape = new ShapeRenderer();
 	}
 
+    private void insertToList(GameObject obj, List<List<GameObject>> list) {
+
+        BoardPosition bPos = obj.getComponent(BoardPosition.class);
+        SpriteRenderer sp = obj.getComponent(SpriteRenderer.class);
+        int layer = sp.layer;
+        int yPos = bPos.y;
+
+        boolean added = false;
+
+        List<GameObject> layerList = list.get(layer);
+
+        for(int i = 0 ; i < layerList.size(); i++) {
+            if(yPos >= layerList.get(i).getComponent(BoardPosition.class).y) {
+
+                layerList.add(i, obj);
+                added = true;
+                break;
+            }
+        }
+
+        if(added == false) {
+            layerList.add(obj);
+        }
+    }
+
 	// Renders all objects with required components
 	private void render() {
 		// Reorder the objects
 		List<GameObject> objList = engine.getObjectList();
-		List<GameObject> objListInOrder = new ArrayList<>();
+		List<List<GameObject>> objectsToRender = new ArrayList<>();
 
-		int boardHeight = 100;
-		int lastLayer = 5;
+		int lastLayer = 6;
+
+        for(int i = 0 ; i < lastLayer; i++) {
+            objectsToRender.add(new ArrayList<GameObject>());
+        }
 
         Debug.log("");
 
         long a = System.nanoTime();
 
-		// For each rendering layer
-		for (int j = 0; j <= lastLayer; j++) {
-			// For each y position on board
-			for (int i = boardHeight; i >= 0; i--) {
+        // Render an object...
+        for (GameObject o : objList) {
 
-				// Render an object...
-				for (GameObject o : objList) {
-
-					// If the conditions are met
-					if (meetsConditions(o)
-							&& o.getComponent(BoardPosition.class).y == i
-                            && o.getComponent(SpriteRenderer.class).layer == j)
-						objListInOrder.add(o);
-				}
-			}
-		}
+            // If the conditions are met
+            if (meetsConditions(o)) {
+                insertToList(o, objectsToRender);
+            }
+        }
 
         long b = System.nanoTime();
 
@@ -94,8 +115,10 @@ public class RenderingSystem extends AEntitySystem {
 		batch.setProjectionMatrix(dynamicCamera.combined);
 		batch.begin();
 
-		for (GameObject obj : objListInOrder) {
-			drawObject(obj);
+		for (List<GameObject> l : objectsToRender) {
+			for(GameObject o : l) {
+                drawObject(o);
+            }
 		}
 
 		batch.end();
@@ -111,11 +134,13 @@ public class RenderingSystem extends AEntitySystem {
 			shape.begin(ShapeType.Line);
 			shape.setColor(Color.GREEN);
 
-			for (GameObject obj : objListInOrder) {
-				if (obj.hasComponent(Collider.class)) {
-					drawColliderShape(obj);
-				}
-			}
+            for(List<GameObject> l : objectsToRender) {
+                for (GameObject obj : l) {
+                    if (obj.hasComponent(Collider.class)) {
+                        drawColliderShape(obj);
+                    }
+                }
+            }
 
 			shape.end();
 

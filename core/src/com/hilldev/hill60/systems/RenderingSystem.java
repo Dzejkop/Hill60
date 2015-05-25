@@ -50,8 +50,20 @@ public class RenderingSystem extends AEntitySystem {
 
         BoardPosition bPos = obj.getComponent(BoardPosition.class);
         SpriteRenderer sp = obj.getComponent(SpriteRenderer.class);
+        WorldPosition wPos = obj.getComponent(WorldPosition.class);
         int layer = sp.layer;
         int yPos = bPos.y;
+
+
+        float paddingMultiplier = 1.2f;
+        float w = dynamicCamera.viewportWidth * dynamicCamera.zoom * paddingMultiplier;
+        float h = dynamicCamera.viewportHeight * dynamicCamera.zoom * paddingMultiplier;
+        float minX = dynamicCamera.position.x - (w/2);
+        float minY = dynamicCamera.position.y - (h/2);
+        float maxX = minX + w;
+        float maxY = minY + h;
+
+        if(wPos.x < minX || wPos.x > maxX || wPos.y < minY || wPos.y > maxY) return;
 
         boolean added = false;
 
@@ -83,8 +95,6 @@ public class RenderingSystem extends AEntitySystem {
             objectsToRender.add(new ArrayList<GameObject>());
         }
 
-        Debug.log("");
-
         long a = System.nanoTime();
 
         // Render an object...
@@ -97,8 +107,7 @@ public class RenderingSystem extends AEntitySystem {
         }
 
         long b = System.nanoTime();
-
-        Debug.log("Sorting time: " + (b-a));
+        long sortingTime = b-a;
 
 		// Prepare the camera
 		dynamicCamera.update();
@@ -106,8 +115,6 @@ public class RenderingSystem extends AEntitySystem {
 
 		// Clear the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        Debug.log("");
 
         a = System.nanoTime();
 
@@ -124,8 +131,7 @@ public class RenderingSystem extends AEntitySystem {
 		batch.end();
 
         b = System.nanoTime();
-
-        Debug.log("Rendering time: " + (b-a));
+        long renderingTime = b-a;
 
 		// While debugging
 		if (inDebugMode) {
@@ -152,6 +158,8 @@ public class RenderingSystem extends AEntitySystem {
 			BoardPosition pbPos = Hill60Main.getInstance().player
 					.getComponent(BoardPosition.class);
 
+            debuggingInfo.add("Sorting time: " + sortingTime);
+            debuggingInfo.add("Rendering time: " + renderingTime);
 			debuggingInfo.add("Player world position: x: " + pPos.x + " y: "
 					+ pPos.y);
 			debuggingInfo.add("Player board position: x: " + pbPos.x + " y: "

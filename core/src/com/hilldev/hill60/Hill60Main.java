@@ -136,17 +136,9 @@ public class Hill60Main extends Game implements IEngine {
 	@Override
 	public void update() {
 
-        Debug.log("");
 		// Update entity systems
 		for(AEntitySystem e : systems) {
-
-            long a = System.nanoTime();
-
 			e.update();
-
-            long b = System.nanoTime();
-
-            Debug.log("System: " + e.getClass().getSimpleName() +  " : " + (b-a));
 		}
 
         // Destroy objects from the queue

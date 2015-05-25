@@ -19,10 +19,9 @@ public class Player extends GameObject {
         // Get the resource manager
         ResourceManager manager = main.resourceManager;
 
-        this.addComponent(new SpriteRenderer(manager.getSprite("Character.png")));
+        this.addComponent(new SpriteRenderer(manager.getSprite("Character.png"), 0, 0, 2));
         this.addComponent(new WorldPosition(0, 20, false));					// The continuous position in game world
         this.addComponent(new BoardPosition(0, 0));							// Position on the board
-        this.addComponent(new Layer(2));									// Rendering layer (0 - floor, 1 - bombs, 2 - player and bots, 3 - walls)
         this.addComponent(new InputResponder());							// Responds to input from InputSystem
         this.addComponent(new BehaviourComponent(new SimpleScript()));		// Simple movmeent script
         this.addComponent(new CameraTag());									// Camera should follow this object

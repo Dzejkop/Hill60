@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.Hill60Main;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.objects.GameObject;
@@ -53,6 +54,10 @@ public class RenderingSystem extends AEntitySystem {
 		int boardHeight = 100;
 		int lastLayer = 5;
 
+        Debug.log("");
+
+        long a = System.nanoTime();
+
 		// For each rendering layer
 		for (int j = 0; j <= lastLayer; j++) {
 			// For each y position on board
@@ -70,12 +75,20 @@ public class RenderingSystem extends AEntitySystem {
 			}
 		}
 
+        long b = System.nanoTime();
+
+        Debug.log("Sorting time: " + (b-a));
+
 		// Prepare the camera
 		dynamicCamera.update();
 		staticCamera.update();
 
 		// Clear the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        Debug.log("");
+
+        a = System.nanoTime();
 
 		// Render the objects sprites
 		batch.setProjectionMatrix(dynamicCamera.combined);
@@ -86,6 +99,10 @@ public class RenderingSystem extends AEntitySystem {
 		}
 
 		batch.end();
+
+        b = System.nanoTime();
+
+        Debug.log("Rendering time: " + (b-a));
 
 		// While debugging
 		if (inDebugMode) {

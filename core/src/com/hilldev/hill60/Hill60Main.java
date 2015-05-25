@@ -74,8 +74,8 @@ public class Hill60Main extends Game implements IEngine {
         player = new Player();
 		gameObjects.add(player);
         Random r = new Random();
-        for(int x = 0; x < 10; x++) {
-            for(int y = 0; y < 10; y++) {
+        for(int x = 0; x < 50; x++) {
+            for(int y = 0; y < 50; y++) {
                 if(r.nextInt()%100 > 30) {
                     gameObjects.add(new Floor(x, y));
                 } else {
@@ -135,9 +135,18 @@ public class Hill60Main extends Game implements IEngine {
 	
 	@Override
 	public void update() {
+
+        Debug.log("");
 		// Update entity systems
 		for(AEntitySystem e : systems) {
+
+            long a = System.nanoTime();
+
 			e.update();
+
+            long b = System.nanoTime();
+
+            Debug.log("System: " + e.getClass().getSimpleName() +  " : " + (b-a));
 		}
 
         // Destroy objects from the queue

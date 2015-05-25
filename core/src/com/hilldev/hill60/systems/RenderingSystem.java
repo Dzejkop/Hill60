@@ -190,10 +190,8 @@ public class RenderingSystem extends AEntitySystem {
         // Scaling first so that the middle stays in the middle
         sprite.setScale(spriteRenderer.horizontalScale, spriteRenderer.verticalScale);
 
-		float x = worldPosition.x
-				- ((sprite.getWidth() - spriteRenderer.x) / 2);
-		float y = worldPosition.y
-				- ((sprite.getHeight() - spriteRenderer.y) / 2);
+		float x = worldPosition.x - (sprite.getWidth()  / 2) + spriteRenderer.x;
+		float y = worldPosition.y - (sprite.getHeight() / 2) + spriteRenderer.y;
 
         sprite.setColor(spriteRenderer.color);
 		sprite.setPosition(x, y);

@@ -38,7 +38,7 @@ public class CameraSystem extends AEntitySystem {
     @Override
     protected void processObject(GameObject obj) {
 
-        WorldPosition w = obj.getComponent(WorldPosition.class);
+        WorldPosition wPos = obj.getComponent(WorldPosition.class);
 
         // DEBUG AND TESTING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if(Gdx.input.isKeyPressed(Input.Keys.X)) {
@@ -48,6 +48,23 @@ public class CameraSystem extends AEntitySystem {
             renderingSystem.dynamicCamera.zoom += 0.01f;
         }
 
-        renderingSystem.dynamicCamera.position.set(w.x, w.y, 0);
+        float w = renderingSystem.dynamicCamera.viewportWidth*renderingSystem.dynamicCamera.zoom ;
+        float h = renderingSystem.dynamicCamera.viewportHeight*renderingSystem.dynamicCamera.zoom ;
+
+        float worldWidth = 50*100;
+        float worldHeight = 50 * 100;
+
+        float x = wPos.x;
+        float y = wPos.y;
+
+        float p = 100;
+
+        if(x - (w-p)/2 < 0) x = (w-p)/2;
+        if(x + (w+p)/2 > worldWidth) x = worldWidth - (w+p)/2;
+
+        if(y - (h-p)/2 < 0) y = (h-p)/2;
+        if(y + (h+p)/2 > worldHeight) y = worldHeight - (h+p)/2;
+
+        renderingSystem.dynamicCamera.position.set(x, y, 0);
     }
 }

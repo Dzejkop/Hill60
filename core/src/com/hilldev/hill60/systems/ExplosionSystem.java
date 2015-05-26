@@ -36,6 +36,7 @@ public class ExplosionSystem extends AEntitySystem {
 
         List<GameObject> objectList = boardSystem.getObjectsAt(bPos.x, bPos.y);
 
+        if(objectList == null) return;
         for(GameObject o : objectList) {
             if(obj != o && o.hasComponent(ExplosionResistance.class)) engine.destroyObject(o);
         }

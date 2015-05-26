@@ -8,6 +8,7 @@ public class BoardPosition extends AComponent {
         this.y = y;
     }
 
+    public boolean placedOnBoard = false;
     public int x;
 	public int y;
 }

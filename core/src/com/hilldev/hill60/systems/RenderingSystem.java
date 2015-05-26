@@ -49,7 +49,7 @@ public class RenderingSystem extends AEntitySystem {
     public void start() {
         super.start();
 
-        ResourceManager manager = Hill60Main.getInstance().resourceManager;
+        ResourceManager manager = ((Hill60Main)engine).resourceManager;
 
         shadow = manager.getSprite("X.png");
     }
@@ -161,9 +161,9 @@ public class RenderingSystem extends AEntitySystem {
 			// Display the debugging box
 			List<String> debuggingInfo = new ArrayList<>();
 
-			WorldPosition pPos = Hill60Main.getInstance().player
+			WorldPosition pPos = ((Hill60Main)engine).player
 					.getComponent(WorldPosition.class);
-			BoardPosition pbPos = Hill60Main.getInstance().player
+			BoardPosition pbPos = ((Hill60Main)engine).player
 					.getComponent(BoardPosition.class);
 
             debuggingInfo.add("Sorting time: " + sortingTime);

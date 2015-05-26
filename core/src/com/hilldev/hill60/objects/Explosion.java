@@ -1,16 +1,17 @@
 package com.hilldev.hill60.objects;
 
 import com.hilldev.hill60.Hill60Main;
+import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
 
 public class Explosion extends GameObject {
-    public Explosion(int x, int y, int power) {
-        super();
+    public Explosion(IEngine engine, int x, int y, int power) {
+        super(engine);
 
         this.tag = "Explosion";
 
-        Hill60Main main = Hill60Main.getInstance();
+        Hill60Main main = ((Hill60Main)engine);
 
         ResourceManager manager = main.resourceManager;
 
@@ -35,7 +36,7 @@ public class Explosion extends GameObject {
                 life--;
 
                 if(life <= 0) {
-                    Hill60Main.getInstance().destroyObject(parentObject);
+                    parentObject.engine.destroyObject(parentObject);
                 }
             }
         }));

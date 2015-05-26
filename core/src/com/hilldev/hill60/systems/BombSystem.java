@@ -58,7 +58,7 @@ public class BombSystem extends AEntitySystem {
             explode(obj);
 
             // Destroy the bomb
-            Hill60Main.getInstance().destroyObject(obj);
+            engine.destroyObject(obj);
         }
 
     }
@@ -100,9 +100,9 @@ public class BombSystem extends AEntitySystem {
     }
 
     private void spawnExplosion(int x, int y, int power) {
-        Hill60Main main = Hill60Main.getInstance();
+        Hill60Main main = ((Hill60Main)engine);
 
-        main.createObject(new Explosion(x, y ,power));
+        main.createObject(new Explosion(engine, x, y ,power));
     }
 
     /*

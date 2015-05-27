@@ -6,14 +6,7 @@ public class Visibility extends AComponent {
         this.isHigh = isHigh;
     }*/
 
-    public static enum Type {
-        Visible,
-        HalfVisible,
-        Invisible
-    }
-
-    public boolean isHigh = false;
-
-    public Type isVisible = Type.Invisible;
+    // How visible is this object, <0, 1>
+    public float visible = 0.0f;
 
 }

@@ -166,8 +166,6 @@ public class Hill60Main extends Game implements IEngine {
 
     @Override
     public void destroyObject(GameObject object) {
-        //gameObjects.remove(object);
-
         destructionQueue.add(object);
     }
 

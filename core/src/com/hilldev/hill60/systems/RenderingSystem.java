@@ -192,9 +192,9 @@ public class RenderingSystem extends AEntitySystem {
 
 	private void drawObject(GameObject obj) {
 
-        if(obj.hasComponent(Visibility.class) && obj.getComponent(Visibility.class).isVisible == Visibility.Type.Invisible) {
+        /*if(obj.hasComponent(Visibility.class) && obj.getComponent(Visibility.class).isVisible == Visibility.Type.Invisible) {
             return;
-        }
+        }*/
 
 		SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
 		Sprite sprite = spriteRenderer.sprite;		
@@ -210,10 +210,10 @@ public class RenderingSystem extends AEntitySystem {
 		sprite.setPosition(x, y);
 		sprite.draw(batch);
 
-        if(obj.hasComponent(Visibility.class) && obj.getComponent(Visibility.class).isVisible == Visibility.Type.HalfVisible) {
+        /*if(obj.hasComponent(Visibility.class) && obj.getComponent(Visibility.class).isVisible == Visibility.Type.HalfVisible) {
             shadow.setPosition(x, y);
             shadow.draw(batch);
-        }
+        }*/
 	}
 
 	private void drawColliderShape(GameObject obj) {

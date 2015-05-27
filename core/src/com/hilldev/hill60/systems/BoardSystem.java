@@ -42,6 +42,12 @@ public class BoardSystem extends AEntitySystem {
         for(GameObject o : engine.getObjectList()) {
             if(meetsConditions(o)) processObject(o);
         }
+
+        for(int x = 0 ; x < board.length; x++) {
+            for(int y = 0; y < board[0].length; y++) {
+
+            }
+        }
     }
 
     public void create(int w, int h) {
@@ -109,16 +115,6 @@ public class BoardSystem extends AEntitySystem {
     }
 
     public List<GameObject> getObjectsAt(int x, int y) {
-
-        /*List<GameObject> objects = new ArrayList<>();
-
-        BoardPosition boardPosition;
-        for(GameObject o : engine.getObjectList()) {
-            if(meetsConditions(o)) {
-                boardPosition = o.getComponent(BoardPosition.class);
-                if(boardPosition.x == x && boardPosition.y == y) objects.add(o);
-            }
-        }*/
 
         if(isOnBoard(x, y) == false) return null;
 

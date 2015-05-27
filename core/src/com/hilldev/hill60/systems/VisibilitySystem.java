@@ -1,8 +1,11 @@
 package com.hilldev.hill60.systems;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BoardPosition;
+import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.components.Viewer;
 import com.hilldev.hill60.components.Visibility;
 import com.hilldev.hill60.objects.GameObject;
@@ -15,6 +18,8 @@ public class VisibilitySystem extends AEntitySystem {
 
     GameObject viewer = null;
 
+    boolean DEBUG_MODE = false;
+
     @Override
     public void update() {
 
@@ -26,6 +31,8 @@ public class VisibilitySystem extends AEntitySystem {
                 }
             }
         }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.V)) DEBUG_MODE = !DEBUG_MODE;
 
         for(GameObject o : engine.getObjectList()) {
             if(meetsConditions(o)) processObject(o);
@@ -51,18 +58,23 @@ public class VisibilitySystem extends AEntitySystem {
         int yDist = Math.abs(viewerPos.y - objectPos.y);
         int taxiDist = xDist + yDist;
 
-        Visibility.Type isVisible = Visibility.Type.Invisible;
+        //Visibility.Type isVisible = Visibility.Type.Invisible;
+        v.visible*=0.9f;
 
         // If neighbouring player
         if(taxiDist == 0 || taxiDist == 1 || (taxiDist == 2 && (xDist == 1 && yDist == 1))) {
-            isVisible = Visibility.Type.Visible;
+            v.visible=1;
         }
         // Is away from the viewer but in a straight line
         else if((xDist != 0 && yDist == 0) || (yDist != 0 && xDist == 0)) {
-            if(isBlockedByWall(board, objectPos, viewerPos) == false) isVisible = Visibility.Type.Visible;
+            if(isBlockedByWall(board, objectPos, viewerPos) == false) v.visible=1;
         }
 
-        v.isVisible = isVisible;
+        //v.visible=1;
+
+        if(DEBUG_MODE) v.visible = 1;
+
+        obj.getComponent(SpriteRenderer.class).setAlpha(v.visible);
     }
 
     private boolean isBlockedByWall(BoardSystem board, BoardPosition objectPos, BoardPosition viewerPos) {

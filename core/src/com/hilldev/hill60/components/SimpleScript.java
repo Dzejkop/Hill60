@@ -26,7 +26,7 @@ public class SimpleScript implements Behaviour {
         v.x = 0;
         v.y = 0;
 
-        float veloc = 20;
+        float veloc = 5;
 
         float xv = 0;
         float yv = 0;

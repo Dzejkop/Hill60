@@ -3,7 +3,6 @@ package com.hilldev.hill60.systems;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -14,8 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.hilldev.hill60.Debug;
-import com.hilldev.hill60.Hill60Main;
+import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
@@ -49,7 +47,7 @@ public class RenderingSystem extends AEntitySystem {
     public void start() {
         super.start();
 
-        ResourceManager manager = ((Hill60Main)engine).resourceManager;
+        ResourceManager manager = ((GameScreen)engine).resourceManager;
 
         shadow = manager.getSprite("X.png");
     }
@@ -161,9 +159,9 @@ public class RenderingSystem extends AEntitySystem {
 			// Display the debugging box
 			List<String> debuggingInfo = new ArrayList<>();
 
-			WorldPosition pPos = ((Hill60Main)engine).player
+			WorldPosition pPos = ((GameScreen)engine).player
 					.getComponent(WorldPosition.class);
-			BoardPosition pbPos = ((Hill60Main)engine).player
+			BoardPosition pbPos = ((GameScreen)engine).player
 					.getComponent(BoardPosition.class);
 
             debuggingInfo.add("Sorting time: " + sortingTime);

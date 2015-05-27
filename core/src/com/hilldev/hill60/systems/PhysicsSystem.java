@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.objects.GameObject;
-import com.hilldev.hill60.components.SoundTrigger;
 import com.hilldev.hill60.components.WorldPosition;
 import com.hilldev.hill60.components.Collider;
 import com.hilldev.hill60.components.Velocity;
@@ -185,5 +184,6 @@ public class PhysicsSystem extends AEntitySystem {
 	}
 
 	@Override
-	protected void processObject(GameObject obj) {}
+	protected void processObject(GameObject obj) {
+	}
 }

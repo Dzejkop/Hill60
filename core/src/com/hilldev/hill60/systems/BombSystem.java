@@ -1,18 +1,16 @@
 package com.hilldev.hill60.systems;
 
-import com.hilldev.hill60.Debug;
-import com.hilldev.hill60.Hill60Main;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.components.ExplosionResistance;
 import com.hilldev.hill60.components.ExplosionSpawn;
-import com.hilldev.hill60.objects.Bomb;
 import com.hilldev.hill60.objects.Explosion;
 import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.objects.Wall;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * Spawns explosions, executes countdown on bombs and such
@@ -39,8 +37,6 @@ public class BombSystem extends AEntitySystem {
         for(GameObject o : toProcess) {
             processObject(o);
         }
-
-
     }
 
     @Override
@@ -60,7 +56,6 @@ public class BombSystem extends AEntitySystem {
             // Destroy the bomb
             engine.destroyObject(obj);
         }
-
     }
 
     private void explode(GameObject center) {
@@ -100,7 +95,7 @@ public class BombSystem extends AEntitySystem {
     }
 
     private void spawnExplosion(int x, int y, int power) {
-        Hill60Main main = ((Hill60Main)engine);
+        GameScreen main = ((GameScreen)engine);
 
         main.createObject(new Explosion(engine, x, y ,power));
     }
@@ -124,7 +119,7 @@ public class BombSystem extends AEntitySystem {
             if(explosionPotential > res) {
 
                 // Try spawning side nodes with reduced power
-                /**
+                /*
                  * ENG
                  * I'm using a trick here, by switching y with x and x with y
                  * that way I'm essentially rotating everything by 90 degrees

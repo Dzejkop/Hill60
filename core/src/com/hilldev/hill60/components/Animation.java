@@ -15,21 +15,31 @@ public class Animation extends AComponent {
     }
 
     List<String> spritesInAnimation;
-    int frameCount = 20;
+
+    int interval = 0;
     int currentFrame = 0;
-    public int interval = 0;
+
+    public int stepsPerFrame = 20;
+    public boolean isActive = true;
+    public boolean isRepeating = true;
 
     public void affect(SpriteRenderer renderer) {
         renderer.setSprite(spritesInAnimation.get(currentFrame));
     }
 
     public void step() {
-        interval++;
+        if(isActive) {
+            interval++;
 
-        if(interval >= frameCount) {
-            interval = 0;
-            currentFrame++;
-            if(currentFrame >= spritesInAnimation.size()) currentFrame = 0;
+            if (interval >= stepsPerFrame) {
+                interval = 0;
+                currentFrame++;
+                if (currentFrame >= spritesInAnimation.size()) {
+                    currentFrame = 0;
+
+                    if (isRepeating == false) isActive = false;
+                }
+            }
         }
     }
 

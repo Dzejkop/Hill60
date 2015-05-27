@@ -64,9 +64,6 @@ public class BombSystem extends AEntitySystem {
         ExplosionSpawn spawn = center.getComponent(ExplosionSpawn.class);
         BoardPosition boardPosition = center.getComponent(BoardPosition.class);
 
-        // Connect to the board system
-        BoardSystem boardSystem = engine.getSystem(BoardSystem.class);
-
         // Ease of access
         int centerX = boardPosition.x;
         int centerY = boardPosition.y;
@@ -91,7 +88,6 @@ public class BombSystem extends AEntitySystem {
         }
 
         // And that's about it
-
     }
 
     private void spawnExplosion(int x, int y, int power) {

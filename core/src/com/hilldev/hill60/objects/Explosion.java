@@ -1,6 +1,5 @@
 package com.hilldev.hill60.objects;
 
-import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
@@ -10,10 +9,8 @@ public class Explosion extends GameObject {
         super(engine);
 
         this.tag = "Explosion";
-
-        GameScreen main = ((GameScreen)engine);
-
-        ResourceManager manager = main.resourceManager;
+        
+        ResourceManager manager = engine.getResourceManager();
 
         this.addComponent(new BoardPosition(x, y));
         this.addComponent(new WorldPosition(0, 0));

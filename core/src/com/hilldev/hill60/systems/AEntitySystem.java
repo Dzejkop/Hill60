@@ -11,7 +11,8 @@ public abstract class AEntitySystem {
 		this.engine = engine;
 	}
 
-    public void start() {}
+    public void start() {
+    }
 
 	public abstract void update();
     protected abstract boolean meetsConditions(GameObject obj);

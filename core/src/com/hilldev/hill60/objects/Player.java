@@ -1,6 +1,5 @@
 package com.hilldev.hill60.objects;
 
-import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
@@ -12,13 +11,8 @@ public class Player extends GameObject {
         // Set a tag
         this.tag = "Player";
 
-        // Self initialize things
-
-        // Connect to main
-        GameScreen main = ((GameScreen)engine);
-
         // Get the resource manager
-        ResourceManager manager = main.resourceManager;
+        ResourceManager manager = engine.getResourceManager();
 
         this.addComponent(new SpriteRenderer(manager.getSprite("Character.png"), 0, 0, 2));
         this.addComponent(new WorldPosition(0, 20, false));					// The continuous position in game world

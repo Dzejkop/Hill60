@@ -100,6 +100,11 @@ public class GameScreen implements Screen, IEngine {
     }
     
     @Override
+    public ResourceManager getResourceManager() {
+		return resourceManager;
+    }
+    
+    @Override
 	public void render(float delta) {
 		update();
 

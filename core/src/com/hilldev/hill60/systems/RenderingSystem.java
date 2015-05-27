@@ -47,7 +47,8 @@ public class RenderingSystem extends AEntitySystem {
     public void start() {
         super.start();
 
-        ResourceManager manager = ((GameScreen)engine).resourceManager;
+        // Get the resource manager
+        ResourceManager manager = engine.getResourceManager();
 
         shadow = manager.getSprite("X.png");
     }

@@ -3,7 +3,6 @@ package com.hilldev.hill60.systems;
 import java.util.List;
 
 import com.badlogic.gdx.audio.Music;
-import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.SoundTrigger;
 import com.hilldev.hill60.components.WorldPosition;
@@ -40,7 +39,7 @@ public class SoundSystem extends AEntitySystem {
             if(soundTrigger.triggered == true) {
                 if (soundTrigger.sound.isEmpty() == false) {
                     Music sound;
-                    sound = ((GameScreen)engine).resourceManager.getSound(soundTrigger.sound);
+                    sound = engine.getResourceManager().getSound(soundTrigger.sound);
 
                     if (sound.isPlaying() == false)
                         sound.play();

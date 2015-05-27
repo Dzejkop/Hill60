@@ -16,6 +16,7 @@ public interface IEngine {
     public void destroyObject(int id);              // Same only using id
 
     public <T extends AEntitySystem> T getSystem(Class<T> type);
+    public ResourceManager getResourceManager();
 
 	// [To be implemented]
 	//public void sendMessage(int receiverId, String message, int senderId);

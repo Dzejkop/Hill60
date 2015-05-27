@@ -21,7 +21,6 @@ public class SimpleScript implements Behaviour {
     public void run() {
         Velocity v = parent.getComponent(Velocity.class);
         InputResponder i = parent.getComponent(InputResponder.class);
-        //WorldPosition pos = parent.getComponent(WorldPosition.class);
         SoundTrigger s = parent.getComponent(SoundTrigger.class);
         v.x = 0;
         v.y = 0;
@@ -31,18 +30,10 @@ public class SimpleScript implements Behaviour {
         float xv = 0;
         float yv = 0;
 
-        if(i.upArrow){
-            yv = veloc;
-        }
-        if(i.downArrow){
-            yv = -veloc;
-        }
-        if(i.leftArrow){
-            xv = -veloc;
-        }
-        if(i.rightArrow){
-            xv = veloc;
-        }
+        if(i.upArrow) yv = veloc;
+        if(i.downArrow) yv = -veloc;
+        if(i.leftArrow) xv = -veloc;
+        if(i.rightArrow) xv = veloc;
 
         if(Math.abs(xv) + Math.abs(yv) > 0) {
             sinceLastStep--;

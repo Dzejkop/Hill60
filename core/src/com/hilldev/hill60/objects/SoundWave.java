@@ -1,6 +1,5 @@
 package com.hilldev.hill60.objects;
 
-import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
@@ -13,12 +12,12 @@ public class SoundWave extends GameObject {
         // Set tag
         this.tag = "Sound";
 
-        // Connect
-        ResourceManager resourceManager = ((GameScreen)engine).resourceManager;
+        // Get the resource manager
+        ResourceManager manager = engine.getResourceManager();
 
         // Create components
         this.addComponent(new WorldPosition(x, y, false)); // Only world pos
-        this.addComponent(new SpriteRenderer(resourceManager.getSprite("Ring.png"), 0, 0, 4));
+        this.addComponent(new SpriteRenderer(manager.getSprite("Ring.png"), 0, 0, 4));
         this.addComponent(new BoardPosition(0, 0));
 
         // Add a custom behaviour script

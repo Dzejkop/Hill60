@@ -41,11 +41,13 @@ public class MenuScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		
-		if(Gdx.input.isKeyPressed(Keys.DOWN) && lastKey != 'D') {
+		if(Gdx.input.isKeyJustPressed(Keys.DOWN) && lastKey != 'D') {
+			if (selection<menuEntries.size()-1)
 			selection++;
 			lastKey = 'D';
 		}
-		else if(Gdx.input.isKeyPressed(Keys.UP) && lastKey != 'U') {
+		else if(Gdx.input.isKeyJustPressed(Keys.UP) && lastKey != 'U') {
+			if (selection>0)
 			selection--;
 			lastKey = 'U';
 		}
@@ -58,7 +60,6 @@ public class MenuScreen implements Screen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		
 		int i = 0;
 		for (String menuEntry : menuEntries) {
 			if(i == selection) font.setColor(Color.RED);

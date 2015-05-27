@@ -15,7 +15,7 @@ public class Animation extends AComponent {
     }
 
     List<String> spritesInAnimation;
-    int frameCount = 50;
+    int frameCount = 20;
     int currentFrame = 0;
     public int interval = 0;
 

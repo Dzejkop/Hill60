@@ -1,19 +1,20 @@
 package com.hilldev.hill60.objects;
 
 import com.hilldev.hill60.Hill60Main;
+import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
 
 public class SoundWave extends GameObject {
 
-    public SoundWave(float x, float y) {
-        super();
+    public SoundWave(IEngine engine, float x, float y) {
+        super(engine);
 
         // Set tag
         this.tag = "Sound";
 
         // Connect
-        ResourceManager resourceManager = Hill60Main.getInstance().resourceManager;
+        ResourceManager resourceManager = ((Hill60Main)engine).resourceManager;
 
         // Create components
         this.addComponent(new WorldPosition(x, y, false)); // Only world pos
@@ -52,7 +53,7 @@ public class SoundWave extends GameObject {
                     sprite.setAlpha((float)life / (float)maxLife);
 
                 } else {
-                    Hill60Main.getInstance().destroyObject(parentObject);
+                    parentObject.engine.destroyObject(parentObject);
                 }
             }
         }));

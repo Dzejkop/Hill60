@@ -3,6 +3,7 @@ package com.hilldev.hill60.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.AComponent;
 
 /*
@@ -15,13 +16,17 @@ public class GameObject {
     private int objectID;
 
     public String tag = "Default";
+
+    public IEngine engine;
     
     // A list of components
     List<AComponent> componentList;
 
-    public GameObject() {
+    public GameObject(IEngine engine) {
         objectID = ID++;    // Unique id
         componentList = new ArrayList<AComponent>();
+
+        this.engine = engine;
     }
 
     public int getID() {

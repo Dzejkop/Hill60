@@ -17,9 +17,9 @@ public class Hill60Main extends Game implements IEngine {
 	
     // Singleton
     static Hill60Main instance;
-    public static Hill60Main getInstance() {
+    /*public static Hill60Main getInstance() {
         return instance;
-    }
+    }*/
 
     // Game objects
     private List<GameObject> gameObjects;
@@ -73,16 +73,16 @@ public class Hill60Main extends Game implements IEngine {
         start();
 		
 		// TESTING !!!!!!
-        player = new Player();
+        player = new Player(this);
 		gameObjects.add(player);
         Random r = new Random();
         for(int x = 0; x < 50; x++) {
             for(int y = 0; y < 50; y++) {
                 if(r.nextInt()%100 > 30) {
-                    gameObjects.add(new Floor(x, y));
+                    gameObjects.add(new Floor(this, x, y));
                 } else {
-                    gameObjects.add(new Floor(x, y));
-                    gameObjects.add(new Wall(x, y));
+                    gameObjects.add(new Floor(this, x, y));
+                    gameObjects.add(new Wall(this, x, y));
                 }
             }
         }
@@ -111,7 +111,7 @@ public class Hill60Main extends Game implements IEngine {
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             BoardPosition p = player.getComponent(BoardPosition.class);
 
-            gameObjects.add(new Bomb(p.x, p.y));
+            gameObjects.add(new Bomb(this, p.x, p.y));
         }
 	}
 

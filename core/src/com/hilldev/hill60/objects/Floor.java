@@ -1,16 +1,17 @@
 package com.hilldev.hill60.objects;
 
 import com.hilldev.hill60.Hill60Main;
+import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
 
 public class Floor extends GameObject {
 
-    public Floor(int x, int y) {
-        super();
+    public Floor(IEngine engine, int x, int y) {
+        super(engine);
 
         // Connect to main
-        Hill60Main main = Hill60Main.getInstance();
+        Hill60Main main = ((Hill60Main)engine);
 
         // Get the resource manager
         ResourceManager manager = main.resourceManager;

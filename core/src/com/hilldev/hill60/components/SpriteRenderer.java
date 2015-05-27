@@ -45,7 +45,7 @@ public class SpriteRenderer extends AComponent {
     }
 
     public void setSprite(String spriteName) {
-        ResourceManager resourceManager = Hill60Main.getInstance().resourceManager;
+        ResourceManager resourceManager = ((Hill60Main)getParent().engine).resourceManager;
 
         this.sprite = resourceManager.getSprite(spriteName);
     }

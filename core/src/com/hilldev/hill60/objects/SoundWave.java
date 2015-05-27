@@ -17,7 +17,7 @@ public class SoundWave extends GameObject {
 
         // Create components
         this.addComponent(new WorldPosition(x, y, false)); // Only world pos
-        this.addComponent(new SpriteRenderer(manager.getSprite("Ring.png"), 0, 0, 4));
+        this.addComponent(new SpriteRenderer(manager.getSprite("Ring"), 0, 0, 4));
         this.addComponent(new BoardPosition(0, 0));
 
         // Add a custom behaviour script

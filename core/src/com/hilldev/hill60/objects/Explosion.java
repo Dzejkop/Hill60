@@ -15,7 +15,7 @@ public class Explosion extends GameObject {
         this.addComponent(new BoardPosition(x, y));
         this.addComponent(new WorldPosition(0, 0));
         this.addComponent(new ExplosionComponent(power));
-        this.addComponent(new SpriteRenderer(manager.getSprite("WhiteTile.png"), 0, 0, 3));
+        this.addComponent(new SpriteRenderer(manager.getSprite("WhiteTile"), 0, 0, 3));
         this.addComponent(new Visibility());
         this.addComponent(new BehaviourComponent(new Behaviour() {
 

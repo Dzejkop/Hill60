@@ -1,0 +1,130 @@
+spriteSheet.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BlackTile
+  rotate: false
+  xy: 104, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+CharacterNeutral
+  rotate: false
+  xy: 608, 95
+  size: 22, 29
+  orig: 22, 29
+  offset: 0, 0
+  index: -1
+CharacterWalk01
+  rotate: false
+  xy: 608, 95
+  size: 22, 29
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk02
+  rotate: false
+  xy: 512, 79
+  size: 22, 30
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk03
+  rotate: false
+  xy: 586, 62
+  size: 22, 31
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk04
+  rotate: false
+  xy: 610, 62
+  size: 22, 31
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk05
+  rotate: false
+  xy: 536, 79
+  size: 22, 30
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk06
+  rotate: false
+  xy: 632, 95
+  size: 22, 29
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk07
+  rotate: false
+  xy: 560, 79
+  size: 22, 30
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk08
+  rotate: false
+  xy: 634, 62
+  size: 22, 31
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk09
+  rotate: false
+  xy: 648, 2
+  size: 22, 31
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+CharacterWalk10
+  rotate: false
+  xy: 584, 95
+  size: 22, 30
+  orig: 84, 60
+  offset: 13, 19
+  index: -1
+Floor
+  rotate: false
+  xy: 206, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+Player
+  rotate: false
+  xy: 586, 2
+  size: 60, 58
+  orig: 100, 100
+  offset: 19, 19
+  index: -1
+Ring
+  rotate: false
+  xy: 308, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+Wall
+  rotate: false
+  xy: 2, 2
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
+WhiteTile
+  rotate: false
+  xy: 410, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+X
+  rotate: false
+  xy: 512, 2
+  size: 72, 75
+  orig: 100, 100
+  offset: 19, 11
+  index: -1

@@ -1,17 +1,18 @@
 package com.hilldev.hill60.components;
 
 import com.hilldev.hill60.objects.GameObject;
+import com.hilldev.hill60.objects.Player;
 
 // More for debug purposes than anything else
-public class SimpleScript implements Behaviour {
+public class PlayerScript implements Behaviour {
 
-    GameObject parent;
+    Player parent;
     BehaviourComponent parentComponent;
 
     @Override
     public void create(BehaviourComponent parentComponent) {
         this.parentComponent = parentComponent;
-        parent = parentComponent.parent;
+        parent = (Player)(parentComponent.parent);
     }
 
     // TEMPORAL SOLUTION
@@ -51,6 +52,9 @@ public class SimpleScript implements Behaviour {
                 s.triggered = true;
             }
         }
+
+        if(xv > 0) parent.animation.isActive = true;
+        else parent.animation.isActive = false;
 
         v.x = xv;
         v.y = yv;

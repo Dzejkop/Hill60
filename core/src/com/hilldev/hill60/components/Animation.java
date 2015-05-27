@@ -6,7 +6,16 @@ import java.util.List;
 public class Animation extends AComponent {
 
     public Animation(String[] frameNames) {
+        getSpriteNames(frameNames);
+    }
 
+    public Animation(String[] frameNames, int stepsPerFrame) {
+        getSpriteNames(frameNames);
+
+        this.stepsPerFrame = stepsPerFrame;
+    }
+
+    private void getSpriteNames(String[] frameNames) {
         spritesInAnimation = new ArrayList<>();
 
         for(String n : frameNames) {
@@ -22,9 +31,15 @@ public class Animation extends AComponent {
     public int stepsPerFrame = 20;
     public boolean isActive = true;
     public boolean isRepeating = true;
+    public boolean inReverse = false;
 
     public void affect(SpriteRenderer renderer) {
         renderer.setSprite(spritesInAnimation.get(currentFrame));
+    }
+
+    public void reset() {
+        interval = 0;
+        currentFrame = 0;
     }
 
     public void step() {
@@ -33,9 +48,16 @@ public class Animation extends AComponent {
 
             if (interval >= stepsPerFrame) {
                 interval = 0;
-                currentFrame++;
+
+                if(!inReverse) currentFrame++;
+                else currentFrame--;
+
                 if (currentFrame >= spritesInAnimation.size()) {
                     currentFrame = 0;
+
+                    if (isRepeating == false) isActive = false;
+                } else if (currentFrame < 0) {
+                    currentFrame = spritesInAnimation.size()-1;
 
                     if (isRepeating == false) isActive = false;
                 }

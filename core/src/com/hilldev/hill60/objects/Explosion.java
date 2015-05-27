@@ -1,6 +1,6 @@
 package com.hilldev.hill60.objects;
 
-import com.hilldev.hill60.Hill60Main;
+import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
@@ -11,7 +11,7 @@ public class Explosion extends GameObject {
 
         this.tag = "Explosion";
 
-        Hill60Main main = ((Hill60Main)engine);
+        GameScreen main = ((GameScreen)engine);
 
         ResourceManager manager = main.resourceManager;
 

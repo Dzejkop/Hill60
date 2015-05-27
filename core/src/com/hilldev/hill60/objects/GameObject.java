@@ -40,7 +40,8 @@ public class GameObject {
     }
 
     // Checks if the object has a component of such type
-    public boolean hasComponent(Class type) {
+    @SuppressWarnings("rawtypes")
+	public boolean hasComponent(Class type) {
     	
     	for(AComponent c : componentList) {
     		if(c.getClass() == type) return true;

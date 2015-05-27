@@ -1,6 +1,6 @@
 package com.hilldev.hill60.objects;
 
-import com.hilldev.hill60.Hill60Main;
+import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
@@ -14,7 +14,7 @@ public class SoundWave extends GameObject {
         this.tag = "Sound";
 
         // Connect
-        ResourceManager resourceManager = ((Hill60Main)engine).resourceManager;
+        ResourceManager resourceManager = ((GameScreen)engine).resourceManager;
 
         // Create components
         this.addComponent(new WorldPosition(x, y, false)); // Only world pos
@@ -25,7 +25,8 @@ public class SoundWave extends GameObject {
         this.addComponent(new BehaviourComponent(new Behaviour() {
 
             GameObject parentObject;
-            BehaviourComponent parentComponent;
+            @SuppressWarnings("unused")
+			BehaviourComponent parentComponent;
             SpriteRenderer sprite;
 
             @Override

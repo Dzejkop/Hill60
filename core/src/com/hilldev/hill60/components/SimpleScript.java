@@ -21,7 +21,7 @@ public class SimpleScript implements Behaviour {
     public void run() {
         Velocity v = parent.getComponent(Velocity.class);
         InputResponder i = parent.getComponent(InputResponder.class);
-        WorldPosition pos = parent.getComponent(WorldPosition.class);
+        //WorldPosition pos = parent.getComponent(WorldPosition.class);
         SoundTrigger s = parent.getComponent(SoundTrigger.class);
         v.x = 0;
         v.y = 0;

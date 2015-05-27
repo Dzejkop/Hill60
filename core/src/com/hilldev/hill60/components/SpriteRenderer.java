@@ -2,6 +2,7 @@ package com.hilldev.hill60.components;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.Hill60Main;
 import com.hilldev.hill60.ResourceManager;
 
@@ -45,7 +46,7 @@ public class SpriteRenderer extends AComponent {
     }
 
     public void setSprite(String spriteName) {
-        ResourceManager resourceManager = ((Hill60Main)getParent().engine).resourceManager;
+        ResourceManager resourceManager = ((GameScreen)getParent().engine).resourceManager;
 
         this.sprite = resourceManager.getSprite(spriteName);
     }

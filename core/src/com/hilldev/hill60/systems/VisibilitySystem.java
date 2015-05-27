@@ -2,7 +2,6 @@ package com.hilldev.hill60.systems;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.components.SpriteRenderer;

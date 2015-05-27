@@ -36,8 +36,8 @@ public class RenderingSystem extends AEntitySystem {
 	public RenderingSystem(IEngine engine) {
 		super(engine);
 
-		dynamicCamera = new OrthographicCamera(800, 600);
-		staticCamera = new OrthographicCamera(800, 600);
+		dynamicCamera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+		staticCamera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		// Initialize batchers
 		batch = new SpriteBatch();
@@ -61,7 +61,6 @@ public class RenderingSystem extends AEntitySystem {
         WorldPosition wPos = obj.getComponent(WorldPosition.class);
         int layer = sp.layer;
         int yPos = bPos.y;
-
 
         float paddingMultiplier = 1.2f;
         float w = dynamicCamera.viewportWidth * dynamicCamera.zoom * paddingMultiplier;

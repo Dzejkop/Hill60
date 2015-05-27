@@ -5,7 +5,7 @@ import com.badlogic.gdx.Game;
 public class Hill60Main extends Game {
 
 	public void create() {
-		this.setScreen(new GameScreen());
+		this.setScreen(new MenuScreen());
 	}
 	
 	public void render() {

@@ -20,7 +20,7 @@ public class Player extends GameObject {
         // Get the resource manager
         ResourceManager manager = main.resourceManager;
 
-        this.addComponent(new SpriteRenderer(manager.getSprite("Character.png"), 0, 0, 2));
+        this.addComponent(new SpriteRenderer(manager.getSprite("CharacterNeutral"), 0, 0, 2));
         this.addComponent(new WorldPosition(0, 20, false));					// The continuous position in game world
         this.addComponent(new BoardPosition(0, 0));							// Position on the board
         this.addComponent(new InputResponder());							// Responds to input from InputSystem
@@ -31,7 +31,7 @@ public class Player extends GameObject {
         this.addComponent(new SoundTrigger("footstepBrick.ogg"));
         this.addComponent(new Viewer());
 
-        String[] frames = {"Character.png", "Player.png"};
+        String[] frames = {"CharacterWalk01", "CharacterWalk02", "CharacterWalk03", "CharacterWalk04"};
         this.addComponent(new Animation(frames));
     }
 

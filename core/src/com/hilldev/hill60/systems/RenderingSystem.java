@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
@@ -49,7 +50,7 @@ public class RenderingSystem extends AEntitySystem {
 
         ResourceManager manager = ((GameScreen)engine).resourceManager;
 
-        shadow = manager.getSprite("X.png");
+        shadow = manager.getSprite("X");
     }
 
     private void insertToList(GameObject obj, List<List<GameObject>> list) {
@@ -197,6 +198,11 @@ public class RenderingSystem extends AEntitySystem {
 		SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
 		Sprite sprite = spriteRenderer.sprite;		
 		WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
+
+        if(sprite == null) {
+            Debug.log("NUUUUUUUUULLLLL!!!");
+            return;
+        }
 
         // Scaling first so that the middle stays in the middle
         sprite.setScale(spriteRenderer.horizontalScale, spriteRenderer.verticalScale);

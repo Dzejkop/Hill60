@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 
 import java.util.ArrayList;
@@ -13,29 +14,26 @@ import java.util.Map;
 
 public class ResourceManager implements Disposable {
 
+    public static final String SPRITESHEET_FILENAME = "spriteSheet.txt";
     public static final String ASSETS_PATH = "assets/";
     public static final String[] ASSETS_TO_LOAD = {"Character.png", "Player.png", "Floor.png", "Wall.png", "WhiteTile.png", "Ring.png", "X.png"};
     public static final String[] SOUNDS_TO_LOAD = {"footstepBrick.ogg", "footstepsDirt.ogg"};
-    
-    Map<String, Texture> loadedTextures;
-    List<String> loadedTextureNames;
+
+    TextureAtlas textureAtlas;
     Map<String, Integer> loadedSoundNames;
     Map<Integer, Music> loadedSounds;    
 
     public ResourceManager() {
         // Init the list and the map
-        loadedTextures = new HashMap<>();
-        loadedTextureNames = new ArrayList<>();
         loadedSoundNames = new HashMap<>();
         loadedSounds = new HashMap<>();
     }
 
     // Loads all resources
     public void loadTextures() {
-        for(String s : ASSETS_TO_LOAD) {
-            loadedTextures.put(s, new Texture(ASSETS_PATH + s));
-            loadedTextureNames.add(s);
-        }
+        textureAtlas = new TextureAtlas(ASSETS_PATH + SPRITESHEET_FILENAME);
+
+        Debug.log("");
     }
     
     public void loadSounds() {
@@ -50,7 +48,8 @@ public class ResourceManager implements Disposable {
     }
     
     public Sprite getSprite(String n) {
-        return new Sprite(loadedTextures.get(n));
+
+        return textureAtlas.createSprite(n);
     }
     
     public Music getSound(int n) {
@@ -63,9 +62,7 @@ public class ResourceManager implements Disposable {
 
     @Override
     public void dispose() {
-        for(String key : loadedTextureNames) {
-            loadedTextures.get(key).dispose();
-        }
+        textureAtlas.dispose();
         for (int i=1;i<loadedSoundNames.size();i++){
             loadedSounds.get(i).dispose();
         }

@@ -34,6 +34,11 @@ public class PlayerScript implements Behaviour {
         if(i.downArrow) yv = -veloc;
         if(i.leftArrow) xv = -veloc;
         if(i.rightArrow) xv = veloc;
+        
+        if(Math.abs(xv) == 1 && Math.abs(yv) == 0) {
+        	xv *= 0.5;
+        	yv *= 0.5;
+        }
 
         if(Math.abs(xv) + Math.abs(yv) > 0) {
             sinceLastStep--;

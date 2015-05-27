@@ -29,6 +29,9 @@ public class Player extends GameObject {
         this.addComponent(new Velocity(0, 0));
         this.addComponent(new SoundTrigger("footstepBrick.ogg"));
         this.addComponent(new Viewer());
+
+        String[] frames = {"Character.png", "Player.png"};
+        this.addComponent(new Animation(frames));
     }
 
     @Override

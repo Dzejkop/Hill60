@@ -66,6 +66,7 @@ public class Hill60Main extends Game implements IEngine {
         systems.add(new ExplosionSystem(this));
         systems.add(new SoundSystem(this));
         systems.add(new VisibilitySystem(this));
+        systems.add(new AnimationSystem(this));
 
         //systems.add(new FramerateSystem(this));
 

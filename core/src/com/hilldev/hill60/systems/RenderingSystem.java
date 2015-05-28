@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.GameScreen;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;

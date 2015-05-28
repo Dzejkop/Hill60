@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuScreen implements Screen {
 	
+	Hill60Main game;
 	private int SCREEN_WIDTH = 800;
 	private int SCREEN_HEIGHT = 600;
 	private OrthographicCamera camera;
@@ -21,39 +22,37 @@ public class MenuScreen implements Screen {
 	private BitmapFont font;
 	private List<String> menuEntries;
 	private int selection;
-	private char lastKey;
 	
-	MenuScreen() {
+	public MenuScreen(Hill60Main gam) {
+		game = gam;
+		
 		camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		
 		menuEntries = new ArrayList<>();
-		menuEntries.add("aaa aaa aaa");
-		menuEntries.add("bbb bbb bbb");
-		menuEntries.add("ccc ccc ccc");
-		menuEntries.add("ddd ddd ddd");
+		menuEntries.add("Start");
+		menuEntries.add("Exit");
 		
 		selection = 0;
-		lastKey = '_';
 	}
-	
+
 	@Override
 	public void render(float delta) {
 		
-		if(Gdx.input.isKeyJustPressed(Keys.DOWN) && lastKey != 'D') {
-			if (selection<menuEntries.size()-1)
+		if(Gdx.input.isKeyJustPressed(Keys.DOWN) && selection < menuEntries.size()-1)
 			selection++;
-			lastKey = 'D';
-		}
-		else if(Gdx.input.isKeyJustPressed(Keys.UP) && lastKey != 'U') {
-			if (selection>0)
+		else if(Gdx.input.isKeyJustPressed(Keys.UP) && selection > 0)
 			selection--;
-			lastKey = 'U';
-		}
-		else {
-			lastKey = '_';
-		}
+		else if(Gdx.input.isKeyJustPressed(Keys.ENTER))
+			switch(selection) {
+			case 0:
+				game.setScreen(new GameScreen());
+				break;
+			case 1:
+				Gdx.app.exit();
+				break;
+			}
 		
 		camera.update();
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
 public class MenuScreen implements Screen {
 	
@@ -28,7 +30,12 @@ public class MenuScreen implements Screen {
 		
 		camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
 		batch = new SpriteBatch();
-		font = new BitmapFont();
+		
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("assets/BULKYPIX.TTF"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 40;
+		font = generator.generateFont(parameter);
+		generator.dispose();
 		
 		menuEntries = new ArrayList<>();
 		menuEntries.add("Start");
@@ -61,9 +68,9 @@ public class MenuScreen implements Screen {
 		batch.begin();
 		int i = 0;
 		for (String menuEntry : menuEntries) {
-			if(i == selection) font.setColor(Color.RED);
+			if(i == selection) font.setColor(Color.OLIVE);
 			else font.setColor(Color.WHITE);
-			font.draw(batch, menuEntry, 0, menuEntries.size()*10 - i*20);
+			font.draw(batch, menuEntry, -65, menuEntries.size()*30 - i*60);
 			i++;
 		}
 		

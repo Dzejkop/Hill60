@@ -199,13 +199,9 @@ public class RenderingSystem extends AEntitySystem {
 		Sprite sprite = spriteRenderer.sprite;		
 		WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
 
-        if(sprite == null) {
-            Debug.log("NUUUUUUUUULLLLL!!!");
-            return;
-        }
-
         // Scaling first so that the middle stays in the middle
-        sprite.setScale(spriteRenderer.horizontalScale, spriteRenderer.verticalScale);
+        if(spriteRenderer.isFlipped) sprite.setScale(-spriteRenderer.horizontalScale, spriteRenderer.verticalScale);
+        else sprite.setScale(spriteRenderer.horizontalScale, spriteRenderer.verticalScale);
 
 		float x = worldPosition.x - (sprite.getWidth()  / 2) + spriteRenderer.x;
 		float y = worldPosition.y - (sprite.getHeight() / 2) + spriteRenderer.y;

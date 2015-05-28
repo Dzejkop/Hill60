@@ -6,9 +6,11 @@ import com.hilldev.hill60.components.*;
 
 public class Player extends GameObject {
 
+    // Ease of access
     public WorldPosition position;
     public Animation animation;
     public Velocity velocity;
+    public SpriteRenderer spriteRenderer;
 
     public Player(IEngine engine) {
         super(engine);
@@ -37,6 +39,7 @@ public class Player extends GameObject {
         animation = getComponent(Animation.class);
         velocity = getComponent(Velocity.class);
         position = getComponent(WorldPosition.class);
+        spriteRenderer = getComponent(SpriteRenderer.class);
     }
 
     private String[] walkAnimationFrames() {

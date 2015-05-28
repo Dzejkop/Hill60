@@ -2,6 +2,7 @@ package com.hilldev.hill60;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
@@ -11,9 +12,8 @@ import java.util.Map;
 
 public class ResourceManager implements Disposable {
 
-    public static final String SPRITESHEET_FILENAME = "spriteSheet.txt";
+    public static final String SPRITE_SHEET_FILENAME = "spriteSheet.txt";
     public static final String ASSETS_PATH = "assets/";
-    public static final String[] ASSETS_TO_LOAD = {"Character.png", "Player.png", "Floor.png", "Wall.png", "WhiteTile.png", "Ring.png", "X.png"};
     public static final String[] SOUNDS_TO_LOAD = {"footstepBrick.ogg", "footstepsDirt.ogg"};
 
     TextureAtlas textureAtlas;
@@ -28,9 +28,7 @@ public class ResourceManager implements Disposable {
 
     // Loads all resources
     public void loadTextures() {
-        textureAtlas = new TextureAtlas(ASSETS_PATH + SPRITESHEET_FILENAME);
-
-        Debug.log("");
+        textureAtlas = new TextureAtlas(ASSETS_PATH + SPRITE_SHEET_FILENAME);
     }
     
     public void loadSounds() {
@@ -45,8 +43,9 @@ public class ResourceManager implements Disposable {
     }
     
     public Sprite getSprite(String n) {
-
-        return textureAtlas.createSprite(n);
+        Sprite s = textureAtlas.createSprite(n);
+        s.getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        return s;
     }
     
     public Music getSound(int n) {

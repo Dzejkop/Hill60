@@ -50,6 +50,9 @@ public class SpriteRenderer extends AComponent {
 
     public Sprite sprite;
 
+    // Modifiers
+    public boolean isFlipped = false;
+
     // Rendering layer
     public int layer = 1;
 

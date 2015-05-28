@@ -25,7 +25,7 @@ public class PlayerScript implements Behaviour {
         v.x = 0;
         v.y = 0;
 
-        float veloc = 5;
+        float veloc = 2;
 
         float xv = 0;
         float yv = 0;
@@ -48,8 +48,19 @@ public class PlayerScript implements Behaviour {
             }
         }
 
-        if(xv > 0) parent.animation.isActive = true;
-        else parent.animation.isActive = false;
+        if(xv > 0) {
+            parent.animation.isActive = true;
+            parent.spriteRenderer.isFlipped = false;
+        }
+        else if(xv < 0){
+            parent.animation.isActive = true;
+            parent.spriteRenderer.isFlipped = true;
+        } else if(xv == 0) {
+            parent.animation.isActive = false;
+            parent.animation.reset();
+        }
+
+
 
         v.x = xv;
         v.y = yv;

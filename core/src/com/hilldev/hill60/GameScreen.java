@@ -29,6 +29,9 @@ public class GameScreen implements Screen, IEngine {
     // Resource manager
     public ResourceManager resourceManager;
 
+    // Input manager
+    public InputManager inputManager;
+
     public GameScreen() {
         instance = this;
 
@@ -38,6 +41,7 @@ public class GameScreen implements Screen, IEngine {
         creationQueue = new ArrayList<>();
 
         resourceManager = new ResourceManager();
+        inputManager = new InputManager(this);
         
         create();
     }
@@ -62,10 +66,6 @@ public class GameScreen implements Screen, IEngine {
         systems.add(new SoundSystem(this));
         systems.add(new VisibilitySystem(this));
         systems.add(new AnimationSystem(this));
-
-        //systems.add(new FramerateSystem(this));
-
-        InputManager.setEngine(this);
 
         start();
 		
@@ -106,7 +106,12 @@ public class GameScreen implements Screen, IEngine {
     public ResourceManager getResourceManager() {
 		return resourceManager;
     }
-    
+
+    @Override
+    public InputManager getInputManager() {
+        return inputManager;
+    }
+
     @Override
 	public void render(float delta) {
 		update();

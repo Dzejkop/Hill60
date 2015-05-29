@@ -60,10 +60,12 @@ public class PlayerScript implements Behaviour {
         float xv = 0;
         float yv = 0;
 
-        if(InputManager.upArrowPressed())       yv = velocity;
-        if(InputManager.downArrowPressed())     yv = -velocity;
-        if(InputManager.leftArrowPressed())     xv = -velocity;
-        if(InputManager.rightArrowPressed())    xv = velocity;
+        InputManager i = parent.engine.getInputManager();
+
+        if(i.upArrowPressed())       yv = velocity;
+        if(i.downArrowPressed())     yv = -velocity;
+        if(i.leftArrowPressed())     xv = -velocity;
+        if(i.rightArrowPressed())    xv = velocity;
         
         if(Math.abs(xv) == 1 && Math.abs(yv) == 0) {
         	xv *= 0.5;

@@ -8,37 +8,37 @@ import com.hilldev.hill60.systems.RenderingSystem;
 
 public class InputManager {
 
-    static IEngine engine;
+    IEngine engine;
 
-    public static void setEngine(IEngine engine) {
-        InputManager.engine = engine;
+    public InputManager(IEngine engine) {
+        this.engine = engine;
     }
 
-    public static boolean keyPressed(int i) {
+    public boolean keyPressed(int i) {
         return Gdx.input.isKeyPressed(i);
     }
 
-    public static boolean keyJustPressed(int i ) {
+    public boolean keyJustPressed(int i ) {
         return Gdx.input.isKeyJustPressed(i);
     }
 
-    public static boolean upArrowPressed() {
+    public boolean upArrowPressed() {
         return Gdx.input.isKeyPressed(Input.Keys.UP);
     }
 
-    public static boolean downArrowPressed() {
+    public boolean downArrowPressed() {
         return Gdx.input.isKeyPressed(Input.Keys.DOWN);
     }
 
-    public static boolean leftArrowPressed() {
+    public boolean leftArrowPressed() {
         return Gdx.input.isKeyPressed(Input.Keys.LEFT);
     }
 
-    public static boolean rightArrowPressed() {
+    public boolean rightArrowPressed() {
         return Gdx.input.isKeyPressed(Input.Keys.RIGHT);
     }
 
-    public static Vector2 getMousePos() {
+    public Vector2 getMousePos() {
         RenderingSystem rSystem = engine.getSystem(RenderingSystem.class);
 
         float x = Gdx.input.getX();
@@ -51,7 +51,7 @@ public class InputManager {
         return new Vector2(mPos.x, mPos.y);
     }
 
-    public static Vector2 getMousePosOnBoard() {
+    public Vector2 getMousePosOnBoard() {
         return null;
     }
 

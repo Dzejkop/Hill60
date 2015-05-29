@@ -17,6 +17,7 @@ public interface IEngine {
 
     public <T extends AEntitySystem> T getSystem(Class<T> type);
     public ResourceManager getResourceManager();
+    public InputManager getInputManager();
 
 	// [To be implemented]
 	//public void sendMessage(int receiverId, String message, int senderId);

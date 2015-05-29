@@ -30,7 +30,7 @@ public class MousePointer extends GameObject {
             public void run() {
                 WorldPosition p = pointer.getComponent(WorldPosition.class);
 
-                Vector2 v = InputManager.getMousePos();
+                Vector2 v = pointer.engine.getInputManager().getMousePos();
 
                 p.x = v.x;
                 p.y = v.y;

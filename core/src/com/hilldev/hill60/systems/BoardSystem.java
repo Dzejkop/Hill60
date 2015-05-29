@@ -27,6 +27,9 @@ public class BoardSystem extends AEntitySystem {
         }
     }
 
+    public static final int BOARD_WIDTH = 100;
+    public static final int BOARD_HEIGHT = 100;
+
     Tile[][] board;
     
     List<GameObject> destructionQueue = new ArrayList<>();
@@ -35,7 +38,7 @@ public class BoardSystem extends AEntitySystem {
 		super(engine);
 
         // HARDCODED CREATION
-        create(100, 100);
+        create(BOARD_WIDTH, BOARD_HEIGHT);
 	}
     
     @Override
@@ -83,6 +86,9 @@ public class BoardSystem extends AEntitySystem {
 			worldPos.x = boardPos.x*tileSize;
 			worldPos.y = boardPos.y*tileSize;
 		} else {
+
+            if(worldPos.x < 0 || worldPos.y < 0 || (worldPos.x+50)/tileSize > BOARD_WIDTH || (worldPos.y+50)/tileSize > BOARD_HEIGHT) return;
+
 			if(worldPos.x>0)
 				newX = (int) ((worldPos.x+50)/tileSize);
 			else

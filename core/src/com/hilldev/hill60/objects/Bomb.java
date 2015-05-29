@@ -20,5 +20,26 @@ public class Bomb extends GameObject {
         this.addComponent(new BoardPosition(x, y));
         this.addComponent(new ExplosionSpawn(100, 5));
         this.addComponent(new Visibility());
+        this.addComponent(new SoundTrigger("Explosion.wav"));
+
+        this.addComponent(new BehaviourComponent(new Behaviour() {
+
+            Bomb parentObject;
+            ExplosionSpawn spawn;
+
+            @Override
+            public void create(BehaviourComponent parentComponent) {
+                parentObject = (Bomb)(parentComponent.getParent());
+                spawn = parentObject.getComponent(ExplosionSpawn.class);
+            }
+
+            @Override
+            public void run() {
+                spawn.countdown--;
+                if(spawn.countdown <= 0) {
+                    parentObject.getComponent(SoundTrigger.class).triggered = true;
+                }
+            }
+        }));
     }
 }

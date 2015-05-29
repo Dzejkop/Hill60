@@ -49,7 +49,6 @@ public class BombSystem extends AEntitySystem {
 
         ExplosionSpawn spawn = obj.getComponent(ExplosionSpawn.class);
 
-        spawn.countdown--;
         if(spawn.countdown <= 0) {
             explode(obj);
 

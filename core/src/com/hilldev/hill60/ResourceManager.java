@@ -14,7 +14,7 @@ public class ResourceManager implements Disposable {
 
     public static final String SPRITE_SHEET_FILENAME = "spriteSheet.txt";
     public static final String ASSETS_PATH = "assets/";
-    public static final String[] SOUNDS_TO_LOAD = {"footstepBrick.ogg", "footstepsDirt.ogg"};
+    public static final String[] SOUNDS_TO_LOAD = {"footstepBrick.ogg", "footstepsDirt.ogg", "Explosion.wav"};
 
     TextureAtlas textureAtlas;
     Map<String, Integer> loadedSoundNames;

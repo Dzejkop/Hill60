@@ -2,6 +2,7 @@ package com.hilldev.hill60.systems;
 
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.Animation;
+import com.hilldev.hill60.components.AnimationController;
 import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.objects.GameObject;
 
@@ -20,15 +21,18 @@ public class AnimationSystem extends AEntitySystem {
 
     @Override
     protected boolean meetsConditions(GameObject obj) {
-        return obj.hasComponent(SpriteRenderer.class) && obj.hasComponent(Animation.class);
+        return obj.hasComponent(SpriteRenderer.class) && obj.hasComponent(AnimationController.class);
     }
 
     @Override
     protected void processObject(GameObject obj) {
-        Animation anim = obj.getComponent(Animation.class);
+        AnimationController anim = obj.getComponent(AnimationController.class);
+
+        if(anim == null) return;
+
         SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
 
-        anim.step();
-        anim.affect(spriteRenderer);
+        anim.getCurrentAnimation().step();
+        anim.getCurrentAnimation().affect(spriteRenderer);
     }
 }

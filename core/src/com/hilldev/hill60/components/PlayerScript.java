@@ -5,17 +5,45 @@ import com.hilldev.hill60.objects.Player;
 // More for debug purposes than anything else
 public class PlayerScript implements Behaviour {
 
+    private static final int RUN_ANIMATION_SPEED = 3;
+    private static final int SNEAK_ANIMATION_SPEED = 20;
+
+    private static final float RUN_STEP_LOUDNESS = 10;
+
+    private static final int RUN_STEP_INTERVAL = 15;
+
+    private static final float RUN_SPEED = 7;
+    private static final float SNEAK_SPEED = 2;
+
+    // Ease of access
     Player parent;
     BehaviourComponent parentComponent;
+    AnimationController animationController;
+
+    // Animations
+    Animation walkSidewayAnimation;
+    Animation walkBackwardAnimation;
+    Animation walkForwardAnimation;
+
+    // State vars
+    private boolean inSneakMode = false;
 
     @Override
     public void create(BehaviourComponent parentComponent) {
         this.parentComponent = parentComponent;
         parent = (Player)(parentComponent.parent);
+
+        animationController = parent.getComponent(AnimationController.class);
+
+        walkSidewayAnimation = new Animation(walkAnimationFrames());
+        walkBackwardAnimation = new Animation(walkBackwardAnimationFrames());
+        walkForwardAnimation = new Animation(walkForwardAnimationFrames());
+
+        if(animationController.getCurrentAnimation() == null) animationController.setAnimation(walkSidewayAnimation);
     }
 
     // TEMPORAL SOLUTION
-    int sinceLastStep = 20;
+    int sinceLastStep = RUN_STEP_INTERVAL;
 
     @Override
     public void run() {
@@ -49,20 +77,66 @@ public class PlayerScript implements Behaviour {
         }
 
         if(xv > 0) {
-            parent.animation.isActive = true;
+            animationController.setAnimation(walkSidewayAnimation);
+            animationController.getCurrentAnimation().isActive = true;
             parent.spriteRenderer.isFlipped = false;
         }
         else if(xv < 0){
-            parent.animation.isActive = true;
+            animationController.setAnimation(walkSidewayAnimation);
+            animationController.getCurrentAnimation().isActive = true;
             parent.spriteRenderer.isFlipped = true;
-        } else if(xv == 0) {
-            parent.animation.isActive = false;
-            parent.animation.reset();
         }
 
+        if(yv > 0 ) {
+            animationController.setAnimation(walkForwardAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+        } else if(yv < 0) {
+            animationController.setAnimation(walkBackwardAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+        }
 
+        if(xv == 0 && yv == 0) {
+            animationController.getCurrentAnimation().isActive = false;
+            animationController.getCurrentAnimation().reset();
+        }
+
+        if(inSneakMode) {
+            animationController.getCurrentAnimation().stepsPerFrame = SNEAK_ANIMATION_SPEED;
+        } else {
+            animationController.getCurrentAnimation().stepsPerFrame = RUN_ANIMATION_SPEED;
+        }
 
         v.x = xv;
         v.y = yv;
+    }
+
+    private String[] walkAnimationFrames() {
+        String[] f = new String[10];
+
+        for(int i = 1 ; i <= 10; i++) {
+            f[i-1] = "CharacterWalk" + (i==10 ? i : "0"+i);
+        }
+
+        return f;
+    }
+
+    private String[] walkBackwardAnimationFrames() {
+        String[] f = new String[10];
+
+        for(int i = 0 ; i < 10; i++) {
+            f[i] = "CharacterWalkBackward0" + i;
+        }
+
+        return f;
+    }
+
+    private String[] walkForwardAnimationFrames() {
+        String[] f = new String[10];
+
+        for(int i = 0 ; i < 10; i++) {
+            f[i] = "CharacterWalkForward0" + i;
+        }
+
+        return f;
     }
 }

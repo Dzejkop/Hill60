@@ -11,79 +11,219 @@ BlackTile
   index: -1
 CharacterNeutral
   rotate: false
-  xy: 608, 95
+  xy: 718, 2
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk01
   rotate: false
-  xy: 608, 95
+  xy: 718, 2
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk02
   rotate: false
-  xy: 512, 79
+  xy: 648, 2
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk03
   rotate: false
-  xy: 586, 62
+  xy: 512, 79
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk04
   rotate: false
-  xy: 610, 62
+  xy: 536, 79
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk05
   rotate: false
-  xy: 536, 79
+  xy: 652, 34
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk06
   rotate: false
-  xy: 632, 95
+  xy: 742, 2
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk07
   rotate: false
-  xy: 560, 79
+  xy: 672, 2
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk08
   rotate: false
-  xy: 634, 62
+  xy: 560, 79
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk09
   rotate: false
-  xy: 648, 2
+  xy: 584, 79
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk10
   rotate: false
-  xy: 584, 95
+  xy: 652, 66
   size: 22, 30
   orig: 22, 30
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward00
+  rotate: false
+  xy: 718, 33
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward01
+  rotate: false
+  xy: 676, 34
+  size: 20, 30
+  orig: 20, 30
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward02
+  rotate: false
+  xy: 608, 62
+  size: 20, 31
+  orig: 20, 31
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward03
+  rotate: false
+  xy: 740, 33
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward04
+  rotate: false
+  xy: 762, 34
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward05
+  rotate: false
+  xy: 696, 2
+  size: 20, 30
+  orig: 20, 30
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward06
+  rotate: false
+  xy: 608, 95
+  size: 20, 31
+  orig: 20, 31
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward07
+  rotate: false
+  xy: 698, 65
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward08
+  rotate: false
+  xy: 698, 96
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkBackward09
+  rotate: false
+  xy: 720, 64
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkForward00
+  rotate: false
+  xy: 720, 95
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkForward01
+  rotate: false
+  xy: 676, 66
+  size: 20, 30
+  orig: 20, 30
+  offset: 0, 0
+  index: -1
+CharacterWalkForward02
+  rotate: false
+  xy: 630, 62
+  size: 20, 31
+  orig: 20, 31
+  offset: 0, 0
+  index: -1
+CharacterWalkForward03
+  rotate: false
+  xy: 742, 65
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkForward04
+  rotate: false
+  xy: 742, 96
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkForward05
+  rotate: false
+  xy: 766, 2
+  size: 20, 30
+  orig: 20, 30
+  offset: 0, 0
+  index: -1
+CharacterWalkForward06
+  rotate: false
+  xy: 630, 95
+  size: 20, 31
+  orig: 20, 31
+  offset: 0, 0
+  index: -1
+CharacterWalkForward07
+  rotate: false
+  xy: 764, 65
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkForward08
+  rotate: false
+  xy: 764, 96
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+CharacterWalkForward09
+  rotate: false
+  xy: 720, 95
+  size: 20, 29
+  orig: 20, 29
   offset: 0, 0
   index: -1
 Floor

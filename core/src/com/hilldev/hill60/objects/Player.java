@@ -23,7 +23,6 @@ public class Player extends GameObject {
         this.addComponent(new SpriteRenderer(manager.getSprite("CharacterNeutral"), 0, 0, 2));
         this.addComponent(new WorldPosition(0, 20, false));					// The continuous position in game world
         this.addComponent(new BoardPosition(0, 0));							// Position on the board
-        this.addComponent(new InputResponder());							// Responds to input from InputSystem
         this.addComponent(new CameraTag());									// Camera should follow this object
         this.addComponent(new Collider(22, 29));
         this.addComponent(new Velocity(0, 0));

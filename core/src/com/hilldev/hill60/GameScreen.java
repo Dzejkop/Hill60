@@ -55,7 +55,6 @@ public class GameScreen implements Screen, IEngine {
 		systems.add(new RenderingSystem(this));
         systems.add(new BehaviourSystem(this));
         systems.add(new PhysicsSystem(this));
-        systems.add(new InputSystem(this));
         systems.add(new BoardSystem(this));
         systems.add(new CameraSystem(this));
         systems.add(new BombSystem(this));

@@ -1,5 +1,7 @@
 package com.hilldev.hill60.components;
 
+import com.badlogic.gdx.Input;
+import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.objects.Player;
 
 // More for debug purposes than anything else
@@ -48,7 +50,6 @@ public class PlayerScript implements Behaviour {
     @Override
     public void run() {
         Velocity v = parent.getComponent(Velocity.class);
-        InputResponder i = parent.getComponent(InputResponder.class);
         SoundTrigger s = parent.getComponent(SoundTrigger.class);
         v.x = 0;
         v.y = 0;
@@ -59,10 +60,10 @@ public class PlayerScript implements Behaviour {
         float xv = 0;
         float yv = 0;
 
-        if(i.upArrow) yv = velocity;
-        if(i.downArrow) yv = -velocity;
-        if(i.leftArrow) xv = -velocity;
-        if(i.rightArrow) xv = velocity;
+        if(InputManager.upArrowPressed())       yv = velocity;
+        if(InputManager.downArrowPressed())     yv = -velocity;
+        if(InputManager.leftArrowPressed())     xv = -velocity;
+        if(InputManager.rightArrowPressed())    xv = velocity;
         
         if(Math.abs(xv) == 1 && Math.abs(yv) == 0) {
         	xv *= 0.5;

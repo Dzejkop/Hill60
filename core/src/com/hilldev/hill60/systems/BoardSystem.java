@@ -28,7 +28,9 @@ public class BoardSystem extends AEntitySystem {
     }
 
     Tile[][] board;
-
+    
+    List<GameObject> destructionQueue = new ArrayList<>();
+    
     public BoardSystem(IEngine engine) {
 		super(engine);
 
@@ -38,14 +40,16 @@ public class BoardSystem extends AEntitySystem {
     
     @Override
     public void update() {
+    	
+    	for(GameObject object : destructionQueue)
+    		for(int i=0; i<board.length; i++)
+    			for(int j=0; j<board[i].length; j++)
+    				board[i][j].remove(object);
+    	
+    	destructionQueue.clear();
+    	
         for(GameObject o : engine.getObjectList()) {
             if(meetsConditions(o)) processObject(o);
-        }
-
-        for(int x = 0 ; x < board.length; x++) {
-            for(int y = 0; y < board[0].length; y++) {
-
-            }
         }
     }
 
@@ -134,5 +138,9 @@ public class BoardSystem extends AEntitySystem {
         }
         
         return null;
+    }
+    
+    public void destroyObject(GameObject object) {
+    	destructionQueue.add(object);
     }
 }

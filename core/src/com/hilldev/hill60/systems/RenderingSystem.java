@@ -128,7 +128,7 @@ public class RenderingSystem extends AEntitySystem {
 		batch.setProjectionMatrix(dynamicCamera.combined);
 		batch.begin();
 
-		for (List<GameObject> l : objectsToRender) {
+		for(List<GameObject> l : objectsToRender) {
 			for(GameObject o : l) {
                 drawObject(o);
             }
@@ -195,7 +195,7 @@ public class RenderingSystem extends AEntitySystem {
         }*/
 
 		SpriteRenderer spriteRenderer = obj.getComponent(SpriteRenderer.class);
-		Sprite sprite = spriteRenderer.sprite;		
+		Sprite sprite = spriteRenderer.sprite;
 		WorldPosition worldPosition = obj.getComponent(WorldPosition.class);
 
         // Scaling first so that the middle stays in the middle

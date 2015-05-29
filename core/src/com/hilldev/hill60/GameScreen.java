@@ -111,7 +111,6 @@ public class GameScreen implements Screen, IEngine {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             BoardPosition p = player.getComponent(BoardPosition.class);
-
             gameObjects.add(new Bomb(this, p.x, p.y));
         }
 	}
@@ -166,9 +165,8 @@ public class GameScreen implements Screen, IEngine {
 
     @Override
     public void destroyObject(GameObject object) {
-        //gameObjects.remove(object);
-
         destructionQueue.add(object);
+        ((BoardSystem) systems.get(4)).destroyObject(object); // NIEŁADNE ROZWIĄZANIE :-(
     }
 
     @Override

@@ -92,7 +92,6 @@ public class BombSystem extends AEntitySystem {
 
     private void spawnExplosion(int x, int y, int power) {
         GameScreen main = ((GameScreen)engine);
-
         main.createObject(new Explosion(engine, x, y ,power));
     }
 

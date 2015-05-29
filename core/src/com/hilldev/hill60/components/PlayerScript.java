@@ -12,7 +12,7 @@ public class PlayerScript implements Behaviour {
 
     private static final int RUN_STEP_INTERVAL = 15;
 
-    private static final float RUN_SPEED = 7;
+    private static final float RUN_SPEED = 4;
     private static final float SNEAK_SPEED = 2;
 
     // Ease of access
@@ -53,15 +53,16 @@ public class PlayerScript implements Behaviour {
         v.x = 0;
         v.y = 0;
 
-        float veloc = 2;
+        float velocity = RUN_SPEED;
+        if(inSneakMode) velocity = SNEAK_SPEED;
 
         float xv = 0;
         float yv = 0;
 
-        if(i.upArrow) yv = veloc;
-        if(i.downArrow) yv = -veloc;
-        if(i.leftArrow) xv = -veloc;
-        if(i.rightArrow) xv = veloc;
+        if(i.upArrow) yv = velocity;
+        if(i.downArrow) yv = -velocity;
+        if(i.leftArrow) xv = -velocity;
+        if(i.rightArrow) xv = velocity;
         
         if(Math.abs(xv) == 1 && Math.abs(yv) == 0) {
         	xv *= 0.5;

@@ -44,7 +44,7 @@ public class SoundSystem extends AEntitySystem {
                     if (sound.isPlaying() == false)
                         sound.play();
 
-                    engine.createObject(new SoundWave(engine, p.x, p.y));
+                    engine.createObject(new SoundWave(engine, soundTrigger.volume, p.x, p.y));
                 }
 
                 soundTrigger.triggered = false;

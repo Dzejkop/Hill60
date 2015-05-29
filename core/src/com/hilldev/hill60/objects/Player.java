@@ -26,7 +26,7 @@ public class Player extends GameObject {
         this.addComponent(new CameraTag());									// Camera should follow this object
         this.addComponent(new Collider(22, 29));
         this.addComponent(new Velocity(0, 0));
-        this.addComponent(new SoundTrigger("footstepBrick.ogg"));
+        this.addComponent(new SoundTrigger("footstepBrick.ogg", 10));
         this.addComponent(new Viewer());
         this.addComponent(new AnimationController());
         this.addComponent(new BehaviourComponent(new PlayerScript()));		// Simple movmeent script

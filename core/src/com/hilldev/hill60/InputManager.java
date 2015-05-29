@@ -3,8 +3,16 @@ package com.hilldev.hill60;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.hilldev.hill60.systems.RenderingSystem;
 
 public class InputManager {
+
+    static IEngine engine;
+
+    public static void setEngine(IEngine engine) {
+        InputManager.engine = engine;
+    }
 
     public static boolean keyPressed(int i) {
         return Gdx.input.isKeyPressed(i);
@@ -31,7 +39,16 @@ public class InputManager {
     }
 
     public static Vector2 getMousePos() {
-        return null;
+        RenderingSystem rSystem = engine.getSystem(RenderingSystem.class);
+
+        float x = Gdx.input.getX();
+        float y = Gdx.input.getY();
+
+        Vector3 mPos = new Vector3(x,y,0);
+
+        rSystem.getCamera().unproject(mPos);
+
+        return new Vector2(mPos.x, mPos.y);
     }
 
     public static Vector2 getMousePosOnBoard() {

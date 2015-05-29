@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,6 +24,7 @@ public class RenderingSystem extends AEntitySystem {
 
 	public static int SCREEN_WIDTH = 800;
 	public static int SCREEN_HEIGHT = 600;
+    private static int MAX_LAYER = 6;
 	boolean inDebugMode = false;
 	OrthographicCamera dynamicCamera;
 	OrthographicCamera staticCamera;
@@ -95,7 +97,8 @@ public class RenderingSystem extends AEntitySystem {
 		List<GameObject> objList = engine.getObjectList();
 		List<List<GameObject>> objectsToRender = new ArrayList<>();
 
-		int lastLayer = 6;
+
+		int lastLayer = MAX_LAYER;
 
         for(int i = 0 ; i < lastLayer; i++) {
             objectsToRender.add(new ArrayList<GameObject>());
@@ -246,4 +249,8 @@ public class RenderingSystem extends AEntitySystem {
 
 		render();
 	}
+
+    public Camera getCamera() {
+        return dynamicCamera;
+    }
 }

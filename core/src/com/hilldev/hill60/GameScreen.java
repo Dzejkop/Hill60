@@ -65,11 +65,14 @@ public class GameScreen implements Screen, IEngine {
 
         //systems.add(new FramerateSystem(this));
 
+        InputManager.setEngine(this);
+
         start();
 		
 		// TESTING !!!!!!
         player = new Player(this);
 		gameObjects.add(player);
+        gameObjects.add(new MousePointer(this));
         Random r = new Random();
         for(int x = 0; x < 50; x++) {
             for(int y = 0; y < 50; y++) {

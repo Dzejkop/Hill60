@@ -136,6 +136,7 @@ public class GameScreen implements Screen, IEngine {
 	@Override
 	public void update() {
 
+        //Debug.log("");
 		// Update entity systems
 		for(AEntitySystem e : systems) {
 
@@ -166,7 +167,7 @@ public class GameScreen implements Screen, IEngine {
     @Override
     public void destroyObject(GameObject object) {
         destructionQueue.add(object);
-        ((BoardSystem) systems.get(4)).destroyObject(object); // NIEŁADNE ROZWIĄZANIE :-(
+        getSystem(BoardSystem.class).destroyObject(object); // Lepsze rozwiązanie :)
     }
 
     @Override

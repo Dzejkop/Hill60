@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.objects.*;
+import com.hilldev.hill60.objects.HUD.HudManager;
 import com.hilldev.hill60.objects.Walls.*;
 import com.hilldev.hill60.systems.*;
 //import com.hilldev.hill60.Debug;
@@ -79,7 +80,7 @@ public class GameScreen implements Screen, IEngine {
         player = new Player(this);
 		gameObjects.add(player);
         gameObjects.add(new MousePointer(this));
-        gameObjects.add(new Hud(this));
+        gameObjects.add(new HudManager(this));
         Random r = new Random();
         for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
             for(int y = 0; y < BoardSystem.BOARD_HEIGHT; y++) {

@@ -2,275 +2,317 @@ spriteSheet.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+BigBomb
+  rotate: false
+  xy: 213, 2
+  size: 120, 114
+  orig: 120, 114
+  offset: 0, 0
+  index: -1
 BlackTile
   rotate: false
-  xy: 2, 2
+  xy: 441, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 CharacterNeutral
   rotate: false
-  xy: 582, 66
+  xy: 718, 104
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk01
   rotate: false
-  xy: 582, 66
+  xy: 718, 104
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk02
   rotate: false
-  xy: 534, 68
+  xy: 395, 181
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk03
   rotate: false
-  xy: 424, 62
+  xy: 747, 2
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk04
   rotate: false
-  xy: 486, 2
+  xy: 395, 148
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk05
   rotate: false
-  xy: 536, 35
+  xy: 419, 181
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk06
   rotate: false
-  xy: 604, 34
+  xy: 747, 68
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk07
   rotate: false
-  xy: 556, 2
+  xy: 443, 181
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk08
   rotate: false
-  xy: 490, 35
+  xy: 694, 104
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk09
   rotate: false
-  xy: 510, 2
+  xy: 747, 35
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk10
   rotate: false
-  xy: 558, 67
+  xy: 467, 181
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalkBackward00
   rotate: false
-  xy: 624, 2
+  xy: 667, 146
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward01
   rotate: false
-  xy: 560, 34
+  xy: 491, 181
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 CharacterWalkBackward02
   rotate: false
-  xy: 490, 68
+  xy: 513, 164
   size: 20, 31
   orig: 20, 31
   offset: 0, 0
   index: -1
 CharacterWalkBackward03
   rotate: false
-  xy: 606, 65
+  xy: 742, 104
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward04
   rotate: false
-  xy: 628, 33
+  xy: 689, 146
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward05
   rotate: false
-  xy: 580, 2
+  xy: 601, 154
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 CharacterWalkBackward06
   rotate: false
-  xy: 512, 68
+  xy: 535, 164
   size: 20, 31
   orig: 20, 31
   offset: 0, 0
   index: -1
 CharacterWalkBackward07
   rotate: false
-  xy: 646, 2
+  xy: 667, 177
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward08
   rotate: false
-  xy: 628, 64
+  xy: 689, 177
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward09
   rotate: false
-  xy: 668, 2
+  xy: 711, 137
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward00
   rotate: false
-  xy: 690, 2
+  xy: 711, 168
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward01
   rotate: false
-  xy: 582, 34
+  xy: 623, 154
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 CharacterWalkForward02
   rotate: false
-  xy: 514, 35
+  xy: 557, 164
   size: 20, 31
   orig: 20, 31
   offset: 0, 0
   index: -1
 CharacterWalkForward03
   rotate: false
-  xy: 650, 33
+  xy: 733, 135
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward04
   rotate: false
-  xy: 650, 64
+  xy: 755, 135
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward05
   rotate: false
-  xy: 602, 2
+  xy: 645, 154
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 CharacterWalkForward06
   rotate: false
-  xy: 534, 2
+  xy: 579, 154
   size: 20, 31
   orig: 20, 31
   offset: 0, 0
   index: -1
 CharacterWalkForward07
   rotate: false
-  xy: 672, 33
+  xy: 733, 166
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward08
   rotate: false
-  xy: 672, 64
+  xy: 755, 166
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward09
   rotate: false
-  xy: 690, 2
+  xy: 711, 168
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 DirtWall
   rotate: false
-  xy: 444, 2
+  xy: 568, 104
   size: 40, 48
   orig: 40, 48
   offset: 0, 0
   index: -1
 Floor
   rotate: false
-  xy: 382, 62
+  xy: 652, 104
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
+ItemDisplay
+  rotate: false
+  xy: 2, 2
+  size: 209, 209
+  orig: 209, 209
+  offset: 0, 0
+  index: -1
+MediumBomb
+  rotate: false
+  xy: 213, 118
+  size: 102, 92
+  orig: 102, 92
+  offset: 0, 0
+  index: -1
 Player
   rotate: false
-  xy: 382, 2
+  xy: 506, 104
   size: 60, 58
   orig: 60, 58
   offset: 0, 0
   index: -1
 Ring
   rotate: false
-  xy: 104, 2
+  xy: 543, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
+ShovelIcon
+  rotate: false
+  xy: 335, 2
+  size: 104, 99
+  orig: 104, 99
+  offset: 0, 0
+  index: -1
+SmallBomb
+  rotate: false
+  xy: 317, 148
+  size: 76, 52
+  orig: 76, 52
+  offset: 0, 0
+  index: -1
+SneakModeIndicator
+  rotate: false
+  xy: 335, 103
+  size: 95, 43
+  orig: 95, 43
+  offset: 0, 0
+  index: -1
 StoneWall
   rotate: false
-  xy: 448, 52
+  xy: 610, 104
   size: 40, 48
   orig: 40, 48
   offset: 0, 0
   index: -1
 WhiteTile
   rotate: false
-  xy: 206, 2
+  xy: 645, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 X
   rotate: false
-  xy: 308, 2
+  xy: 432, 104
   size: 72, 75
   orig: 72, 75
   offset: 0, 0

@@ -74,8 +74,8 @@ public class GameScreen implements Screen, IEngine {
 		gameObjects.add(player);
         gameObjects.add(new MousePointer(this));
         Random r = new Random();
-        for(int x = 0; x < 50; x++) {
-            for(int y = 0; y < 50; y++) {
+        for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
+            for(int y = 0; y < BoardSystem.BOARD_HEIGHT; y++) {
                 if(r.nextInt()%100 > 30) {
                     gameObjects.add(new Floor(this, x, y));
                 } else {

@@ -27,8 +27,8 @@ public class BoardSystem extends AEntitySystem {
         }
     }
 
-    public static final int BOARD_WIDTH = 100;
-    public static final int BOARD_HEIGHT = 100;
+    public static final int BOARD_WIDTH = 30;
+    public static final int BOARD_HEIGHT = 30;
 
     Tile[][] board;
     

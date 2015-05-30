@@ -38,6 +38,7 @@ public class SoundSystem extends AEntitySystem {
 
             if(soundTrigger.triggered == true) {
                 if (soundTrigger.sound.isEmpty() == false) {
+                	
                     Music sound;
                     sound = engine.getResourceManager().getSound(soundTrigger.sound);
 

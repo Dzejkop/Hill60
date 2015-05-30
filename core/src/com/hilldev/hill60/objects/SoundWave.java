@@ -9,6 +9,7 @@ public class SoundWave extends GameObject {
     float volume;
 
     public SoundWave(IEngine engine, float volume, float x, float y) {
+    	
         super(engine);
 
         // Set tag
@@ -30,6 +31,7 @@ public class SoundWave extends GameObject {
         this.addComponent(new BehaviourComponent(new Behaviour() {
 
             SoundWave parentObject;
+			@SuppressWarnings("unused")
 			BehaviourComponent parentComponent;
             SpriteRenderer sprite;
 
@@ -67,6 +69,4 @@ public class SoundWave extends GameObject {
             }
         }));
     }
-
-
 }

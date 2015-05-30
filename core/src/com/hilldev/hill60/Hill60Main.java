@@ -12,7 +12,6 @@ public class Hill60Main extends Game {
 		super.render();
 	}
 
-	
     public void dispose() {
     	super.dispose();
     }

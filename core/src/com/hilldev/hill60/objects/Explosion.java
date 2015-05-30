@@ -5,7 +5,9 @@ import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
 
 public class Explosion extends GameObject {
+	
     public Explosion(IEngine engine, int x, int y, int power) {
+    	
         super(engine);
 
         this.tag = "Explosion";

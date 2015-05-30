@@ -93,6 +93,7 @@ public class BoardSystem extends AEntitySystem {
 				newX = (int) ((worldPos.x+50)/tileSize);
 			else
 				newX = (int) ((worldPos.x-50)/tileSize);
+			
 			if(worldPos.y>0)
 				newY = (int) ((worldPos.y+50)/tileSize);
 			else

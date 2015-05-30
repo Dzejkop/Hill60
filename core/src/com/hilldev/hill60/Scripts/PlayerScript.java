@@ -1,6 +1,5 @@
 package com.hilldev.hill60.Scripts;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.hilldev.hill60.IEngine;
@@ -32,9 +31,16 @@ public class PlayerScript implements Behaviour {
 
     // State vars
     private boolean inSneakMode = false;
+    
+    // Zoom vars
+    float currentZoom = 1;
+    float zoomInVal = 0.6f;
+    float zoomOutVal = 1;
+    float targetZoom = zoomInVal;
 
     @Override
     public void create(BehaviourComponent parentComponent) {
+    	
         this.parentComponent = parentComponent;
         parent = (Player)(parentComponent.getParent());
 
@@ -50,7 +56,8 @@ public class PlayerScript implements Behaviour {
         // Connect to game engine
         engine = parent.engine;
 
-        if(animationController.getCurrentAnimation() == null) animationController.setAnimation(walkSidewaysAnimation);
+        if(animationController.getCurrentAnimation() == null)
+        	animationController.setAnimation(walkSidewaysAnimation);
     }
 
     @Override
@@ -62,7 +69,9 @@ public class PlayerScript implements Behaviour {
         characterScript.goingDown = manager.downArrowPressed();
         characterScript.goingRight = manager.rightArrowPressed();
         characterScript.goingLeft = manager.leftArrowPressed();
-
+        
+        animate();
+        
         if(manager.keyJustPressed(Input.Keys.A)) {
             targetZoom = zoomInVal;
         }
@@ -75,10 +84,38 @@ public class PlayerScript implements Behaviour {
         ((OrthographicCamera)(engine.getSystem(RenderingSystem.class).getCamera())).zoom = currentZoom;
     }
 
-    float currentZoom = 1;
-    float zoomInVal = 0.6f;
-    float zoomOutVal = 1;
-    float targetZoom = zoomInVal;
+	private void animate() {
+		
+		if(characterScript.goingRight) {
+            animationController.setAnimation(walkSidewaysAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+            parent.spriteRenderer.isFlipped = false;
+        }
+        else if(characterScript.goingLeft) {
+            animationController.setAnimation(walkSidewaysAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+            parent.spriteRenderer.isFlipped = true;
+        }
+        else if(characterScript.goingUp) {
+            animationController.setAnimation(walkForwardAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+        }
+        else if(characterScript.goingDown) {
+            animationController.setAnimation(walkBackwardAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+        }
+        else {
+            animationController.getCurrentAnimation().isActive = false;
+            animationController.getCurrentAnimation().reset();
+        }
+
+        if(inSneakMode) {
+            animationController.getCurrentAnimation().stepsPerFrame = SNEAK_ANIMATION_SPEED;
+        }
+        else {
+            animationController.getCurrentAnimation().stepsPerFrame = RUN_ANIMATION_SPEED;
+        }
+	}
 
     private String[] walkAnimationFrames() {
         String[] f = new String[10];

@@ -71,13 +71,6 @@ public class BombSystem extends AEntitySystem {
         // First spawn the center
         spawnExplosion(centerX, centerY, basePotential);
 
-        /*// Next spawn the 4 corners
-        for(int x = -1; x <= 1; x+=2) {
-            for(int y = -1; y <= 1; y+=2) {
-                if(canBeSpawned(centerX + x, centerY + y, basePotential-1)) spawnExplosion(centerX + x, centerY + y, 0);
-            }
-        }*/
-
         // Next spawn directional explosions on edges
         for(int x = -1; x <= 1; x+=2) {
             spawnExplosionNode(centerX + x, centerY, basePotential, x, 0);
@@ -90,6 +83,7 @@ public class BombSystem extends AEntitySystem {
     }
 
     private void spawnExplosion(int x, int y, int power) {
+    	if(x>=BoardSystem.BOARD_WIDTH || y>=BoardSystem.BOARD_HEIGHT) return;
         GameScreen main = ((GameScreen)engine);
         main.createObject(new Explosion(engine, x, y ,power));
     }
@@ -107,20 +101,13 @@ public class BombSystem extends AEntitySystem {
             // Now, go forward
             int res = getResistanceAt(currentX, currentY);
 
-            // Subtract one power for moving a single space
-
-
             if(explosionPotential > res) {
 
                 // Try spawning side nodes with reduced power
+            	
                 /*
-                 * ENG
                  * I'm using a trick here, by switching y with x and x with y
                  * that way I'm essentially rotating everything by 90 degrees
-                 *
-                 * PL
-                 * Taki trik, zamieniająć x z y oraz y z x
-                 * właściwie wykonuje obrót o 90 stopni
                  */
 
                 // First one side
@@ -147,7 +134,6 @@ public class BombSystem extends AEntitySystem {
                 // Finish spawning
                 break;
             }
-
         }
     }
 
@@ -158,13 +144,9 @@ public class BombSystem extends AEntitySystem {
 
     private int getResistanceAt(int x, int y) {
         BoardSystem boardSystem = engine.getSystem(BoardSystem.class);
-
         Wall wall = boardSystem.getWallAt(x, y);
-
         if(wall == null) return 0;
-
         ExplosionResistance explosionResistance = wall.getComponent(ExplosionResistance.class);
-
         return explosionResistance.resistancePoints;
     }
 }

@@ -3,7 +3,7 @@ package com.hilldev.hill60.components;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animation  {
+public class Animation {
 
     public Animation(String[] frameNames) {
         getSpriteNames(frameNames);

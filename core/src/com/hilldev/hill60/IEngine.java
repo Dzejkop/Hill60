@@ -6,11 +6,12 @@ import com.hilldev.hill60.systems.AEntitySystem;
 import java.util.List;
 
 public interface IEngine {
-	public List<GameObject> getObjectList();	// Returns all the objects
-	public GameObject getObject(int id);		// Finds the object with specified id
-    public void start();                        // Called AFTER initializing all the systems
-	public void update();						// Updates all entity systems
+	
+    public void start();                        	// Called AFTER initializing all the systems
+	public void update();							// Updates all entity systems
 
+	public List<GameObject> getObjectList();		// Returns all the objects
+	public GameObject getObject(int id);			// Finds the object with specified id
     public void createObject(GameObject object);
     public void destroyObject(GameObject object);   // Destroys an object
     public void destroyObject(int id);              // Same only using id

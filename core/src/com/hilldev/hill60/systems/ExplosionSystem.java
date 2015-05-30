@@ -6,7 +6,6 @@ import com.hilldev.hill60.components.ExplosionComponent;
 import com.hilldev.hill60.components.ExplosionResistance;
 import com.hilldev.hill60.objects.GameObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // Deals with destroying object that collide with explosions
@@ -35,17 +34,11 @@ public class ExplosionSystem extends AEntitySystem {
         BoardPosition bPos = obj.getComponent(BoardPosition.class);
 
         List<GameObject> objectList = boardSystem.getObjectsAt(bPos.x, bPos.y);
-        List<GameObject> delete= new ArrayList<GameObject>();
 
         if(objectList == null) return;
+        
         for(GameObject o : objectList) {
-            if(obj != o && o.hasComponent(ExplosionResistance.class)) {
-            	delete.add(o);
-            	engine.destroyObject(o);
-            }
+            if(obj != o && o.hasComponent(ExplosionResistance.class)) engine.destroyObject(o);
         }
-        for (GameObject o : delete)
-        boardSystem.board[bPos.x][bPos.y].remove(o);
-
     }
 }

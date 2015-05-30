@@ -1,7 +1,6 @@
 package com.hilldev.hill60.systems;
 
 import com.hilldev.hill60.IEngine;
-import com.hilldev.hill60.components.Animation;
 import com.hilldev.hill60.components.AnimationController;
 import com.hilldev.hill60.components.SpriteRenderer;
 import com.hilldev.hill60.objects.GameObject;

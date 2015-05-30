@@ -1,4 +1,4 @@
 package com.hilldev.hill60.components;
 
-public class Viewer  extends AComponent {
+public class Viewer extends AComponent {
 }

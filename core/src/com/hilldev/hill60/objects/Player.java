@@ -13,6 +13,7 @@ public class Player extends Character {
     public SpriteRenderer spriteRenderer;
 
     public Player(IEngine engine) {
+    	
         super(engine);
 
         // Set a tag

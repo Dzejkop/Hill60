@@ -46,6 +46,13 @@ public class CharacterScript implements Behaviour {
 
         // Connect to components
         velocity = parent.getComponent(Velocity.class);
+
+        // Create the item list
+        items = new ArrayList<>();
+        items.add(Item.getShovel());
+        items.add(Item.getSmallBomb());
+        items.add(Item.getMediumBomb());
+        items.add(Item.getBigBomb());
     }
 
     @Override
@@ -79,9 +86,14 @@ public class CharacterScript implements Behaviour {
 
     public static class Item {
         public String name;
-        private boolean isReady;
+        private boolean isReady = true;
         private int maxCooldown;
-        private int cooldown;
+        private int cooldown = 0;
+
+        public Item(String name, int cooldown) {
+            this.maxCooldown = cooldown;
+            this.name = name;
+        }
 
         public void update() {
             if(!isReady)cooldown--;
@@ -97,6 +109,22 @@ public class CharacterScript implements Behaviour {
 
         public boolean isReady() {
             return isReady;
+        }
+
+        public static Item getShovel() {
+            return new Item("Shovel", 10);
+        }
+
+        public static Item getSmallBomb() {
+            return new Item("SmallBomb", 50);
+        }
+
+        public static Item getMediumBomb() {
+            return new Item("MediumBomb", 100);
+        }
+
+        public static Item getBigBomb() {
+            return new Item("BigBomb", 150);
         }
     }
 }

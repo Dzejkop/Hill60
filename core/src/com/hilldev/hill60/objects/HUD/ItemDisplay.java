@@ -10,13 +10,20 @@ public class ItemDisplay extends GameObject implements HUDObject{
         super(engine);
 
         ResourceManager manager = engine.getResourceManager();
-        this.addComponent(new GuiSprite(manager.getSprite("ItemDisplay"), 0, 0));
+        this.addComponent(new GuiSprite(manager.getSprite("ItemDisplay"), 0, 0, 0));
     }
 
-    @Override
-    public void setPos(int x, int y) {
+	@Override
+	public void setPos(int x, int y) {
         GuiSprite s = getComponent(GuiSprite.class);
         s.x = x;
         s.y = y;
-    }
+	}
+
+	@Override
+	public void setLayer(int layer) {
+        GuiSprite s = getComponent(GuiSprite.class);
+        s.layer = layer;
+	}
+
 }

@@ -9,7 +9,6 @@ public interface IEngine {
 	
     public void start();                        	// Called AFTER initializing all the systems
 	public void update();							// Updates all entity systems
-
 	public List<GameObject> getObjectList();		// Returns all the objects
 	public GameObject getObject(int id);			// Finds the object with specified id
     public void createObject(GameObject object);

@@ -18,7 +18,7 @@ public class GameScreen implements Screen, IEngine {
 	
     // Singleton
     static GameScreen instance;
-
+    
     // Game objects
     private List<GameObject> gameObjects;
 
@@ -37,6 +37,7 @@ public class GameScreen implements Screen, IEngine {
 
     // DEBUG
     public Player player;
+    public HudManager hud;
 
     public GameScreen() {
         instance = this;
@@ -78,9 +79,11 @@ public class GameScreen implements Screen, IEngine {
 		
 		// TESTING !!!!!!
         player = new Player(this);
+        hud =new HudManager(this);
+        hud.player=player;
 		gameObjects.add(player);
         gameObjects.add(new MousePointer(this));
-        gameObjects.add(new HudManager(this));
+        gameObjects.add(hud);
         Random r = new Random();
         for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
             for(int y = 0; y < BoardSystem.BOARD_HEIGHT; y++) {
@@ -157,6 +160,7 @@ public class GameScreen implements Screen, IEngine {
 
             //Debug.log(e.getClass().getSimpleName() + " execution time: " + (end-start) );
 		}
+		hud.update();
 
         // Destroy objects from the queue
         for(GameObject o : destructionQueue) {

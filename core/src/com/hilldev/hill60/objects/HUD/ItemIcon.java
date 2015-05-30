@@ -6,6 +6,7 @@ import com.hilldev.hill60.components.GuiSprite;
 import com.hilldev.hill60.objects.GameObject;
 
 public class ItemIcon extends GameObject implements HUDObject {
+	public boolean show=false;
 	public ItemIcon(IEngine engine, String name) {
 		super(engine);
 

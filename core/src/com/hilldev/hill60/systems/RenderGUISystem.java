@@ -59,7 +59,7 @@ public class RenderGUISystem extends AEntitySystem {
 
 	@Override
 	protected boolean meetsConditions(GameObject obj) {
-		if (obj.hasComponent(GuiSprite.class))
+		if (obj.hasComponent(GuiSprite.class)&&obj.isActive)
 			return true;
 		return false;
 	}

@@ -11,5 +11,4 @@ public class AnimationController extends AComponent {
     public Animation getCurrentAnimation() {
         return currentAnimation;
     }
-
 }

@@ -9,6 +9,7 @@ public abstract class AComponent {
     public void setParent(GameObject parent) {
         this.parent = parent;
     }
+    
     public GameObject getParent() {
         return parent;
     }

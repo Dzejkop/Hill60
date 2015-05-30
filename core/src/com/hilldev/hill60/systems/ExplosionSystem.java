@@ -38,14 +38,15 @@ public class ExplosionSystem extends AEntitySystem {
         List<GameObject> delete= new ArrayList<GameObject>();
 
         if(objectList == null) return;
+        
         for(GameObject o : objectList) {
             if(obj != o && o.hasComponent(ExplosionResistance.class)) {
             	delete.add(o);
             	engine.destroyObject(o);
             }
         }
+        
         for (GameObject o : delete)
-        boardSystem.board[bPos.x][bPos.y].remove(o);
-
+        	boardSystem.board[bPos.x][bPos.y].remove(o);
     }
 }

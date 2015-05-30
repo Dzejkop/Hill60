@@ -35,7 +35,8 @@ public class CharacterScript implements Behaviour {
     public float runVelocity = RUN_SPEED;
     public float sneakVelocity = SNEAK_SPEED;
 
-    private BehaviourComponent parentComponent;
+    @SuppressWarnings("unused")
+	private BehaviourComponent parentComponent;
     private Character parent;
 
     @Override
@@ -44,7 +45,7 @@ public class CharacterScript implements Behaviour {
         this.parent = (Character) parentComponent.getParent();
 
         // Connect to components
-        velocity  = parent.getComponent(Velocity.class);
+        velocity = parent.getComponent(Velocity.class);
     }
 
     @Override

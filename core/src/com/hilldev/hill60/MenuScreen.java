@@ -66,6 +66,10 @@ public class MenuScreen implements Screen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		
+		font.setColor(Color.valueOf("800000"));
+		font.draw(batch, "Hill60", -65, 200);
+		
 		int i = 0;
 		for (String menuEntry : menuEntries) {
 			if(i == selection) font.setColor(Color.OLIVE);

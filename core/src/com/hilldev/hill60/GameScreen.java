@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.objects.*;
 import com.hilldev.hill60.systems.*;
+//import com.hilldev.hill60.Debug;
 
 public class GameScreen implements Screen, IEngine {
 	
@@ -32,6 +33,9 @@ public class GameScreen implements Screen, IEngine {
     // Input manager
     public InputManager inputManager;
 
+    // DEBUG
+    public Player player;
+
     public GameScreen() {
         instance = this;
 
@@ -45,9 +49,6 @@ public class GameScreen implements Screen, IEngine {
         
         create();
     }
-
-    // DEBUG
-    public Player player;
 
 	public void create() {
 
@@ -126,24 +127,10 @@ public class GameScreen implements Screen, IEngine {
     public void dispose() {
         resourceManager.dispose();
     }
-
-	@Override
-	public List<GameObject> getObjectList() {
-		return gameObjects;
-	}
-
-	@Override
-	public GameObject getObject(int id) {
-		for(GameObject obj : gameObjects) {
-			if(obj.getID() == id) return obj;
-		}
-		return null;
-	}
 	
 	@Override
 	public void update() {
 
-        //Debug.log("");
 		// Update entity systems
 		for(AEntitySystem e : systems) {
 
@@ -171,20 +158,33 @@ public class GameScreen implements Screen, IEngine {
         creationQueue.clear();
 	}
 
+	@Override
+	public List<GameObject> getObjectList() {
+		return gameObjects;
+	}
+
+	@Override
+	public GameObject getObject(int id) {
+		for(GameObject obj : gameObjects) {
+			if(obj.getID() == id) return obj;
+		}
+		return null;
+	}
+
+    @Override
+    public void createObject(GameObject object) {
+        creationQueue.add(object);
+    }
+
     @Override
     public void destroyObject(GameObject object) {
         destructionQueue.add(object);
-        getSystem(BoardSystem.class).destroyObject(object); // Lepsze rozwiązanie :)
+        getSystem(BoardSystem.class).destroyObject(object);
     }
 
     @Override
     public void destroyObject(int id) {
         destroyObject(getObject(id));
-    }
-
-    @Override
-    public void createObject(GameObject object) {
-        creationQueue.add(object);
     }
 
 	@Override

@@ -35,6 +35,7 @@ public class RenderingSystem extends AEntitySystem {
     Sprite shadow;
 
 	public RenderingSystem(IEngine engine) {
+		
 		super(engine);
 
 		dynamicCamera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -79,7 +80,7 @@ public class RenderingSystem extends AEntitySystem {
 
         for(int i = 0 ; i < layerList.size(); i++) {
             if(yPos >= layerList.get(i).getComponent(BoardPosition.class).y) {
-
+            	
                 layerList.add(i, obj);
                 added = true;
                 break;
@@ -96,7 +97,6 @@ public class RenderingSystem extends AEntitySystem {
 		// Reorder the objects
 		List<GameObject> objList = engine.getObjectList();
 		List<List<GameObject>> objectsToRender = new ArrayList<>();
-
 
 		int lastLayer = MAX_LAYER;
 

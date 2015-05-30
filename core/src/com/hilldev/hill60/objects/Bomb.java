@@ -7,6 +7,7 @@ import com.hilldev.hill60.components.*;
 public class Bomb extends GameObject {
 
     public Bomb(IEngine engine, int x, int y) {
+    	
         super(engine);
 
         // Set a tag

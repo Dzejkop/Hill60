@@ -31,6 +31,7 @@ public class PlayerScript implements Behaviour {
 
     @Override
     public void create(BehaviourComponent parentComponent) {
+    	
         this.parentComponent = parentComponent;
         parent = (Player)(parentComponent.getParent());
 
@@ -46,7 +47,8 @@ public class PlayerScript implements Behaviour {
         // Connect to game engine
         engine = parent.engine;
 
-        if(animationController.getCurrentAnimation() == null) animationController.setAnimation(walkSidewaysAnimation);
+        if(animationController.getCurrentAnimation() == null)
+        	animationController.setAnimation(walkSidewaysAnimation);
     }
 
     @Override
@@ -63,6 +65,7 @@ public class PlayerScript implements Behaviour {
     }
 
 	private void animate() {
+		
 		if(characterScript.goingRight) {
             animationController.setAnimation(walkSidewaysAnimation);
             animationController.getCurrentAnimation().isActive = true;

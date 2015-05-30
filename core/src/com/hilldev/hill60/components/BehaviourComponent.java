@@ -40,7 +40,8 @@ public class BehaviourComponent extends AComponent {
         }
     }
 
-    public <T extends Behaviour> T get(Class<T> type) {
+    @SuppressWarnings("unchecked")
+	public <T extends Behaviour> T get(Class<T> type) {
         for(Behaviour b : behaviours) {
             if(b.getClass() == type) return (T)b;
         }

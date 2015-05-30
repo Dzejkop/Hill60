@@ -7,6 +7,7 @@ import com.hilldev.hill60.components.*;
 public class Floor extends GameObject {
 
     public Floor(IEngine engine, int x, int y) {
+    	
         super(engine);
         
         // Get the resource manager

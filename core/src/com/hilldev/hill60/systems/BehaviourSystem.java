@@ -16,12 +16,7 @@ public class BehaviourSystem extends AEntitySystem {
             if(meetsConditions(o)) processObject(o);
         }
     }
-
-    /* !!!!!!!!!!!!!!!!!
-       For now the system uses SimpleScript,
-       It should use BehaviourComponent to run these scripts
-     */
-
+    
     @Override
     protected boolean meetsConditions(GameObject obj) {
         return obj.hasComponent(BehaviourComponent.class);

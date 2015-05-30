@@ -9,6 +9,7 @@ public class SoundWave extends GameObject {
     float volume;
 
     public SoundWave(IEngine engine, float volume, float x, float y) {
+    	
         super(engine);
 
         // Set tag
@@ -67,6 +68,4 @@ public class SoundWave extends GameObject {
             }
         }));
     }
-
-
 }

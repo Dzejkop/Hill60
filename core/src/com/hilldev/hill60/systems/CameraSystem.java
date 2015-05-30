@@ -40,7 +40,7 @@ public class CameraSystem extends AEntitySystem {
 
         WorldPosition wPos = obj.getComponent(WorldPosition.class);
 
-        // DEBUG AND TESTING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // DEBUG AND TESTING !!!
         if(Gdx.input.isKeyPressed(Input.Keys.X)) {
             renderingSystem.dynamicCamera.zoom -= 0.01f;
         }

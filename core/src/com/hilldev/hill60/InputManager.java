@@ -23,7 +23,7 @@ public class InputManager {
         return Gdx.input.isKeyPressed(i);
     }
 
-    public boolean keyJustPressed(int i ) {
+    public boolean keyJustPressed(int i) {
         return Gdx.input.isKeyJustPressed(i);
     }
 
@@ -59,5 +59,4 @@ public class InputManager {
     public Vector2 getMousePosOnBoard() {
         return null;
     }
-
 }

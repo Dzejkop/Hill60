@@ -15,17 +15,17 @@ public class ResourceManager implements Disposable {
     public static final String SPRITE_SHEET_FILENAME = "spriteSheet.txt";
     public static final String ASSETS_PATH = "assets/";
     public static final String[] SOUNDS_TO_LOAD = {"footstepBrick.ogg", "footstepsDirt.ogg", "Explosion.wav"};
-
+    
     TextureAtlas textureAtlas;
     Map<String, Integer> loadedSoundNames;
-    Map<Integer, Music> loadedSounds;    
-
+    Map<Integer, Music> loadedSounds;
+    
     public ResourceManager() {
         // Init the list and the map
         loadedSoundNames = new HashMap<>();
         loadedSounds = new HashMap<>();
     }
-
+    
     // Loads all resources
     public void loadTextures() {
         textureAtlas = new TextureAtlas(ASSETS_PATH + SPRITE_SHEET_FILENAME);
@@ -34,9 +34,9 @@ public class ResourceManager implements Disposable {
     public void loadSounds() {
     	int i=1;
         for(String s : SOUNDS_TO_LOAD) {
-        	Music temp=Gdx.audio.newMusic(Gdx.files.internal(ASSETS_PATH + s));
+        	Music temp = Gdx.audio.newMusic(Gdx.files.internal(ASSETS_PATH + s));
         	temp.setLooping(false);
-            loadedSounds.put(i,temp);
+            loadedSounds.put(i, temp);
             loadedSoundNames.put(s, i);
             i++;
         }

@@ -31,11 +31,20 @@ public class BehaviourComponent extends AComponent {
 
     public void add(Behaviour b) {
         behaviours.add(b);
+        if(parent != null) b.create(this);
     }
 
     public void run() {
         for(Behaviour b : behaviours) {
             b.run();
         }
+    }
+
+    public <T extends Behaviour> T get(Class<T> type) {
+        for(Behaviour b : behaviours) {
+            if(b.getClass() == type) return (T)b;
+        }
+
+        return null;
     }
 }

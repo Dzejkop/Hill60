@@ -11,11 +11,11 @@ public class MousePointer extends GameObject {
     	
         super(engine);
 
-        ResourceManager manager = engine.getResourceManager();
+        //ResourceManager manager = engine.getResourceManager();
 
         this.addComponent(new WorldPosition(0, 0, false));
         this.addComponent(new BoardPosition(0, 0));
-        this.addComponent(new SpriteRenderer(manager.getSprite("Player"), 0, 0, 5));
+        //this.addComponent(new SpriteRenderer(manager.getSprite("Player"), 0, 0, 5));
 
         this.addComponent(new BehaviourComponent(new Behaviour() {
 

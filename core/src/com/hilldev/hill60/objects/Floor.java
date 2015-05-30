@@ -15,7 +15,7 @@ public class Floor extends GameObject {
 
         this.addComponent(new BoardPosition(x, y));
         this.addComponent(new WorldPosition(0, 0));
-        this.addComponent(new SpriteRenderer(manager.getSprite("Floor"), 0, 0, 0));
+        this.addComponent(new SpriteRenderer(manager.getSprite("Floor"), 0, 0, 2.5f, 0));
         this.addComponent(new Visibility());
     }
 

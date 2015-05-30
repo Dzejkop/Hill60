@@ -26,6 +26,16 @@ public class SpriteRenderer extends AComponent {
         color = Color.WHITE;
     }
 
+    public SpriteRenderer(Sprite sprite, float x, float y, float scale, int layer) {
+        this.sprite = sprite;
+        this.x = x;
+        this.y = y;
+        this.horizontalScale = scale;
+        this.verticalScale = scale;
+        this.layer = layer;
+        color = Color.WHITE;
+    }
+
     public void setScale(float scale) {
         this.horizontalScale = scale;
         this.verticalScale = scale;

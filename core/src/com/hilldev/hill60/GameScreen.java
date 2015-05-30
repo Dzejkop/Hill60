@@ -88,11 +88,11 @@ public class GameScreen implements Screen, IEngine {
         }
         for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
         	gameObjects.add(new IndestructibleWall(this, x, -1));
-        	gameObjects.add(new IndestructibleWall(this, x, BoardSystem.BOARD_HEIGHT+1));
+        	gameObjects.add(new IndestructibleWall(this, x, BoardSystem.BOARD_HEIGHT));
         }
         for(int y = 0; y < BoardSystem.BOARD_WIDTH; y++) {
         	gameObjects.add(new IndestructibleWall(this, -1, y));
-        	gameObjects.add(new IndestructibleWall(this, BoardSystem.BOARD_WIDTH+1, y));
+        	gameObjects.add(new IndestructibleWall(this, BoardSystem.BOARD_WIDTH, y));
         }
 	}
 

@@ -18,6 +18,8 @@ public class GameObject {
     public String tag = "Default";
 
     public IEngine engine;
+
+    public boolean isActive = true;
     
     // A list of components
     List<AComponent> componentList;

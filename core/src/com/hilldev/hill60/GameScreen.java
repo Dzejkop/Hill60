@@ -51,6 +51,9 @@ public class GameScreen implements Screen, IEngine {
 
 	public void create() {
 
+        // Set size
+        Gdx.graphics.setDisplayMode(RenderingSystem.SCREEN_WIDTH, RenderingSystem.SCREEN_HEIGHT, false);
+
         // Load assets
         resourceManager.loadTextures();
         resourceManager.loadSounds();

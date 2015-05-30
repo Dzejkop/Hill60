@@ -232,7 +232,8 @@ public class RenderingSystem extends AEntitySystem {
 	// SpriteRenderer
 	@Override
 	protected boolean meetsConditions(GameObject o) {
-		return o.hasComponent(BoardPosition.class)
+		return  o.isActive
+                && o.hasComponent(BoardPosition.class)
 				&& o.hasComponent(WorldPosition.class)
 				&& o.hasComponent(SpriteRenderer.class);
 	}

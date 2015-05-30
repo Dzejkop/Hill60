@@ -2,10 +2,12 @@ package com.hilldev.hill60.Scripts;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.components.*;
 import com.hilldev.hill60.objects.Player;
+import com.hilldev.hill60.systems.RenderingSystem;
 
 /**
  * Ta klasa ogarnia input oraz animacje (ponieważ będą różne animacje dla gracza i różne dla AI)
@@ -61,7 +63,22 @@ public class PlayerScript implements Behaviour {
         characterScript.goingRight = manager.rightArrowPressed();
         characterScript.goingLeft = manager.leftArrowPressed();
 
+        if(manager.keyJustPressed(Input.Keys.A)) {
+            targetZoom = zoomInVal;
+        }
+
+        if(manager.keyJustPressed(Input.Keys.S)) {
+            targetZoom = zoomOutVal;
+        }
+
+        currentZoom += (targetZoom - currentZoom)*0.1f;
+        ((OrthographicCamera)(engine.getSystem(RenderingSystem.class).getCamera())).zoom = currentZoom;
     }
+
+    float currentZoom = 1;
+    float zoomInVal = 0.6f;
+    float zoomOutVal = 1;
+    float targetZoom = zoomInVal;
 
     private String[] walkAnimationFrames() {
         String[] f = new String[10];

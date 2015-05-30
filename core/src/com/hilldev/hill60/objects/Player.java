@@ -24,7 +24,9 @@ public class Player extends Character {
         this.addComponent(new CameraTag());
         this.addComponent(new Viewer());
         this.addComponent(new AnimationController());
-        this.addComponent(new SpriteRenderer(manager.getSprite("CharacterNeutral"), 0, 0, 2));
+        this.addComponent(new SpriteRenderer(manager.getSprite("CharacterNeutral"), 0, 0, 1, 2));
+
+        getComponent(SpriteRenderer.class).setColor(0.2f, 0.2f, 0.1f);
 
         // Add player script
         getComponent(BehaviourComponent.class).add(new PlayerScript());

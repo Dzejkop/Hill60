@@ -32,8 +32,8 @@ public class CharacterScript implements Behaviour {
     public boolean goingUp = false;
     public boolean goingDown = false;
 
-    public float runVelocity;
-    public float sneakVelocity;
+    public float runVelocity = RUN_SPEED;
+    public float sneakVelocity = SNEAK_SPEED;
 
     private BehaviourComponent parentComponent;
     private Character parent;
@@ -42,10 +42,34 @@ public class CharacterScript implements Behaviour {
     public void create(BehaviourComponent parentComponent) {
         this.parentComponent = parentComponent;
         this.parent = (Character) parentComponent.getParent();
+
+        // Connect to components
+        velocity  = parent.getComponent(Velocity.class);
     }
 
     @Override
     public void run() {
+
+        float veloc = runVelocity;
+        if(inSneakMode) veloc = sneakVelocity;
+
+        float xv = 0;
+        float yv = 0;
+
+        if(goingUp) {
+            yv = veloc;
+        } else if(goingDown) {
+            yv = -veloc;
+        }
+
+        if(goingRight) {
+            xv = veloc;
+        } else if(goingLeft) {
+            xv = -veloc;
+        }
+
+        velocity.x = xv;
+        velocity.y = yv;
 
     }
 
@@ -59,17 +83,27 @@ public class CharacterScript implements Behaviour {
     public List<Item> getItems() {
         return null;
     }
-    public void addItem(String itemName) {
-
-    }
-    public void delItem(String itemName) {
-
-    }
-    public void selItem(String itemName) {
-
-    }
 
     public static class Item {
+        public String name;
+        private boolean isReady;
+        private int maxCooldown;
+        private int cooldown;
 
+        public void update() {
+            if(!isReady)cooldown--;
+            if(cooldown <= 0) {
+                isReady = true;
+            }
+        }
+
+        public void use() {
+            cooldown = maxCooldown;
+            isReady = false;
+        }
+
+        public boolean isReady() {
+            return isReady;
+        }
     }
 }

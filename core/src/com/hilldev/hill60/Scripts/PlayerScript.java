@@ -1,5 +1,8 @@
 package com.hilldev.hill60.Scripts;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.components.*;
 import com.hilldev.hill60.objects.Player;
@@ -15,6 +18,7 @@ public class PlayerScript implements Behaviour {
 
     // Ease of access
     Player parent;
+    IEngine engine;
     BehaviourComponent parentComponent;
     AnimationController animationController;
     CharacterScript characterScript;
@@ -41,11 +45,21 @@ public class PlayerScript implements Behaviour {
         // Connect to the character script
         characterScript = parentComponent.get(CharacterScript.class);
 
+        // Connect to game engine
+        engine = parent.engine;
+
         if(animationController.getCurrentAnimation() == null) animationController.setAnimation(walkSidewaysAnimation);
     }
 
     @Override
     public void run() {
+
+        InputManager manager = engine.getInputManager();
+
+        characterScript.goingUp = manager.upArrowPressed();
+        characterScript.goingDown = manager.downArrowPressed();
+        characterScript.goingRight = manager.rightArrowPressed();
+        characterScript.goingLeft = manager.leftArrowPressed();
 
     }
 

@@ -8,6 +8,11 @@ import com.hilldev.hill60.systems.RenderingSystem;
 
 public class InputManager {
 
+    private static final int UP_KEY = Input.Keys.UP;
+    private static final int DOWN_KEY = Input.Keys.DOWN;
+    private static final int LEFT_KEY = Input.Keys.LEFT;
+    private static final int RIGHT_KEY = Input.Keys.RIGHT;
+
     IEngine engine;
 
     public InputManager(IEngine engine) {
@@ -23,19 +28,19 @@ public class InputManager {
     }
 
     public boolean upArrowPressed() {
-        return Gdx.input.isKeyPressed(Input.Keys.UP);
+        return Gdx.input.isKeyPressed(UP_KEY);
     }
 
     public boolean downArrowPressed() {
-        return Gdx.input.isKeyPressed(Input.Keys.DOWN);
+        return Gdx.input.isKeyPressed(DOWN_KEY);
     }
 
     public boolean leftArrowPressed() {
-        return Gdx.input.isKeyPressed(Input.Keys.LEFT);
+        return Gdx.input.isKeyPressed(LEFT_KEY);
     }
 
     public boolean rightArrowPressed() {
-        return Gdx.input.isKeyPressed(Input.Keys.RIGHT);
+        return Gdx.input.isKeyPressed(RIGHT_KEY);
     }
 
     public Vector2 getMousePos() {

@@ -56,26 +56,18 @@ public class CharacterScript implements Behaviour {
         float xv = 0;
         float yv = 0;
 
-        if(goingUp) {
-            yv = veloc;
-        } else if(goingDown) {
-            yv = -veloc;
-        }
+        if(goingUp) yv = veloc;
+        else if(goingDown) yv = -veloc;
 
-        if(goingRight) {
-            xv = veloc;
-        } else if(goingLeft) {
-            xv = -veloc;
-        }
+        if(goingRight) xv = veloc;
+        else if(goingLeft) xv = -veloc;
 
         velocity.x = xv;
         velocity.y = yv;
-
     }
 
     /**
      * Nie wiem jeszcze jak rozwiązać ten ekwipunek, ale raczej nie do końca w ten sposób
-     *
      */
 
     // Items

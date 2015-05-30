@@ -1,7 +1,5 @@
 package com.hilldev.hill60.Scripts;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.components.*;
@@ -60,8 +58,41 @@ public class PlayerScript implements Behaviour {
         characterScript.goingDown = manager.downArrowPressed();
         characterScript.goingRight = manager.rightArrowPressed();
         characterScript.goingLeft = manager.leftArrowPressed();
-
+        
+        animate();
     }
+
+	private void animate() {
+		if(characterScript.goingRight) {
+            animationController.setAnimation(walkSidewaysAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+            parent.spriteRenderer.isFlipped = false;
+        }
+        else if(characterScript.goingLeft) {
+            animationController.setAnimation(walkSidewaysAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+            parent.spriteRenderer.isFlipped = true;
+        }
+        else if(characterScript.goingUp) {
+            animationController.setAnimation(walkForwardAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+        }
+        else if(characterScript.goingDown) {
+            animationController.setAnimation(walkBackwardAnimation);
+            animationController.getCurrentAnimation().isActive = true;
+        }
+        else {
+            animationController.getCurrentAnimation().isActive = false;
+            animationController.getCurrentAnimation().reset();
+        }
+
+        if(inSneakMode) {
+            animationController.getCurrentAnimation().stepsPerFrame = SNEAK_ANIMATION_SPEED;
+        }
+        else {
+            animationController.getCurrentAnimation().stepsPerFrame = RUN_ANIMATION_SPEED;
+        }
+	}
 
     private String[] walkAnimationFrames() {
         String[] f = new String[10];

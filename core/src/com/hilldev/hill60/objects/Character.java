@@ -3,10 +3,6 @@ package com.hilldev.hill60.objects;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.Scripts.CharacterScript;
 import com.hilldev.hill60.components.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Character extends GameObject {
 
     public CharacterScript characterScript;

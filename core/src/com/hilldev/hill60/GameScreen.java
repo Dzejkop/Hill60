@@ -71,6 +71,7 @@ public class GameScreen implements Screen, IEngine {
         systems.add(new SoundSystem(this));
         systems.add(new VisibilitySystem(this));
         systems.add(new AnimationSystem(this));
+        systems.add(new RenderGUISystem(this));
 
         start();
 		
@@ -78,6 +79,7 @@ public class GameScreen implements Screen, IEngine {
         player = new Player(this);
 		gameObjects.add(player);
         gameObjects.add(new MousePointer(this));
+        gameObjects.add(new Hud(this));
         Random r = new Random();
         for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
             for(int y = 0; y < BoardSystem.BOARD_HEIGHT; y++) {

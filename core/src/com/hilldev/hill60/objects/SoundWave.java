@@ -31,6 +31,7 @@ public class SoundWave extends GameObject {
         this.addComponent(new BehaviourComponent(new Behaviour() {
 
             SoundWave parentObject;
+			@SuppressWarnings("unused")
 			BehaviourComponent parentComponent;
             SpriteRenderer sprite;
 

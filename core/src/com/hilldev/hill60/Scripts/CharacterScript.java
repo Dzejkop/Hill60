@@ -36,13 +36,16 @@ public class CharacterScript implements Behaviour {
 	public boolean goingRight = false;
 	public boolean goingUp = false;
 	public boolean goingDown = false;
+	String lastStep="";
 
     private int sinceLastStep = RUN_STEP_INTERVAL;
 
 	public float runVelocity = RUN_SPEED;
 	public float sneakVelocity = SNEAK_SPEED;
 
+	// Items variables
 	public List<Item> items = new ArrayList<>();
+    public final static String[] ITEM_LIST = {"Shovel", "SmallBomb", "MediumBomb", "BigBomb"};
 
 	@SuppressWarnings("unused")
 	private BehaviourComponent parentComponent;
@@ -66,7 +69,7 @@ public class CharacterScript implements Behaviour {
 
 	@Override
 	public void run() {
-
+		setLastStep();
 		float veloc = runVelocity;
 		if (inSneakMode)
 			veloc = sneakVelocity;
@@ -110,62 +113,34 @@ public class CharacterScript implements Behaviour {
         }
         return null;
     }
-    
     public String getLastStep(){
-    	if(goingUp) return "up";
-    	if(goingDown) return "down";
-    	if(goingLeft) return "left";
-    	if(goingRight) return "right";
-    	return "";
+    	return setLastStep();
     }
     
-	public static class Item {
-		public String name;
-		private boolean isReady = true;
-		private int maxCooldown;
-		private int cooldown = 0;
-
-		public Item(String name, int cooldown) {
-			this.maxCooldown = cooldown;
-			this.name = name;
-		}
-	    
-		public void update() {
-			System.out.println(cooldown);
-			if (!isReady)
-				cooldown--;
-			if (cooldown <= 0) {
-				isReady = true;
-			}
-		}
-
-		public void use() {
-			cooldown = maxCooldown;
-			isReady = false;
-		}
-
-        public float getAlpha() {
-            return (float)cooldown / (float)maxCooldown;
-        }
-
-		public boolean isReady() {
-			return isReady;
-		}
-
-		public static Item getShovel() {
-			return new Item("Shovel", 100);
-		}
-
-		public static Item getSmallBomb() {
-			return new Item("SmallBomb", 500);
-		}
-
-		public static Item getMediumBomb() {
-			return new Item("MediumBomb", 1000);
-		}
-
-		public static Item getBigBomb() {
-			return new Item("BigBomb", 1500);
-		}
+    private String setLastStep(){
+    	if(goingUp){
+    		lastStep="up";
+    		return "up";
+    	}
+    	if(goingDown){
+    		lastStep="down";
+    		return "down";
+    	}
+    	if(goingLeft){
+    		lastStep="left";
+    		return "left";
+    	}
+    	if(goingRight){
+    		lastStep="right";
+    		return "right";
+    	}
+    	return lastStep;
+    }
+    
+    
+	public static String[] getItemList() {
+		return ITEM_LIST;
 	}
+
+
 }

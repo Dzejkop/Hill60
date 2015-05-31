@@ -7,12 +7,15 @@ import com.hilldev.hill60.objects.GameObject;
 
 public class ItemIcon extends GameObject implements HUDObject {
 	public boolean show=false;
+	public float alpha;
+	
 	public ItemIcon(IEngine engine, String name) {
 		super(engine);
 
 		ResourceManager manager = engine.getResourceManager();
 
 		this.addComponent(new GuiSprite(manager.getSprite(name), 0, 0, 1));
+		alpha=1;
 	}
 
 	@Override
@@ -20,6 +23,14 @@ public class ItemIcon extends GameObject implements HUDObject {
 		GuiSprite s = getComponent(GuiSprite.class);
 		s.x = x;
 		s.y = y;
+	}
+	
+	public void setAlpha(float f) {
+		alpha=f;
+	}
+	
+	public float getAlpha() {
+		return alpha;
 	}
 
 	@Override

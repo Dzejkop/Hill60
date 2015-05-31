@@ -1,14 +1,10 @@
 package com.hilldev.hill60.Scripts;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.components.*;
-import com.hilldev.hill60.objects.BigBomb;
-import com.hilldev.hill60.objects.MediumBomb;
-import com.hilldev.hill60.objects.SmallBomb;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.RenderingSystem;
 
@@ -38,7 +34,6 @@ public class PlayerScript implements Behaviour {
 	private boolean inSneakMode = false;
 
     // Items
-    String[] itemList = {"Shovel", "SmallBomb", "MediumBomb", "BigBomb"};
     int currentItem = 0;
 
 	// Zoom vars
@@ -110,49 +105,21 @@ public class PlayerScript implements Behaviour {
 	private void useItem(int item) {
         BoardPosition p = parent.getComponent(BoardPosition.class);
         if(characterScript.getItem(getCurrentItem()).isReady())
-        switch (item) {
-		case 0:
-			switch(characterScript.getLastStep()){
-			case "up":
-				
-			case "down":
-				
-			case "left":
-				
-			case "right":
-			default:
-				break;
-			}	
-			break;
-
-		case 1:
-			
-	        engine.createObject(new SmallBomb(engine, p.x, p.y));
-			break;
-		case 2:
-	        engine.createObject(new MediumBomb(engine, p.x, p.y));					
-			break;
-		case 3:
-	        engine.createObject(new BigBomb(engine, p.x, p.y));					
-			break;
-		default:
-			break;
-		}
-        characterScript.getItem(getCurrentItem()).use();;
+        characterScript.getItem(getCurrentItem()).use(characterScript.getLastStep(),p.x,p.y,engine);
 	}
 
 	private void prevItem() {
         currentItem--;
-        if(currentItem < 0 ) currentItem = itemList.length-1;
+        if(currentItem < 0 ) currentItem = CharacterScript.getItemList().length-1;
 	}
 
 	private void nextItem() {
         currentItem++;
-        if(currentItem >= itemList.length) currentItem = 0;
+        if(currentItem >= CharacterScript.getItemList().length) currentItem = 0;
 	}
 
     public String getCurrentItem() {
-        return itemList[currentItem];
+        return CharacterScript.getItemList()[currentItem];
     }
 
 	private void animate() {
@@ -175,7 +142,6 @@ public class PlayerScript implements Behaviour {
 			animationController.getCurrentAnimation().isActive = false;
 			animationController.getCurrentAnimation().reset();
 		}
-
 		if (inSneakMode) {
 			animationController.getCurrentAnimation().stepsPerFrame = SNEAK_ANIMATION_SPEED;
 		} else {

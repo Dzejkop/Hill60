@@ -76,31 +76,8 @@ public class GameScreen implements Screen, IEngine {
 
         start();
 		
-		// TESTING !!!!!!
-        player = new Player(this, 2, 2);
-		gameObjects.add(player);
-        gameObjects.add(new Enemy(this, 2, 2));
-        gameObjects.add(new MousePointer(this));
-        gameObjects.add(new HudManager(this));
-        Random r = new Random();
-        for(int x = 1; x < BoardSystem.BOARD_WIDTH-1; x++) {
-            for(int y = 1; y < BoardSystem.BOARD_HEIGHT-1; y++) {
-                if(r.nextInt()%100 > 30) {
-                    gameObjects.add(new Floor(this, x, y));
-                } else {
-                    gameObjects.add(new Floor(this, x, y));
-                    gameObjects.add(new StoneWall(this, x, y));
-                }
-            }
-        }
-        for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
-        	gameObjects.add(new IndestructibleWall(this, x, 0));
-        	gameObjects.add(new IndestructibleWall(this, x, BoardSystem.BOARD_HEIGHT-1));
-        }
-        for(int y = 0; y < BoardSystem.BOARD_WIDTH; y++) {
-        	gameObjects.add(new IndestructibleWall(this, 0, y));
-        	gameObjects.add(new IndestructibleWall(this, BoardSystem.BOARD_WIDTH-1, y));
-        }
+		createTheBoard();
+		spawnCharacters();
 	}
 
     @Override
@@ -109,6 +86,147 @@ public class GameScreen implements Screen, IEngine {
             s.start();
         }
     }
+    
+	private void createTheBoard() {
+        
+        // Creating the board map array
+        char[][] boardMap = new char[BoardSystem.BOARD_WIDTH][BoardSystem.BOARD_HEIGHT];
+        for(int x=0; x<BoardSystem.BOARD_WIDTH; x++)
+        	for(int y=0; y<BoardSystem.BOARD_HEIGHT; y++)
+        		boardMap[x][y] = 'F';
+        
+        // Starting random generator
+        Random r = new Random();
+        
+        // Creating wall circles
+        int circles = Math.abs(r.nextInt()%10)+10;
+        for(int i=0; i<circles; i++) {
+        	int x = Math.abs(r.nextInt()%BoardSystem.BOARD_WIDTH);
+        	int y = Math.abs(r.nextInt()%BoardSystem.BOARD_HEIGHT);
+        	int circleSize = Math.abs(r.nextInt()%7)+3;
+        	
+        	for(int j=0; j<circleSize; j++) {
+        		char wallType;
+        		if(j > circleSize/2) wallType = 'D';
+        		else wallType = 'S';
+        		
+        		if(x+j < BoardSystem.BOARD_WIDTH) boardMap[x+j][y] = wallType;
+    			if(x-j > 0) boardMap[x-j][y] = wallType;
+    			for(int k=0; k<circleSize-j; k++) {
+    				if(x+j < BoardSystem.BOARD_WIDTH && y+k < BoardSystem.BOARD_HEIGHT) boardMap[x+j][y+k] = wallType;
+    				if(x+j < BoardSystem.BOARD_WIDTH && y-k > 0) boardMap[x+j][y-k] = wallType;
+    				if(x-j > 0 && y+k < BoardSystem.BOARD_HEIGHT) boardMap[x-j][y+k] = wallType;
+    				if(x-j > 0 && y-k > 0) boardMap[x-j][y-k] = wallType;
+    			}
+    			
+    			if(y+j < BoardSystem.BOARD_HEIGHT) boardMap[x][y+j] = wallType;
+    			if(y-j > 0) boardMap[x][y-j] = wallType;
+    			for(int k=0; k<circleSize-j; k++) {
+    				if(y+j < BoardSystem.BOARD_HEIGHT && x+k < BoardSystem.BOARD_WIDTH) boardMap[x+k][y+j] = wallType;
+    				if(y+j < BoardSystem.BOARD_HEIGHT && x-k > 0) boardMap[x-k][y+j] = wallType;
+    				if(y-j > 0 && x+k < BoardSystem.BOARD_WIDTH) boardMap[x+k][y-j] = wallType;
+    				if(y-j > 0 && x-k > 0) boardMap[x-k][y-j] = wallType;
+    			}
+        	}
+        }
+        
+        // Removing some random walls
+        int density = Math.abs(r.nextInt()%3);
+        for(int x=0; x<BoardSystem.BOARD_WIDTH; x++)
+        	for(int y=0; y<BoardSystem.BOARD_HEIGHT; y++)
+        		if(Math.abs(r.nextInt()%3) == density)
+        			boardMap[x][y] = 'F';
+        
+        // Clearing the corners
+        boardMap[1][1] = 'F';
+	    boardMap[1][2] = 'F';
+	    boardMap[2][1] = 'F';
+	    boardMap[2][2] = 'F';
+
+        boardMap[BoardSystem.BOARD_WIDTH-2][1] = 'F';
+	    boardMap[BoardSystem.BOARD_WIDTH-2][2] = 'F';
+	    boardMap[BoardSystem.BOARD_WIDTH-3][1] = 'F';
+	    boardMap[BoardSystem.BOARD_WIDTH-3][2] = 'F';
+
+        boardMap[1][BoardSystem.BOARD_HEIGHT-2] = 'F';
+	    boardMap[1][BoardSystem.BOARD_HEIGHT-3] = 'F';
+	    boardMap[2][BoardSystem.BOARD_HEIGHT-2] = 'F';
+	    boardMap[2][BoardSystem.BOARD_HEIGHT-3] = 'F';
+
+        boardMap[BoardSystem.BOARD_WIDTH-2][BoardSystem.BOARD_HEIGHT-2] = 'F';
+	    boardMap[BoardSystem.BOARD_WIDTH-2][BoardSystem.BOARD_HEIGHT-3] = 'F';
+	    boardMap[BoardSystem.BOARD_WIDTH-3][BoardSystem.BOARD_HEIGHT-2] = 'F';
+	    boardMap[BoardSystem.BOARD_WIDTH-3][BoardSystem.BOARD_HEIGHT-3] = 'F';
+	    
+        // Clearing the tunnels
+	    int tunnels = Math.abs(r.nextInt()%5)+5;
+	    for(int i=0; i<tunnels; i++) {
+	    	int startX = Math.abs(r.nextInt()%BoardSystem.BOARD_WIDTH);
+	    	int startY = Math.abs(r.nextInt()%BoardSystem.BOARD_HEIGHT);
+	    	int length = Math.abs(r.nextInt()%15)+5;
+	    	int direction = Math.abs(r.nextInt()%4);
+	    	
+	    	switch(direction) {
+	    	case 0:
+	    		for(int x=startX; x<startX+length; x++)
+	    			if(x < BoardSystem.BOARD_WIDTH)
+	    				boardMap[x][startY] = 'F';
+	    		break;
+	    	case 1:
+	    		for(int y=startY; y<startY+length; y++)
+	    			if(y < BoardSystem.BOARD_HEIGHT)
+	    				boardMap[startX][y] = 'F';
+	    		break;
+	    	case 2:
+	    		for(int x=startX; x>startX-length; x--)
+	    			if(x > 0)
+	    				boardMap[x][startY] = 'F';
+	    		break;
+	    	case 3:
+	    		for(int y=startY; y>startY-length; y--)
+	    			if(y > 0)
+	    				boardMap[startX][y] = 'F';
+	    		break;
+	    	}
+	    }
+	    
+	    // Adding the indestructible walls frame
+	    for(int x=0; x<BoardSystem.BOARD_WIDTH; x++) {
+	    	boardMap[x][0] = 'I';
+	    	boardMap[x][BoardSystem.BOARD_HEIGHT-1] = 'I';
+	    }
+	    
+	    for(int y=0; y<BoardSystem.BOARD_HEIGHT; y++) {
+	    	boardMap[0][y] = 'I';
+	    	boardMap[BoardSystem.BOARD_WIDTH-1][y] = 'I';
+	    }
+        
+	    // Spawning the walls and floors
+        for(int x=0; x<BoardSystem.BOARD_WIDTH; x++)
+        	for(int y=0; y<BoardSystem.BOARD_HEIGHT; y++)
+        		if(boardMap[x][y] == 'F') {
+        			gameObjects.add(new Floor(this, x, y));
+        		} else if(boardMap[x][y] == 'S') {
+                    gameObjects.add(new Floor(this, x, y));
+                    gameObjects.add(new StoneWall(this, x, y));
+        		} else if(boardMap[x][y] == 'D') {
+                    gameObjects.add(new Floor(this, x, y));
+                    gameObjects.add(new StoneWall(this, x, y));
+        		} else if(boardMap[x][y] == 'I') {
+                    gameObjects.add(new Floor(this, x, y));
+                    gameObjects.add(new IndestructibleWall(this, x, y));
+        		}
+	}
+	
+	private void spawnCharacters() {
+		
+        player = new Player(this, 1, 1);
+        
+		gameObjects.add(player);
+        gameObjects.add(new Enemy(this, BoardSystem.BOARD_WIDTH-2, 1));
+        gameObjects.add(new MousePointer(this));
+        gameObjects.add(new HudManager(this));
+	}
 
     @SuppressWarnings("unchecked")
 	@Override

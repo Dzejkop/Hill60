@@ -1,5 +1,7 @@
 package com.hilldev.hill60.systems;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.GuiSprite;
@@ -26,6 +28,7 @@ public class RenderGUISystem extends AEntitySystem {
 		screenWidth = RenderingSystem.SCREEN_WIDTH;
 		screenHeight = RenderingSystem.SCREEN_HEIGHT;
 		batch = new SpriteBatch();
+		Gdx.gl.glEnable(GL20.GL_BLEND);
 	}
 
 	public void switchGui(boolean status) {
@@ -49,7 +52,8 @@ public class RenderGUISystem extends AEntitySystem {
 							float y = (guiSprite.y - (guiSprite.sprite
 									.getHeight() / 2));
 							batch.begin();
-							batch.draw(guiSprite.sprite, x, y);
+							guiSprite.sprite.setPosition(x, y);
+							guiSprite.sprite.draw(batch,guiSprite.alpha);
 							batch.end();
 						}
 					}

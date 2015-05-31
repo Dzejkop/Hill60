@@ -1,12 +1,9 @@
 package com.hilldev.hill60.Scripts;
 
-import java.util.List;
-
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
-import com.hilldev.hill60.Scripts.CharacterScript.Item;
 import com.hilldev.hill60.components.*;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.RenderingSystem;
@@ -37,7 +34,6 @@ public class PlayerScript implements Behaviour {
 	private boolean inSneakMode = false;
 
     // Items
-    String[] itemList = {"Shovel", "SmallBomb", "MediumBomb", "BigBomb"};
     int currentItem = 0;
 
 	// Zoom vars
@@ -97,6 +93,9 @@ public class PlayerScript implements Behaviour {
 		if (manager.keyJustPressed(Input.Keys.E)) {
 			nextItem();
 		}
+        if(manager.keyJustPressed(Input.Keys.B)) {
+        	useItem(currentItem);
+        }
 
 		currentZoom += (targetZoom - currentZoom) * 0.1f;
 		((OrthographicCamera) (engine.getSystem(RenderingSystem.class)
@@ -107,18 +106,24 @@ public class PlayerScript implements Behaviour {
         return inSneakMode;
     }
 
+	private void useItem(int item) {
+        BoardPosition p = parent.getComponent(BoardPosition.class);
+        if(characterScript.getItem(getCurrentItem()).isReady())
+        characterScript.getItem(getCurrentItem()).use(characterScript.getLastStep(),p.x,p.y,engine);
+	}
+
 	private void prevItem() {
         currentItem--;
-        if(currentItem < 0 ) currentItem = itemList.length-1;
+        if(currentItem < 0 ) currentItem = CharacterScript.getItemList().length-1;
 	}
 
 	private void nextItem() {
         currentItem++;
-        if(currentItem >= itemList.length) currentItem = 0;
+        if(currentItem >= CharacterScript.getItemList().length) currentItem = 0;
 	}
 
     public String getCurrentItem() {
-        return itemList[currentItem];
+        return CharacterScript.getItemList()[currentItem];
     }
 
 	private void animate() {
@@ -141,7 +146,6 @@ public class PlayerScript implements Behaviour {
 			animationController.getCurrentAnimation().isActive = false;
 			animationController.getCurrentAnimation().reset();
 		}
-
 		if (inSneakMode) {
 			animationController.getCurrentAnimation().stepsPerFrame = SNEAK_ANIMATION_SPEED;
 		} else {

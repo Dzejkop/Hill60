@@ -6,8 +6,6 @@ import java.util.Random;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.objects.*;
 import com.hilldev.hill60.objects.HUD.HudManager;
 import com.hilldev.hill60.objects.Walls.*;
@@ -250,11 +248,6 @@ public class GameScreen implements Screen, IEngine {
     @Override
 	public void render(float delta) {
 		update();
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
-            BoardPosition p = player.getComponent(BoardPosition.class);
-            gameObjects.add(new Bomb(this, p.x, p.y));
-        }
 	}
 
     @Override

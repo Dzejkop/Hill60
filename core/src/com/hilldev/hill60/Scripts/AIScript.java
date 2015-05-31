@@ -11,7 +11,6 @@ import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.components.*;
-import com.hilldev.hill60.objects.Bomb;
 import com.hilldev.hill60.objects.Enemy;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.BoardSystem;
@@ -42,7 +41,7 @@ public class AIScript implements Behaviour {
     Animation walkForwardAnimation;
 
     // Perception vars
-    List<Bomb> bombs;
+    //List<Bomb> bombs;
     boolean canSeePlayer = false;
     boolean canHearPlayer = false;
 

@@ -38,9 +38,9 @@ public class HudManager extends GameObject {
 
 		itemDisplay.setPos(w / 2, 20);
 		shovelIcon.setPos(w / 2, 40);
-		bigBombIcon.setPos(w / 2, 40);
-		mediumBombIcon.setPos(w / 2, 40);
 		smallBombIcon.setPos(w / 2, 40);
+		mediumBombIcon.setPos(w / 2, 40);
+		bigBombIcon.setPos(w / 2, 40);
 
         this.addComponent(new BehaviourComponent(new HudManagerScript()));
 	}

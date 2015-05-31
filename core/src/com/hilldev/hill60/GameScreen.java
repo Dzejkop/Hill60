@@ -79,10 +79,9 @@ public class GameScreen implements Screen, IEngine {
 		
 		// TESTING !!!!!!
         player = new Player(this);
-        hud =new HudManager(this);
-        hud.player=player;
 		gameObjects.add(player);
         gameObjects.add(new MousePointer(this));
+        hud =new HudManager(this);
         gameObjects.add(hud);
         Random r = new Random();
         for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
@@ -189,6 +188,16 @@ public class GameScreen implements Screen, IEngine {
 		}
 		return null;
 	}
+
+    @Override
+    public GameObject findObject(String className) {
+        for(GameObject o : gameObjects) {
+            if(o.getClass().getSimpleName().equals(className)) {
+                return o;
+            }
+        }
+        return null;
+    }
 
     @Override
     public void createObject(GameObject object) {

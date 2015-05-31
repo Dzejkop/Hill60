@@ -11,6 +11,7 @@ public interface IEngine {
 	public void update();							// Updates all entity systems
 	public List<GameObject> getObjectList();		// Returns all the objects
 	public GameObject getObject(int id);			// Finds the object with specified id
+    public GameObject findObject(String className); // Finds the object with specified simpleClass name (used for Player, HUD)
     public void createObject(GameObject object);
     public void destroyObject(GameObject object);   // Destroys an object
     public void destroyObject(int id);              // Same only using id

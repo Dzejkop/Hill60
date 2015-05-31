@@ -60,7 +60,6 @@ public class CharacterScript implements Behaviour {
 		items.add(Item.getSmallBomb());
 		items.add(Item.getMediumBomb());
 		items.add(Item.getBigBomb());
-		items.get(0).inUse = true;
 	}
 
 	@Override
@@ -97,19 +96,8 @@ public class CharacterScript implements Behaviour {
 		return items;
 	}
 
-	public String getActiveItem() {
-		String it=null;
-		for (Item item : items) {
-			if(item.inUse){
-				it=item.name;
-			}
-		}
-		return it;
-	}
-
 	public static class Item {
 		public String name;
-		public boolean inUse = false;
 		private boolean isReady = true;
 		private int maxCooldown;
 		private int cooldown = 0;
@@ -131,6 +119,10 @@ public class CharacterScript implements Behaviour {
 			cooldown = maxCooldown;
 			isReady = false;
 		}
+
+        public float getAlpha() {
+            return (float)cooldown / (float)maxCooldown;
+        }
 
 		public boolean isReady() {
 			return isReady;

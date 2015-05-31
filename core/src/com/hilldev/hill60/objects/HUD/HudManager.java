@@ -44,7 +44,7 @@ public class HudManager extends GameObject {
 	}
 
 	public void update() {
-		switch (player.characterScript.getActiveItem()) {
+		switch (player.playerScript.getCurrentItem()){
 		case "Shovel":
 			setAllInactive();
 			shovelIcon.isActive=true;

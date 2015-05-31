@@ -12,6 +12,8 @@ public class Player extends Character {
     public Velocity velocity;
     public SpriteRenderer spriteRenderer;
 
+    public PlayerScript playerScript;
+
     public Player(IEngine engine) {
     	
         super(engine);
@@ -30,7 +32,8 @@ public class Player extends Character {
         getComponent(SpriteRenderer.class).setColor(0.2f, 0.2f, 0.1f);
 
         // Add player script
-        getComponent(BehaviourComponent.class).add(new PlayerScript());
+        playerScript = new PlayerScript();
+        getComponent(BehaviourComponent.class).add(playerScript);
 
         // Get access to most used components
         velocity = getComponent(Velocity.class);

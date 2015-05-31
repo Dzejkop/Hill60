@@ -36,6 +36,10 @@ public class PlayerScript implements Behaviour {
 	// State vars
 	private boolean inSneakMode = false;
 
+    // Items
+    String[] itemList = {"Shovel", "SmallBomb", "MediumBomb", "BigBomb"};
+    int currentItem = 0;
+
 	// Zoom vars
 	float currentZoom = 1;
 	float zoomInVal = 0.6f;
@@ -100,36 +104,18 @@ public class PlayerScript implements Behaviour {
 	}
 
 	private void prevItem() {
-		List<Item> items = characterScript.getItems();
-		for (int i = 0; i < items.size(); i++) {
-			if (items.get(i).inUse) {
-				if (i >= 1) {
-					items.get(i - 1).inUse = true;
-					System.out.println(i);
-					break;
-				} else {
-					items.get(items.size() - 1).inUse = true;
-					break;
-				}
-			}
-		}
+        currentItem--;
+        if(currentItem < 0 ) currentItem = itemList.length-1;
 	}
 
 	private void nextItem() {
-		List<Item> items = characterScript.getItems();
-		for (int i = 0; i < items.size(); i++) {
-			if (items.get(i).inUse) {
-				items.get(i).inUse = false;
-				if (i < items.size() - 1) {
-					items.get(i + 1).inUse = true;
-					break;
-				} else {
-					items.get(0).inUse = true;
-					break;
-				}
-			}
-		}
+        currentItem++;
+        if(currentItem >= itemList.length) currentItem = 0;
 	}
+
+    public String getCurrentItem() {
+        return itemList[currentItem];
+    }
 
 	private void animate() {
 

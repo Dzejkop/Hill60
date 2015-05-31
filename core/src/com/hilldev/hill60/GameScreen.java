@@ -78,14 +78,15 @@ public class GameScreen implements Screen, IEngine {
         start();
 		
 		// TESTING !!!!!!
-        player = new Player(this);
+        player = new Player(this, 2, 2);
 		gameObjects.add(player);
+        gameObjects.add(new Enemy(this, 2, 2));
         gameObjects.add(new MousePointer(this));
         hud =new HudManager(this);
         gameObjects.add(hud);
         Random r = new Random();
-        for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
-            for(int y = 0; y < BoardSystem.BOARD_HEIGHT; y++) {
+        for(int x = 1; x < BoardSystem.BOARD_WIDTH-1; x++) {
+            for(int y = 1; y < BoardSystem.BOARD_HEIGHT-1; y++) {
                 if(r.nextInt()%100 > 30) {
                     gameObjects.add(new Floor(this, x, y));
                 } else {
@@ -95,12 +96,12 @@ public class GameScreen implements Screen, IEngine {
             }
         }
         for(int x = 0; x < BoardSystem.BOARD_WIDTH; x++) {
-        	gameObjects.add(new IndestructibleWall(this, x, -1));
-        	gameObjects.add(new IndestructibleWall(this, x, BoardSystem.BOARD_HEIGHT));
+        	gameObjects.add(new IndestructibleWall(this, x, 0));
+        	gameObjects.add(new IndestructibleWall(this, x, BoardSystem.BOARD_HEIGHT-1));
         }
         for(int y = 0; y < BoardSystem.BOARD_WIDTH; y++) {
-        	gameObjects.add(new IndestructibleWall(this, -1, y));
-        	gameObjects.add(new IndestructibleWall(this, BoardSystem.BOARD_WIDTH, y));
+        	gameObjects.add(new IndestructibleWall(this, 0, y));
+        	gameObjects.add(new IndestructibleWall(this, BoardSystem.BOARD_WIDTH-1, y));
         }
 	}
 

@@ -2,24 +2,24 @@ package com.hilldev.hill60.objects;
 
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
+import com.hilldev.hill60.Scripts.AIScript;
 import com.hilldev.hill60.Scripts.PlayerScript;
 import com.hilldev.hill60.components.*;
 
-public class Player extends Character {
+public class Enemy extends Character {
 
     // Ease of access
     public WorldPosition position;
     public Velocity velocity;
     public SpriteRenderer spriteRenderer;
 
-    public PlayerScript playerScript;
+    public AIScript aiScript;
 
-    public Player(IEngine engine, int x, int y) {
-    	
+    public Enemy(IEngine engine, int x, int y) {
         super(engine, x, y);
 
         // Set a tag
-        this.tag = "Player";
+        this.tag = "Enemy";
 
         // Get the resource manager
         ResourceManager manager = engine.getResourceManager();
@@ -29,20 +29,15 @@ public class Player extends Character {
         this.addComponent(new AnimationController());
         this.addComponent(new SpriteRenderer(manager.getSprite("CharacterNeutral"), 0, 0, 1, 2));
 
-        getComponent(SpriteRenderer.class).setColor(0.2f, 0.2f, 0.1f);
+        getComponent(SpriteRenderer.class).setColor(1f, 0.2f, 0.1f);
 
         // Add player script
-        playerScript = new PlayerScript();
-        getComponent(BehaviourComponent.class).add(playerScript);
+        aiScript = new AIScript();
+        getComponent(BehaviourComponent.class).add(aiScript);
 
         // Get access to most used components
         velocity = getComponent(Velocity.class);
         position = getComponent(WorldPosition.class);
         spriteRenderer = getComponent(SpriteRenderer.class);
-    }
-
-    @Override
-    public void receiveMessage(String message, GameObject sender) {
-        super.receiveMessage(message, sender);
     }
 }

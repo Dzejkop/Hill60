@@ -86,15 +86,17 @@ public class CharacterScript implements Behaviour {
 		velocity.y = yv;
 	}
 
-	/**
-	 * Nie wiem jeszcze jak rozwiązać ten ekwipunek, ale raczej nie do końca
-	 * w ten sposób
-	 */
-
 	// Items
 	public List<Item> getItems() {
 		return items;
 	}
+
+    public Item getItem(String itemName) {
+        for(Item i : items) {
+            if(i.name.equals(itemName)) return i;
+        }
+        return null;
+    }
 
 	public static class Item {
 		public String name;

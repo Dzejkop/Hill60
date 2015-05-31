@@ -1,13 +1,14 @@
 package com.hilldev.hill60.Scripts;
 
-import java.util.List;
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
-import com.hilldev.hill60.Scripts.CharacterScript.Item;
 import com.hilldev.hill60.components.*;
+import com.hilldev.hill60.objects.BigBomb;
+import com.hilldev.hill60.objects.MediumBomb;
+import com.hilldev.hill60.objects.SmallBomb;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.RenderingSystem;
 
@@ -97,10 +98,47 @@ public class PlayerScript implements Behaviour {
 		if (manager.keyJustPressed(Input.Keys.E)) {
 			nextItem();
 		}
+        if(manager.keyJustPressed(Input.Keys.B)) {
+        	useItem(currentItem);
+        }
 
 		currentZoom += (targetZoom - currentZoom) * 0.1f;
 		((OrthographicCamera) (engine.getSystem(RenderingSystem.class)
 				.getCamera())).zoom = currentZoom;
+	}
+
+	private void useItem(int item) {
+        BoardPosition p = parent.getComponent(BoardPosition.class);
+        if(characterScript.getItem(getCurrentItem()).isReady())
+        switch (item) {
+		case 0:
+			switch(characterScript.getLastStep()){
+			case "up":
+				
+			case "down":
+				
+			case "left":
+				
+			case "right":
+			default:
+				break;
+			}	
+			break;
+
+		case 1:
+			
+	        engine.createObject(new SmallBomb(engine, p.x, p.y));
+			break;
+		case 2:
+	        engine.createObject(new MediumBomb(engine, p.x, p.y));					
+			break;
+		case 3:
+	        engine.createObject(new BigBomb(engine, p.x, p.y));					
+			break;
+		default:
+			break;
+		}
+        characterScript.getItem(getCurrentItem()).use();;
 	}
 
 	private void prevItem() {

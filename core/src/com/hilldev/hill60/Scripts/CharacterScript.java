@@ -94,6 +94,9 @@ public class CharacterScript implements Behaviour {
 
 		velocity.x = xv;
 		velocity.y = yv;
+		for(Item item:items){
+			item.update();
+		}
 	}
 
 	// Items
@@ -107,7 +110,15 @@ public class CharacterScript implements Behaviour {
         }
         return null;
     }
-
+    
+    public String getLastStep(){
+    	if(goingUp) return "up";
+    	if(goingDown) return "down";
+    	if(goingLeft) return "left";
+    	if(goingRight) return "right";
+    	return "";
+    }
+    
 	public static class Item {
 		public String name;
 		private boolean isReady = true;
@@ -118,8 +129,9 @@ public class CharacterScript implements Behaviour {
 			this.maxCooldown = cooldown;
 			this.name = name;
 		}
-
+	    
 		public void update() {
+			System.out.println(cooldown);
 			if (!isReady)
 				cooldown--;
 			if (cooldown <= 0) {
@@ -141,19 +153,19 @@ public class CharacterScript implements Behaviour {
 		}
 
 		public static Item getShovel() {
-			return new Item("Shovel", 10);
+			return new Item("Shovel", 100);
 		}
 
 		public static Item getSmallBomb() {
-			return new Item("SmallBomb", 50);
+			return new Item("SmallBomb", 500);
 		}
 
 		public static Item getMediumBomb() {
-			return new Item("MediumBomb", 100);
+			return new Item("MediumBomb", 1000);
 		}
 
 		public static Item getBigBomb() {
-			return new Item("BigBomb", 150);
+			return new Item("BigBomb", 1500);
 		}
 	}
 }

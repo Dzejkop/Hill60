@@ -132,11 +132,6 @@ public class GameScreen implements Screen, IEngine {
     @Override
 	public void render(float delta) {
 		update();
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
-            BoardPosition p = player.getComponent(BoardPosition.class);
-            gameObjects.add(new Bomb(this, p.x, p.y));
-        }
 	}
 
     @Override

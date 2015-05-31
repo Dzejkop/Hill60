@@ -13,6 +13,7 @@ import com.hilldev.hill60.systems.RenderingSystem;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.badlogic.gdx.ai.*;
 
 public class AIScript implements Behaviour {
 

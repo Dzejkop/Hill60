@@ -103,6 +103,10 @@ public class PlayerScript implements Behaviour {
 				.getCamera())).zoom = currentZoom;
 	}
 
+    public boolean isSneaking() {
+        return inSneakMode;
+    }
+
 	private void prevItem() {
         currentItem--;
         if(currentItem < 0 ) currentItem = itemList.length-1;

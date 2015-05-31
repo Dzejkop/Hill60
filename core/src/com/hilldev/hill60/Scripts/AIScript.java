@@ -110,6 +110,15 @@ public class AIScript implements Behaviour {
         characterScript.goingLeft = vx < 0;
         characterScript.goingUp= vy > 0;
         characterScript.goingDown= vy < 0;
+
+        if((vx*vx) + (vy*vy) < 200f) stop();
+    }
+
+    private void stop() {
+        characterScript.goingRight = false;
+        characterScript.goingLeft = false;
+        characterScript.goingUp = false;
+        characterScript.goingDown = false;
     }
 
     private void animate() {

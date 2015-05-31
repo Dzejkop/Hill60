@@ -37,6 +37,8 @@ public class CharacterScript implements Behaviour {
 	public boolean goingUp = false;
 	public boolean goingDown = false;
 
+    private int sinceLastStep = RUN_STEP_INTERVAL;
+
 	public float runVelocity = RUN_SPEED;
 	public float sneakVelocity = SNEAK_SPEED;
 
@@ -81,6 +83,14 @@ public class CharacterScript implements Behaviour {
 			xv = veloc;
 		else if (goingLeft)
 			xv = -veloc;
+
+        if(!inSneakMode && (xv !=0 || yv != 0)) {
+            sinceLastStep--;
+            if(sinceLastStep <= 0) {
+                sinceLastStep = RUN_STEP_INTERVAL;
+                parent.getComponent(SoundTrigger.class).triggered = true;
+            }
+        }
 
 		velocity.x = xv;
 		velocity.y = yv;

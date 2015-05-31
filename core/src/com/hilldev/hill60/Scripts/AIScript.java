@@ -1,5 +1,6 @@
 package com.hilldev.hill60.Scripts;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,6 +11,7 @@ import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.components.*;
+import com.hilldev.hill60.objects.Bomb;
 import com.hilldev.hill60.objects.Enemy;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.BoardSystem;
@@ -39,9 +41,20 @@ public class AIScript implements Behaviour {
     Animation walkBackwardAnimation;
     Animation walkForwardAnimation;
 
-    // Pathfinding vars
-    Path currentPath;
-    boolean followingPath = true;
+    // Perception vars
+    List<Bomb> bombs;
+    boolean canSeePlayer = false;
+    boolean canHearPlayer = false;
+
+    // State vars
+    enum Mode {
+        Wandering,      // Wandering aimlessly in straight lines, doing a perception check once every tile
+        Idle,           // Not doing anything, waiting
+        HearsPlayer,    // Is aware of player position, goes into sneak mode and tries to sneak up on him
+        SeesPlayer,     // Can see the player, plant bomb and run away
+        HeardPlayer,    //
+        RunningAway     // From a bomb
+    }
 
     // State vars
     private boolean inSneakMode = false;
@@ -82,6 +95,16 @@ public class AIScript implements Behaviour {
     public void run() {
 
         animate();
+        stop();
+
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            InputManager manager = engine.getInputManager();
+
+            float x = manager.getMousePos().x;
+            float y = manager.getMousePos().y;
+
+            goTo(x, y);
+        }
 
         if(state == 0) {
             // Find target
@@ -97,24 +120,75 @@ public class AIScript implements Behaviour {
     }
 
     // In board pos
-    public void goTo(int x, int y) {
-        goTo((float)x*BoardPosition.TILE_SIZE, (float)y*BoardPosition.TILE_SIZE);
+    public boolean goTo(int x, int y) {
+        return goTo((float)x*BoardPosition.TILE_SIZE, (float)y*BoardPosition.TILE_SIZE);
     }
 
     // World pos
-    public void goTo(float x, float y) {
+    public boolean goTo(float x, float y) {
         WorldPosition bPos  = parent.getComponent(WorldPosition.class);
 
         // Get movement vector
         float vx = x - bPos.x;
         float vy = y - bPos.y;
 
-        characterScript.goingRight = vx > 0;
-        characterScript.goingLeft = vx < 0;
-        characterScript.goingUp= vy > 0;
-        characterScript.goingDown= vy < 0;
+        float val = 20f;
 
-        if((vx*vx) + (vy*vy) < 150f) stop();
+        characterScript.goingRight = vx > val;
+        characterScript.goingLeft = vx < -val;
+        characterScript.goingUp = vy > val;
+        characterScript.goingDown = vy < -val;
+
+        if((vx*vx) + (vy*vy) < 20)  {
+            stop();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean knowsWherePlayerIs() {
+        if(canSeePlayer()) return true;
+
+        PlayerScript playerScript = player.getComponent(BehaviourComponent.class).get(PlayerScript.class);
+
+        BoardPosition playerPos = player.getComponent(BoardPosition.class);
+        BoardPosition pos = parent.getComponent(BoardPosition.class);
+        Velocity playerVelocity = player.getComponent(Velocity.class);
+
+        if(playerVelocity.isZero()) return false;
+
+        // Calculate distance
+        float dist = distance(playerPos.getVector(), pos.getVector());
+        float hearingDistance = 5;
+        if(dist < hearingDistance && playerScript.isSneaking() == false) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean canSeePlayer() {
+        BoardPosition playerPos = player.getComponent(BoardPosition.class);
+        BoardPosition pos = parent.getComponent(BoardPosition.class);
+
+        BoardSystem board = engine.getSystem(BoardSystem.class);
+
+        // First confition if is in a straight line of sight
+        if(pos.x != playerPos.x && pos.y != playerPos.y) return false;
+
+        // Second condition, not blocked by a wall
+        int xv = (int)Math.signum(playerPos.x - pos.x);
+        int yv = (int)Math.signum(playerPos.y - pos.y);
+        int x = pos.x;
+        int y = pos.y;
+
+        while(x != playerPos.x && y != playerPos.y) {
+            x+=xv;
+            y+=yv;
+            if(board.getWallAt(x, y) != null) return false;
+        }
+
+        return true;
     }
 
     private void stop() {

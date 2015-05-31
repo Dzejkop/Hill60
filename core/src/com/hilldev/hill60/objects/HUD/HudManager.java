@@ -1,17 +1,19 @@
 package com.hilldev.hill60.objects.HUD;
 
 import com.hilldev.hill60.IEngine;
+import com.hilldev.hill60.Scripts.HudManagerScript;
+import com.hilldev.hill60.components.BehaviourComponent;
 import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.RenderingSystem;
 
 public class HudManager extends GameObject {
 
-	ItemDisplay itemDisplay;
-	ItemIcon shovelIcon;
-	ItemIcon bigBombIcon;
-	ItemIcon smallBombIcon;
-	ItemIcon mediumBombIcon;
+	public ItemDisplay itemDisplay;
+	public ItemIcon shovelIcon;
+	public ItemIcon bigBombIcon;
+	public ItemIcon smallBombIcon;
+	public ItemIcon mediumBombIcon;
 	public Player player;
 
 	public HudManager(IEngine engine) {
@@ -40,38 +42,7 @@ public class HudManager extends GameObject {
 		mediumBombIcon.setPos(w / 2, 40);
 		smallBombIcon.setPos(w / 2, 40);
 
-		setAllInactive();
-		shovelIcon.isActive=true;
-	}
-
-	public void setAllInactive() {
-		shovelIcon.isActive=false;
-		bigBombIcon.isActive=false;
-		smallBombIcon.isActive=false;
-		mediumBombIcon.isActive=false;
-	}
-
-	public void update() {
-		switch (player.playerScript.getCurrentItem()){
-		case "Shovel":
-			setAllInactive();
-			shovelIcon.isActive=true;
-			break;
-		case "SmallBomb":
-			setAllInactive();
-			smallBombIcon.isActive=true;
-			break;
-		case "MediumBomb":
-			setAllInactive();
-			mediumBombIcon.isActive=true;
-			break;
-		case "BigBomb":
-			setAllInactive();
-			bigBombIcon.isActive=true;
-			break;
-		default:
-			break;
-		}
+        this.addComponent(new BehaviourComponent(new HudManagerScript()));
 	}
 
 }

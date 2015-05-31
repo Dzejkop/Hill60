@@ -20,7 +20,7 @@ public class Character extends GameObject {
         this.addComponent(new BoardPosition(x, y));							// Position on the board
         this.addComponent(new Collider(22, 29));
         this.addComponent(new Velocity(0, 0));
-        this.addComponent(new SoundTrigger("footstepBrick.ogg", 10));
+        this.addComponent(new SoundTrigger("footstepBrick.ogg", 20));
         this.addComponent(new Viewer());
         this.addComponent(behaviourComponent);
     }

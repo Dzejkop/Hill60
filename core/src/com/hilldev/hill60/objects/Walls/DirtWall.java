@@ -19,5 +19,7 @@ public class DirtWall extends Wall {
         this.addComponent(new SpriteRenderer(manager.getSprite("Wall"), 0, 10, 3));
         this.addComponent(new ExplosionResistance(1));
         this.addComponent(new Visibility());
+        
+        //this.getComponent(SpriteRenderer.class).setColor(1, 0, 0);
     }
 }

@@ -104,26 +104,23 @@ public class GameScreen implements Screen, IEngine {
         	int circleSize = Math.abs(r.nextInt()%10)+5;
         	
         	for(int j=0; j<circleSize; j++) {
-        		char wallType;
-        		if(j > circleSize/2) wallType = 'D';
-        		else wallType = 'S';
         		
-        		if(x+j < BoardSystem.BOARD_WIDTH) boardMap[x+j][y] = wallType;
-    			if(x-j > 0) boardMap[x-j][y] = wallType;
+        		if(x+j < BoardSystem.BOARD_WIDTH) boardMap[x+j][y] = j<(circleSize/2)?'S':'D';
+    			if(x-j > 0) boardMap[x-j][y] = j<(circleSize/2)?'S':'D';
     			for(int k=0; k<circleSize-j; k++) {
-    				if(x+j < BoardSystem.BOARD_WIDTH && y+k < BoardSystem.BOARD_HEIGHT) boardMap[x+j][y+k] = wallType;
-    				if(x+j < BoardSystem.BOARD_WIDTH && y-k > 0) boardMap[x+j][y-k] = wallType;
-    				if(x-j > 0 && y+k < BoardSystem.BOARD_HEIGHT) boardMap[x-j][y+k] = wallType;
-    				if(x-j > 0 && y-k > 0) boardMap[x-j][y-k] = wallType;
+    				if(x+j < BoardSystem.BOARD_WIDTH && y+k < BoardSystem.BOARD_HEIGHT) boardMap[x+j][y+k] = j+k<(circleSize/2)?'S':'D';
+    				if(x+j < BoardSystem.BOARD_WIDTH && y-k > 0) boardMap[x+j][y-k] = j+k<(circleSize/2)?'S':'D';
+    				if(x-j > 0 && y+k < BoardSystem.BOARD_HEIGHT) boardMap[x-j][y+k] = j+k<(circleSize/2)?'S':'D';
+    				if(x-j > 0 && y-k > 0) boardMap[x-j][y-k] = j+k<(circleSize/2)?'S':'D';
     			}
     			
-    			if(y+j < BoardSystem.BOARD_HEIGHT) boardMap[x][y+j] = wallType;
-    			if(y-j > 0) boardMap[x][y-j] = wallType;
+    			if(y+j < BoardSystem.BOARD_HEIGHT) boardMap[x][y+j] = j<(circleSize/2)?'S':'D';
+    			if(y-j > 0) boardMap[x][y-j] = j<(circleSize/2)?'S':'D';
     			for(int k=0; k<circleSize-j; k++) {
-    				if(y+j < BoardSystem.BOARD_HEIGHT && x+k < BoardSystem.BOARD_WIDTH) boardMap[x+k][y+j] = wallType;
-    				if(y+j < BoardSystem.BOARD_HEIGHT && x-k > 0) boardMap[x-k][y+j] = wallType;
-    				if(y-j > 0 && x+k < BoardSystem.BOARD_WIDTH) boardMap[x+k][y-j] = wallType;
-    				if(y-j > 0 && x-k > 0) boardMap[x-k][y-j] = wallType;
+    				if(y+j < BoardSystem.BOARD_HEIGHT && x+k < BoardSystem.BOARD_WIDTH) boardMap[x+k][y+j] = j+k<(circleSize/2)?'S':'D';
+    				if(y+j < BoardSystem.BOARD_HEIGHT && x-k > 0) boardMap[x-k][y+j] = j+k<(circleSize/2)?'S':'D';
+    				if(y-j > 0 && x+k < BoardSystem.BOARD_WIDTH) boardMap[x+k][y-j] = j+k<(circleSize/2)?'S':'D';
+    				if(y-j > 0 && x-k > 0) boardMap[x-k][y-j] = j+k<(circleSize/2)?'S':'D';
     			}
         	}
         }
@@ -208,7 +205,7 @@ public class GameScreen implements Screen, IEngine {
                     gameObjects.add(new StoneWall(this, x, y));
         		} else if(boardMap[x][y] == 'D') {
                     gameObjects.add(new Floor(this, x, y));
-                    gameObjects.add(new StoneWall(this, x, y));
+                    gameObjects.add(new DirtWall(this, x, y));
         		} else if(boardMap[x][y] == 'I') {
                     gameObjects.add(new Floor(this, x, y));
                     gameObjects.add(new IndestructibleWall(this, x, y));

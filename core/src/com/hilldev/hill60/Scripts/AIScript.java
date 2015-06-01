@@ -10,7 +10,6 @@ import com.hilldev.hill60.objects.Enemy;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.BoardSystem;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -234,13 +233,13 @@ public class AIScript implements Behaviour {
         decideBehaviour();
     }
 
-    private void putBigBomb() {
+    /*private void putBigBomb() {
         Item bigBomb = characterScript.getItem("BigBomb");
 
         BoardPosition bPos = parent.getComponent(BoardPosition.class);
 
         if(bigBomb.isReady()) bigBomb.use("forward", bPos.x, bPos.y, engine);
-    }
+    }*/
 
     private void putBomb() {
         Item bigBomb = characterScript.getItem("BigBomb");

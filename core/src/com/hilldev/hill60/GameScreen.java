@@ -13,11 +13,7 @@ import com.hilldev.hill60.systems.*;
 //import com.hilldev.hill60.Debug;
 
 public class GameScreen implements Screen, IEngine {
-	
-    // Singleton
-    static GameScreen instance;
-    
-    // 
+	// The main game object
     Hill60Main game;
     
     // Game objects
@@ -39,9 +35,10 @@ public class GameScreen implements Screen, IEngine {
     // DEBUG
     public Player player;
 
-    public GameScreen(Hill60Main gam) {
-        instance = this;
-        game=gam;
+    public GameScreen(Hill60Main game) {
+        this.game=game;
+
+        // Initialize lists
         systems = new ArrayList<>();
         gameObjects = new ArrayList<>();
         destructionQueue = new ArrayList<>();
@@ -53,7 +50,7 @@ public class GameScreen implements Screen, IEngine {
         create();
     }
 
-	public void create() {
+    public void create() {
 
         // Set size
         Gdx.graphics.setDisplayMode(RenderingSystem.SCREEN_WIDTH, RenderingSystem.SCREEN_HEIGHT, false);
@@ -73,8 +70,8 @@ public class GameScreen implements Screen, IEngine {
         systems.add(new SoundSystem(this));
         systems.add(new VisibilitySystem(this));
         systems.add(new AnimationSystem(this));
-        systems.add(new RenderGUISystem(this));
-        systems.add(new CheckingGameStateSystem(this));
+        systems.add(new GUISystem(this));
+        systems.add(new GameStateSystem(this));
         
         start();
 		
@@ -261,14 +258,7 @@ public class GameScreen implements Screen, IEngine {
 
 		// Update entity systems
 		for(AEntitySystem e : systems) {
-
-            //long start = System.nanoTime();
-
 			e.update();
-
-            //long end = System.nanoTime();
-
-            //Debug.log(e.getClass().getSimpleName() + " execution time: " + (end-start) );
 		}
 
         // Destroy objects from the queue
@@ -344,4 +334,9 @@ public class GameScreen implements Screen, IEngine {
 	@Override
 	public void resume() {
 	}
+
+    @Override
+    public void quit() {
+        game.switchToMenu();
+    }
 }

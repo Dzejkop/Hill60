@@ -7,28 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Ta klasa ogarnia ruch postaci, wyzwalanie dźwięku
+ * Ta klasa ogarnia ruch postaci, wyzwalanie dźwięku, ekwipunek
  */
 
 public class CharacterScript implements Behaviour {
 
 	// Hardcoded values
-	public static final int RUN_ANIMATION_SPEED = 3; // How fast animation
-														// progresses while
-														// running
-	public static final int SNEAK_ANIMATION_SPEED = 20; // How fast animation
-														// progresses while
-														// sneaking
-	public static final float RUN_STEP_LOUDNESS = 10; // How loud each step is
+	public static final float RUN_STEP_VOLUME = 10; // How loud each step is
 	public static final int RUN_STEP_INTERVAL = 15; // How often the step sound
 													// is played
 	public static final float RUN_SPEED = 4; // How fast the character runs
 	public static final float SNEAK_SPEED = 2; // How fast the character sneaks
 
 	// Ease of access
-	public WorldPosition position;
 	public Velocity velocity;
-	public SpriteRenderer spriteRenderer;
 
 	// Movement variables
 	public boolean inSneakMode = false;
@@ -48,7 +40,6 @@ public class CharacterScript implements Behaviour {
     public final static String[] ITEM_LIST = {"Shovel", "SmallBomb", "MediumBomb", "BigBomb"};
     public final static int[] ITEM_POWER_LIST = {3, 2, 3, 5}; 
     public final static String[] ITEM_SOUND_LIST = {"Explosion.wav","Explosion.wav","Explosion.wav","Explosion.wav"};
-	@SuppressWarnings("unused")
 	private BehaviourComponent parentComponent;
 	private Character parent;
 
@@ -59,6 +50,9 @@ public class CharacterScript implements Behaviour {
 
 		// Connect to components
 		velocity = parent.getComponent(Velocity.class);
+
+        // Set step loudness
+        parent.getComponent(SoundTrigger.class).volume = RUN_STEP_VOLUME;
 
 		// Create the item list
 		items = new ArrayList<>();
@@ -101,11 +95,6 @@ public class CharacterScript implements Behaviour {
 		for(Item item:items){
 			item.update();
 		}
-	}
-
-	// Items
-	public List<Item> getItems() {
-		return items;
 	}
 
     public Item getItem(String itemName) {

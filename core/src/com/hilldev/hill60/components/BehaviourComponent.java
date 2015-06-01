@@ -1,6 +1,6 @@
 package com.hilldev.hill60.components;
 
-import com.hilldev.hill60.Debug;
+import com.hilldev.hill60.Scripts.Behaviour;
 import com.hilldev.hill60.objects.GameObject;
 
 import java.util.ArrayList;

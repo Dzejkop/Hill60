@@ -23,14 +23,13 @@ public class Enemy extends Character {
         // Get the resource manager
         ResourceManager manager = engine.getResourceManager();
 
-        this.addComponent(new CameraTag());
-        this.addComponent(new Viewer());
         this.addComponent(new AnimationController());
         this.addComponent(new SpriteRenderer(manager.getSprite("CharacterNeutral"), 0, 0, 1, 2));
 
+        // Redden the color a bit
         getComponent(SpriteRenderer.class).setColor(1f, 0.2f, 0.1f);
 
-        // Add player script
+        // Add ai script
         aiScript = new AIScript();
         getComponent(BehaviourComponent.class).add(aiScript);
 

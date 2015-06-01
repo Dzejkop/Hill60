@@ -3,6 +3,7 @@ package com.hilldev.hill60.systems;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Game;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BehaviourComponent;
 import com.hilldev.hill60.components.Collider;
@@ -10,17 +11,38 @@ import com.hilldev.hill60.objects.Character;
 import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.objects.HUD.HudManager;
 
-public class CheckingGameStateSystem extends AEntitySystem {
+public class GameStateSystem extends AEntitySystem {
 
 	List<Character> characterList = new ArrayList<Character>();
 	HudManager hud;
 
-	public CheckingGameStateSystem(IEngine engine) {
+    enum GameState {
+        Won,
+        Lost,
+        InProgress
+    }
+    GameState gameState = GameState.InProgress;
+
+    int sinceEnd = 0;
+    int maxTimeSinceEnd = 150;
+
+	public GameStateSystem(IEngine engine) {
 		super(engine);
 	}
 
 	@Override
 	public void update() {
+
+        // If lost or won, wait for a few frames and then exit
+        if(gameState != GameState.InProgress) {
+            sinceEnd++;
+            if(sinceEnd >= maxTimeSinceEnd) {
+                engine.quit();
+            }
+            return;
+        }
+
+        // Find player and enemies if the list is empty
 		if (characterList.size() == 0) {
 			characterList.clear();
 			List<GameObject> objects = engine.getObjectList();
@@ -40,6 +62,7 @@ public class CheckingGameStateSystem extends AEntitySystem {
 					obj.isActive = false;
 					obj.getComponent(BehaviourComponent.class).clear();
 					if (obj.tag == "Player") {
+                        gameState = GameState.Lost;
 						hud.endScreen = true;
 						hud.won = false;
 					}
@@ -50,6 +73,7 @@ public class CheckingGameStateSystem extends AEntitySystem {
 				}
 			}
 		else {
+            gameState = GameState.Won;
 			hud.endScreen = true;
 			hud.won = true;
 		}
@@ -67,8 +91,6 @@ public class CheckingGameStateSystem extends AEntitySystem {
 
 	@Override
 	protected void processObject(GameObject obj) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

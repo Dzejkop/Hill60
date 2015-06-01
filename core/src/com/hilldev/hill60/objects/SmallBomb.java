@@ -2,6 +2,7 @@ package com.hilldev.hill60.objects;
 
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
+import com.hilldev.hill60.Scripts.Behaviour;
 import com.hilldev.hill60.Scripts.CharacterScript;
 import com.hilldev.hill60.components.*;
 

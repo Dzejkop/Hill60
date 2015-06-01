@@ -1,6 +1,5 @@
 package com.hilldev.hill60.Scripts;
 
-import com.hilldev.hill60.components.Behaviour;
 import com.hilldev.hill60.components.BehaviourComponent;
 import com.hilldev.hill60.components.GuiSprite;
 import com.hilldev.hill60.objects.HUD.HudManager;

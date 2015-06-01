@@ -12,14 +12,13 @@ public interface IEngine {
 	public List<GameObject> getObjectList();		// Returns all the objects
 	public GameObject getObject(int id);			// Finds the object with specified id
     public GameObject findObject(String className); // Finds the object with specified simpleClass name (used for Player, HUD)
-    public void createObject(GameObject object);
+    public void createObject(GameObject object);    // Creates an object
     public void destroyObject(GameObject object);   // Destroys an object
     public void destroyObject(int id);              // Same only using id
+
+    public void quit();
 
     public <T extends AEntitySystem> T getSystem(Class<T> type);
     public ResourceManager getResourceManager();
     public InputManager getInputManager();
-
-	// [To be implemented]
-	//public void sendMessage(int receiverId, String message, int senderId);
 }

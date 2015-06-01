@@ -10,13 +10,13 @@ import com.hilldev.hill60.components.GuiSprite;
 import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.objects.HUD.HudManager;
 
-public class RenderGUISystem extends AEntitySystem {
+public class GUISystem extends AEntitySystem {
 	private static final int MAX_LAYER = 1;
 	public int screenWidth;
 	public int screenHeight;
 	boolean renderGui;
 	SpriteBatch batch;
-	public RenderGUISystem(IEngine engine) {
+	public GUISystem(IEngine engine) {
 		super(engine);
 	}
 
@@ -75,7 +75,6 @@ public class RenderGUISystem extends AEntitySystem {
                 sprite2.setColor(Color.valueOf("800000"));
 			}
 
-			//sprite2.scale(1);
 			sprite2.setPosition(screenWidth/2-(sprite2.getWidth()/2), screenHeight/2-(sprite2.getHeight()/2));
 			sprite.scale(screenWidth);
 			sprite.draw(batch,1-hud.alpha);

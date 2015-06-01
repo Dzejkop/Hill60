@@ -25,10 +25,11 @@ public class Player extends Character {
         ResourceManager manager = engine.getResourceManager();
 
         this.addComponent(new CameraTag());
-        this.addComponent(new Viewer());
+        this.addComponent(new ViewerTag());
         this.addComponent(new AnimationController());
         this.addComponent(new SpriteRenderer(manager.getSprite("CharacterNeutral"), 0, 0, 1, 2));
 
+        // Darken the color a bit
         getComponent(SpriteRenderer.class).setColor(0.2f, 0.2f, 0.1f);
 
         // Add player script
@@ -39,10 +40,5 @@ public class Player extends Character {
         velocity = getComponent(Velocity.class);
         position = getComponent(WorldPosition.class);
         spriteRenderer = getComponent(SpriteRenderer.class);
-    }
-
-    @Override
-    public void receiveMessage(String message, GameObject sender) {
-        super.receiveMessage(message, sender);
     }
 }

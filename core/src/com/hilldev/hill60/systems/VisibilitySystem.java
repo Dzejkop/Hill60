@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.components.SpriteRenderer;
-import com.hilldev.hill60.components.Viewer;
+import com.hilldev.hill60.components.ViewerTag;
 import com.hilldev.hill60.components.Visibility;
 import com.hilldev.hill60.objects.GameObject;
 
@@ -24,7 +24,7 @@ public class VisibilitySystem extends AEntitySystem {
 
         if(viewer == null) {
             for(GameObject o : engine.getObjectList()) {
-                if(o.hasComponent(Viewer.class)) {
+                if(o.hasComponent(ViewerTag.class)) {
                     viewer = o;
                     break;
                 }
@@ -58,7 +58,7 @@ public class VisibilitySystem extends AEntitySystem {
         int taxiDist = xDist + yDist;
 
         //Visibility.Type isVisible = Visibility.Type.Invisible;
-        v.visible*=0.99f;
+        v.visible*=0.97f;
 
         // If neighbouring player
         if(taxiDist == 0 || taxiDist == 1 || (taxiDist == 2 && (xDist == 1 && yDist == 1))) {
@@ -69,9 +69,7 @@ public class VisibilitySystem extends AEntitySystem {
             if(isBlockedByWall(board, objectPos, viewerPos) == false) v.visible=1;
         }
 
-        //v.visible=1;
-
-        if(DEBUG_MODE) v.visible = 1;
+        //if(DEBUG_MODE) v.visible = 1;
 
         obj.getComponent(SpriteRenderer.class).setAlpha(v.visible);
     }

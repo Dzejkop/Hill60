@@ -268,6 +268,9 @@ public class AIScript implements Behaviour {
     }
 
     private void perceptionCheck() {
+
+        if(player == null) return;
+
         //Debug.log("Perception check");
         sinceLastPerceptionCheck = 0;
         canSeePlayer = canSeePlayer();

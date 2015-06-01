@@ -54,7 +54,7 @@ public class MenuScreen implements Screen {
 		else if(Gdx.input.isKeyJustPressed(Keys.ENTER))
 			switch(selection) {
 			case 0:
-				game.setScreen(new GameScreen(game));
+				game.switchToGame();
 				break;
 			case 1:
 				Gdx.app.exit();

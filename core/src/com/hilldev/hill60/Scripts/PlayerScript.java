@@ -40,7 +40,7 @@ public class PlayerScript implements Behaviour {
 	float currentZoom = 1;
 	float zoomInVal = 0.6f;
 	float zoomOutVal = 1;
-	float targetZoom = zoomInVal;
+	float targetZoom = zoomOutVal;
 
 	@Override
 	public void create(BehaviourComponent parentComponent) {
@@ -77,13 +77,12 @@ public class PlayerScript implements Behaviour {
 		if (manager.keyJustPressed(Input.Keys.SHIFT_LEFT)) {
 			inSneakMode = !inSneakMode;
 			characterScript.inSneakMode = inSneakMode;
-		}
-		if (manager.keyJustPressed(Input.Keys.A)) {
-			targetZoom = zoomInVal;
-		}
 
-		if (manager.keyJustPressed(Input.Keys.S)) {
-			targetZoom = zoomOutVal;
+            if(inSneakMode) {
+                targetZoom = zoomInVal;
+            } else {
+                targetZoom = zoomOutVal;
+            }
 		}
 
 		if (manager.keyJustPressed(Input.Keys.Q)) {

@@ -10,6 +10,7 @@ import com.hilldev.hill60.objects.Enemy;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.BoardSystem;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,11 +41,14 @@ public class AIScript implements Behaviour {
     boolean canSeePlayer = false;
     boolean canHearPlayer = false;
 
+    Vector2 rememberedPosition;
+
     // State vars
     enum Mode {
         Wandering,      // Wandering aimlessly in straight lines, doing a perception check once every tile
         Idle,           // Not doing anything, waiting
         HearsPlayer,    // Is aware of player position, goes into sneak mode and tries to sneak up on him
+        HeardPlayer,    // Remebers a position and sneaks toward it
         SeesPlayer,     // Can see the player, plant bomb and run away
         RunningAway,    // From a bomb
         DEBUG
@@ -120,6 +124,10 @@ public class AIScript implements Behaviour {
             }
 
             walkThePath(player.getComponent(BoardPosition.class).getVector());
+        }
+        else if(currentMode == Mode.HeardPlayer) {
+            characterScript.inSneakMode = true;
+            goTo((int)rememberedPosition.x, (int)rememberedPosition.y);
         }
         else if(currentMode == Mode.SeesPlayer) {
             if(distanceToPlayer() < 4) {
@@ -230,8 +238,12 @@ public class AIScript implements Behaviour {
 
         terminateMovement();
 
-        currentMode =  newMode;
-
+        if(currentMode == Mode.HearsPlayer && newMode != Mode.SeesPlayer) {
+            rememberedPosition = player.getComponent(BoardPosition.class).getVector();
+            currentMode = Mode.HeardPlayer;
+        } else {
+            currentMode = newMode;
+        }
     }
 
     private void logPosition() {

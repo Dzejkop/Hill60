@@ -221,7 +221,8 @@ public class GameScreen implements Screen, IEngine {
         player = new Player(this, 1, 1);
         
 		gameObjects.add(player);
-        gameObjects.add(new Enemy(this, BoardSystem.BOARD_WIDTH-2, 1));
+        //gameObjects.add(new Enemy(this, BoardSystem.BOARD_WIDTH-2, 1));
+        gameObjects.add(new Enemy(this, 1,2));
         gameObjects.add(new MousePointer(this));
         gameObjects.add(new HudManager(this));
 	}

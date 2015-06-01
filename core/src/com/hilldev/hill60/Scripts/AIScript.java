@@ -11,6 +11,7 @@ import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.components.*;
+import com.hilldev.hill60.objects.BigBomb;
 import com.hilldev.hill60.objects.Enemy;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.BoardSystem;
@@ -24,6 +25,7 @@ public class AIScript implements Behaviour {
 
     private static final int RUN_ANIMATION_SPEED = 3;
     private static final int SNEAK_ANIMATION_SPEED = 20;
+    private static final int MAX_POSITIONS_LOGGED = 5;
 
     // Ease of access
     Enemy parent;
@@ -51,12 +53,16 @@ public class AIScript implements Behaviour {
         Idle,           // Not doing anything, waiting
         HearsPlayer,    // Is aware of player position, goes into sneak mode and tries to sneak up on him
         SeesPlayer,     // Can see the player, plant bomb and run away
-        HeardPlayer,    //
-        RunningAway     // From a bomb
+        RunningAway,    // From a bomb
+        DEBUG
     }
+    Mode currentMode = Mode.DEBUG;
 
     // State vars
     private boolean inSneakMode = false;
+
+    // Position log
+    List<Vector2> positionLog;
 
     @Override
     public void create(BehaviourComponent parentComponent) {
@@ -75,47 +81,191 @@ public class AIScript implements Behaviour {
         // Connect to game engine
         engine = parent.engine;
 
+        // Initiate lists
+        positionLog = new ArrayList<>();
+        for(int i = 0 ; i < MAX_POSITIONS_LOGGED; i++) {
+            positionLog.add(parent.getComponent(BoardPosition.class).getVector());
+        }
+
         // Find player
         player = (Player)engine.findObject("Player");
-
-        finalTarget = new Vector2(5, 5);
 
         if (animationController.getCurrentAnimation() == null)
             animationController.setAnimation(walkSidewaysAnimation);
     }
 
-    Vector2 finalTarget;
-    Vector2 currentTarget;
-    boolean reachedTarget = false;
-
-    int state = 0;
+    int sinceLastPerceptionCheck = 0;
+    int perceptionCheckLimit = 50;
 
     @Override
     public void run() {
 
         animate();
         stop();
+        logPosition();
 
-        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            InputManager manager = engine.getInputManager();
-
-            float x = manager.getMousePos().x;
-            float y = manager.getMousePos().y;
-
-            goTo(x, y);
+        sinceLastPerceptionCheck++;
+        if(sinceLastPerceptionCheck >= perceptionCheckLimit) {
+            perceptionCheck();
         }
 
-        if(state == 0) {
-            // Find target
+        characterScript.inSneakMode = false;
+        if(currentMode == Mode.Idle) {
+
+        }
+        else if(currentMode == Mode.Wandering) {
+
+        }
+        else if(currentMode == Mode.HearsPlayer) {
+            characterScript.inSneakMode = true;
+
+            if(distanceToPlayer() < 4) {
+                putBigBomb();
+            }
+
+            walkThePath(player.getComponent(BoardPosition.class).getVector());
+        }
+        else if(currentMode == Mode.SeesPlayer) {
+            if(distanceToPlayer() < 4) {
+                putBomb();
+                switchMode(Mode.RunningAway);
+            } else {
+                walkThePath(player.getComponent(BoardPosition.class).getVector());
+            }
+        }
+        else if(currentMode == Mode.RunningAway) {
+
         }
 
-        if(state == 1) {
-            // Go to target
+    }
+
+    // Movement vars
+    Vector2 node;
+    boolean nodeSet = false;
+    Path path;
+
+    private void decideBehaviour() {
+        if(canHearPlayer && !canSeePlayer) {
+            switchMode(Mode.HearsPlayer);
         }
+
+        if(canSeePlayer) {
+            switchMode(Mode.SeesPlayer);
+        }
+    }
+
+    private void onTileChange() {
+
+        Debug.log("Changing tile");
+
+        perceptionCheck();
+
+        decideBehaviour();
+    }
+
+    private void putBigBomb() {
+        Item bigBomb = characterScript.getItem("BigBomb");
+
+        BoardPosition bPos = parent.getComponent(BoardPosition.class);
+
+        if(bigBomb.isReady()) bigBomb.use("forward", bPos.x, bPos.y, engine);
+    }
+
+    private void putBomb() {
+        Item bigBomb = characterScript.getItem("BigBomb");
+        Item smallBomb = characterScript.getItem("SmallBomb");
+        Item mediumBomb = characterScript.getItem("MediumBomb");
+
+        BoardPosition bPos = parent.getComponent(BoardPosition.class);
+
+        if(bigBomb.isReady()) bigBomb.use("forward", bPos.x, bPos.y, engine);
+        else if(mediumBomb.isReady()) mediumBomb.use("forward", bPos.x, bPos.y, engine);
+        else if(smallBomb.isReady()) smallBomb.use("forward", bPos.x, bPos.y, engine);
+    }
+
+    private void switchMode(Mode newMode) {
+
+        terminateMovement();
+
+        currentMode =  newMode;
+
+    }
+
+    private void logPosition() {
+        positionLog.remove(0);  // Remove the oldest element
+        positionLog.add(parent.getComponent(BoardPosition.class).getVector());  // Log a new one
+
+        // Check if changed tile
+        Vector2 a = positionLog.get(MAX_POSITIONS_LOGGED-1);
+        Vector2 b = positionLog.get(MAX_POSITIONS_LOGGED-2);
+        if(a.x != b.x && a.y != b.y) onTileChange();
+    }
+
+    private void perceptionCheck() {
+        Debug.log("Perception check");
+        sinceLastPerceptionCheck = 0;
+        canSeePlayer = canSeePlayer();
+        canHearPlayer = canHearPlayer();
+
+        decideBehaviour();
+
+        Debug.log("Can see player? " + canSeePlayer);
+        Debug.log("Can hear player? " + canHearPlayer);
+    }
+
+    private void terminateMovement() {
+        nodeSet = false;
+        path = null;
+        node = null;
+    }
+
+    private boolean walkThePath(Vector2 target) {
+        Vector2 cPos = parent.getComponent(BoardPosition.class).getVector();
+        if(target.x == cPos.x && target.y == cPos.y) return true; // Reached destination
+
+        if(nodeSet) {
+            if (node == null) {
+                nodeSet = false;
+            } else {
+                goTo((int) node.x, (int) node.y);
+                if(node.x == cPos.x && node.y == cPos.y) nodeSet = false;
+            }
+        } else {
+            // Get path
+            path = Path.plot(engine,
+                    parent.getComponent(BoardPosition.class).getVector(),
+                    target
+            );
+
+            // Follow the path
+            node = path.getNext();
+            nodeSet = true;
+        }
+        return false;
     }
 
     public float distance(Vector2 a, Vector2 b) {
         return (float)Math.sqrt(Math.pow(a.x - b.x ,2) + Math.pow(a.y - b.y ,2));
+    }
+
+    public float distanceToPlayer() {
+        Vector2 currPos = parent.getComponent(BoardPosition.class).getVector();
+
+        return distance(currPos, player.getComponent(BoardPosition.class).getVector());
+    }
+
+    // Simple movement functions
+    public void goLeft() {
+        characterScript.goingLeft = true;
+    }
+    public void goRight() {
+        characterScript.goingRight = true;
+    }
+    public void goUp() {
+        characterScript.goingUp = true;
+    }
+    public void goDown() {
+        characterScript.goingDown = true;
     }
 
     // In board pos
@@ -142,12 +292,11 @@ public class AIScript implements Behaviour {
             stop();
             return true;
         }
+
         return false;
     }
 
-    public boolean knowsWherePlayerIs() {
-        if(canSeePlayer()) return true;
-
+    public boolean canHearPlayer() {
         PlayerScript playerScript = player.getComponent(BehaviourComponent.class).get(PlayerScript.class);
 
         BoardPosition playerPos = player.getComponent(BoardPosition.class);
@@ -172,7 +321,7 @@ public class AIScript implements Behaviour {
 
         BoardSystem board = engine.getSystem(BoardSystem.class);
 
-        // First confition if is in a straight line of sight
+        // First condition if is in a straight line of sight
         if(pos.x != playerPos.x && pos.y != playerPos.y) return false;
 
         // Second condition, not blocked by a wall
@@ -181,10 +330,10 @@ public class AIScript implements Behaviour {
         int x = pos.x;
         int y = pos.y;
 
-        while(x != playerPos.x && y != playerPos.y) {
+        while(!(x == playerPos.x && y == playerPos.y)) {
+            if(board.getWallAt(x, y) != null) return false;
             x+=xv;
             y+=yv;
-            if(board.getWallAt(x, y) != null) return false;
         }
 
         return true;
@@ -283,8 +432,8 @@ public class AIScript implements Behaviour {
 
             IntArray intArray = astar.getPath((int)startPoint.x, (int)startPoint.y, (int)endPoint.x, (int)endPoint.y);
 
-            for(int i = 0 ; i < intArray.size; i+=2) {
-                n.add(new Vector2(intArray.get(i), intArray.get(i+1)));
+            for(int i = intArray.size-1 ; i >= 0 ; i-=2) {
+                n.add(new Vector2(intArray.get(i-1), intArray.get(i)));
             }
 
             return new Path(n);
@@ -321,7 +470,7 @@ public class AIScript implements Behaviour {
         }
     }
 
-    /* Aquired from gist.github.com/NathanSweet/7587981 */
+    /* Aquired from gist.github.com/NathanSweet/7587981 , modified slightly to block diagonal movement*/
     static public class Astar {
         private final int width, height;
         private final BinaryHeap<PathNode> open;
@@ -377,13 +526,9 @@ public class AIScript implements Behaviour {
                 int y = node.y;
                 if (x < lastColumn) {
                     addNode(node, x + 1, y, 10);
-                    if (y < lastRow) addNode(node, x + 1, y + 1, 14); // Diagonals cost more, roughly equivalent to sqrt(2).
-                    if (y > 0) addNode(node, x + 1, y - 1, 14);
                 }
                 if (x > 0) {
                     addNode(node, x - 1, y, 10);
-                    if (y < lastRow) addNode(node, x - 1, y + 1, 14);
-                    if (y > 0) addNode(node, x - 1, y - 1, 14);
                 }
                 if (y < lastRow) addNode(node, x, y + 1, 10);
                 if (y > 0) addNode(node, x, y - 1, 10);

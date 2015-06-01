@@ -119,9 +119,10 @@ public class AIScript implements Behaviour {
         else if(currentMode == Mode.HearsPlayer) {
             characterScript.inSneakMode = true;
 
-            if(distanceToPlayer() < 4) {
+            // Maybe not the best option
+            /*if(distanceToPlayer() < 4) {
                 putBigBomb();
-            }
+            }*/
 
             walkThePath(player.getComponent(BoardPosition.class).getVector());
         }
@@ -149,6 +150,22 @@ public class AIScript implements Behaviour {
     Path path;
 
     private void decideBehaviour() {
+
+        if(currentMode == Mode.HeardPlayer) {
+            // Only change if reached the target position
+            howLongInHeardState++;
+
+            if(howLongInHeardState > maxHeardStateLength) {
+                howLongInHeardState = 0;
+                switchMode(Mode.Wandering);
+            }
+
+            Vector2 currentPos = parent.getComponent(BoardPosition.class).getVector();
+            if(rememberedPosition.x == currentPos.x && rememberedPosition.y == currentPos.y) {
+                switchMode(Mode.Wandering);
+            }
+        }
+
         if(canHearPlayer && !canSeePlayer) {
             switchMode(Mode.HearsPlayer);
         }
@@ -157,10 +174,13 @@ public class AIScript implements Behaviour {
             switchMode(Mode.SeesPlayer);
         }
 
-        if(!canSeePlayer && !canHearPlayer) {
+        if(!canSeePlayer && !canHearPlayer && currentMode != Mode.HeardPlayer) {
             switchMode(Mode.Wandering);
         }
     }
+
+    int howLongInHeardState = 0;
+    int maxHeardStateLength = 100;
 
     int sinceLastChangeInDirection = 0;
     int changeInDirectionInterval = 100;
@@ -241,6 +261,7 @@ public class AIScript implements Behaviour {
         if(currentMode == Mode.HearsPlayer && newMode != Mode.SeesPlayer) {
             rememberedPosition = player.getComponent(BoardPosition.class).getVector();
             currentMode = Mode.HeardPlayer;
+            howLongInHeardState = 0;
         } else {
             currentMode = newMode;
         }
@@ -362,7 +383,7 @@ public class AIScript implements Behaviour {
 
         // Calculate distance
         float dist = distance(playerPos.getVector(), pos.getVector());
-        float hearingDistance = 5;
+        float hearingDistance = 9;
         if(dist < hearingDistance && playerScript.isSneaking() == false) {
             return true;
         }
@@ -377,7 +398,7 @@ public class AIScript implements Behaviour {
         BoardSystem board = engine.getSystem(BoardSystem.class);
 
         //Make sure the distance is right
-        if(distanceToPlayer() > 10) return false;
+        if(distanceToPlayer() > 5) return false;
 
         // First condition if is in a straight line of sight
         if(pos.x != playerPos.x && pos.y != playerPos.y) return false;

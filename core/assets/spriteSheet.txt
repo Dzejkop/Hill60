@@ -11,240 +11,247 @@ BigBomb
   index: -1
 BlackTile
   rotate: false
-  xy: 441, 2
+  xy: 335, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 CharacterNeutral
   rotate: false
-  xy: 718, 104
+  xy: 825, 47
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk01
   rotate: false
-  xy: 718, 104
+  xy: 825, 47
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk02
   rotate: false
-  xy: 395, 181
+  xy: 228, 212
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk03
   rotate: false
-  xy: 747, 2
+  xy: 44, 213
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk04
   rotate: false
-  xy: 395, 148
+  xy: 68, 213
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk05
   rotate: false
-  xy: 419, 181
+  xy: 252, 212
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk06
   rotate: false
-  xy: 747, 68
+  xy: 825, 78
   size: 22, 29
   orig: 22, 29
   offset: 0, 0
   index: -1
 CharacterWalk07
   rotate: false
-  xy: 443, 181
+  xy: 276, 212
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalk08
   rotate: false
-  xy: 694, 104
+  xy: 92, 213
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk09
   rotate: false
-  xy: 747, 35
+  xy: 116, 213
   size: 22, 31
   orig: 22, 31
   offset: 0, 0
   index: -1
 CharacterWalk10
   rotate: false
-  xy: 467, 181
+  xy: 300, 212
   size: 22, 30
   orig: 22, 30
   offset: 0, 0
   index: -1
 CharacterWalkBackward00
   rotate: false
-  xy: 667, 146
+  xy: 813, 141
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward01
   rotate: false
-  xy: 491, 181
+  xy: 747, 161
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 CharacterWalkBackward02
   rotate: false
-  xy: 513, 164
+  xy: 140, 213
   size: 20, 31
   orig: 20, 31
   offset: 0, 0
   index: -1
 CharacterWalkBackward03
   rotate: false
-  xy: 742, 104
+  xy: 831, 109
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward04
   rotate: false
-  xy: 689, 146
+  xy: 835, 140
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward05
   rotate: false
-  xy: 601, 154
+  xy: 769, 161
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 CharacterWalkBackward06
   rotate: false
-  xy: 535, 164
+  xy: 162, 213
   size: 20, 31
   orig: 20, 31
   offset: 0, 0
   index: -1
 CharacterWalkBackward07
   rotate: false
-  xy: 667, 177
+  xy: 853, 102
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward08
   rotate: false
-  xy: 689, 177
+  xy: 875, 102
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkBackward09
   rotate: false
-  xy: 711, 137
+  xy: 857, 133
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward00
   rotate: false
-  xy: 711, 168
+  xy: 879, 133
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward01
   rotate: false
-  xy: 623, 154
+  xy: 791, 161
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 CharacterWalkForward02
   rotate: false
-  xy: 557, 164
+  xy: 184, 213
   size: 20, 31
   orig: 20, 31
   offset: 0, 0
   index: -1
 CharacterWalkForward03
   rotate: false
-  xy: 733, 135
+  xy: 857, 164
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward04
   rotate: false
-  xy: 755, 135
+  xy: 879, 164
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward05
   rotate: false
-  xy: 645, 154
+  xy: 809, 109
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 CharacterWalkForward06
   rotate: false
-  xy: 579, 154
+  xy: 206, 213
   size: 20, 31
   orig: 20, 31
   offset: 0, 0
   index: -1
 CharacterWalkForward07
   rotate: false
-  xy: 733, 166
+  xy: 851, 195
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward08
   rotate: false
-  xy: 755, 166
+  xy: 873, 195
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 CharacterWalkForward09
   rotate: false
-  xy: 711, 168
+  xy: 879, 133
   size: 20, 29
   orig: 20, 29
   offset: 0, 0
   index: -1
 DirtWall
   rotate: false
-  xy: 568, 104
+  xy: 851, 2
   size: 40, 48
   orig: 40, 48
   offset: 0, 0
   index: -1
 Floor
   rotate: false
-  xy: 652, 104
+  xy: 2, 213
   size: 40, 40
   orig: 40, 40
+  offset: 0, 0
+  index: -1
+GameOver
+  rotate: false
+  xy: 324, 195
+  size: 525, 58
+  orig: 525, 58
   offset: 0, 0
   index: -1
 ItemDisplay
@@ -263,56 +270,63 @@ MediumBomb
   index: -1
 Player
   rotate: false
-  xy: 506, 104
+  xy: 747, 101
   size: 60, 58
   orig: 60, 58
   offset: 0, 0
   index: -1
 Ring
   rotate: false
-  xy: 543, 2
+  xy: 437, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 ShovelIcon
   rotate: false
-  xy: 335, 2
+  xy: 641, 2
   size: 104, 99
   orig: 104, 99
   offset: 0, 0
   index: -1
 SmallBomb
   rotate: false
-  xy: 317, 148
+  xy: 747, 47
   size: 76, 52
   orig: 76, 52
   offset: 0, 0
   index: -1
 SneakModeIndicator
   rotate: false
-  xy: 335, 103
+  xy: 747, 2
   size: 95, 43
   orig: 95, 43
   offset: 0, 0
   index: -1
 StoneWall
   rotate: false
-  xy: 610, 104
+  xy: 851, 52
   size: 40, 48
   orig: 40, 48
   offset: 0, 0
   index: -1
+Victory
+  rotate: false
+  xy: 391, 104
+  size: 354, 72
+  orig: 354, 72
+  offset: 0, 0
+  index: -1
 WhiteTile
   rotate: false
-  xy: 645, 2
+  xy: 539, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 X
   rotate: false
-  xy: 432, 104
+  xy: 317, 118
   size: 72, 75
   orig: 72, 75
   offset: 0, 0

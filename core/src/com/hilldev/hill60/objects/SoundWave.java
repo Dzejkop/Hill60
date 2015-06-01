@@ -1,5 +1,6 @@
 package com.hilldev.hill60.objects;
 
+import com.badlogic.gdx.audio.Sound;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.*;
@@ -7,13 +8,20 @@ import com.hilldev.hill60.components.*;
 public class SoundWave extends GameObject {
 
     float volume;
+    int soundID;
+    Player player;
 
-    public SoundWave(IEngine engine, float volume, float x, float y) {
+    public SoundWave(IEngine engine, float volume, final float x, final float y, final int soundID,final Sound sound, final Player player) {
     	
         super(engine);
 
         // Set tag
         this.tag = "Sound";
+        
+        // Add id of sound 
+        this.soundID=soundID;
+        
+        this.player=player;
 
         // Get the resource manager
         ResourceManager manager = engine.getResourceManager();
@@ -55,15 +63,16 @@ public class SoundWave extends GameObject {
 
             @Override
             public void run() {
-
                 life--;
                 if(life > 0 ) {
+                	WorldPosition pos = player.getComponent(WorldPosition.class);
                     currentScale*=scaleMultiplier;
-
                     sprite.setScale(currentScale);
                     sprite.setAlpha((float)life / (float)maxLife);
-
+                    double distance=Math.sqrt((x-pos.x)*(x-pos.x)+(y-pos.y)*(y-pos.y));
+                    sound.setVolume(soundID, (float)(1-distance/1000));
                 } else {
+                	sound.stop(soundID);
                     parentObject.engine.destroyObject(parentObject);
                 }
             }

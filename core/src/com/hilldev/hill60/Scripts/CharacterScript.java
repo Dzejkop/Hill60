@@ -46,7 +46,8 @@ public class CharacterScript implements Behaviour {
 	// Items variables
 	public List<Item> items = new ArrayList<>();
     public final static String[] ITEM_LIST = {"Shovel", "SmallBomb", "MediumBomb", "BigBomb"};
-
+    public final static int[] ITEM_POWER_LIST = {3, 2, 3, 5}; 
+    public final static String[] ITEM_SOUND_LIST = {"Explosion.wav","Explosion.wav","Explosion.wav","Explosion.wav"};
 	@SuppressWarnings("unused")
 	private BehaviourComponent parentComponent;
 	private Character parent;

@@ -1,7 +1,7 @@
 package com.hilldev.hill60;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,7 +18,7 @@ public class ResourceManager implements Disposable {
     
     TextureAtlas textureAtlas;
     Map<String, Integer> loadedSoundNames;
-    Map<Integer, Music> loadedSounds;
+    Map<Integer, Sound> loadedSounds;
     
     public ResourceManager() {
         // Init the list and the map
@@ -34,8 +34,7 @@ public class ResourceManager implements Disposable {
     public void loadSounds() {
     	int i=1;
         for(String s : SOUNDS_TO_LOAD) {
-        	Music temp = Gdx.audio.newMusic(Gdx.files.internal(ASSETS_PATH + s));
-        	temp.setLooping(false);
+        	Sound temp = Gdx.audio.newSound(Gdx.files.internal(ASSETS_PATH + s));
             loadedSounds.put(i, temp);
             loadedSoundNames.put(s, i);
             i++;
@@ -48,11 +47,11 @@ public class ResourceManager implements Disposable {
         return s;
     }
     
-    public Music getSound(int n) {
+    public Sound getSound(int n) {
         return loadedSounds.get(n) ;
     }
     
-    public Music getSound(String n) {
+    public Sound getSound(String n) {
         return loadedSounds.get(loadedSoundNames.get(n)) ;
     }
 

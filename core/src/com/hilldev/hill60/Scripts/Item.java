@@ -60,6 +60,7 @@ public class Item {
 			if (object == null)
 				break;
 			if (object.hasComponent(ExplosionResistance.class))
+				if(object.getComponent(ExplosionResistance.class).resistancePoints<=CharacterScript.ITEM_POWER_LIST[0])
 					engine.destroyObject(object);
 			break;
 		}

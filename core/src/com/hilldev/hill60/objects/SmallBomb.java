@@ -2,6 +2,7 @@ package com.hilldev.hill60.objects;
 
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
+import com.hilldev.hill60.Scripts.CharacterScript;
 import com.hilldev.hill60.components.*;
 
 public class SmallBomb extends GameObject {
@@ -16,12 +17,12 @@ public class SmallBomb extends GameObject {
         // Get the resource manager
         ResourceManager manager = engine.getResourceManager();
 
-        this.addComponent(new SpriteRenderer(manager.getSprite("SmallBomb"), 0, 0, 0.6f, 2));
+        this.addComponent(new SpriteRenderer(manager.getSprite(CharacterScript.ITEM_LIST[1]), 0, 0, 0.6f, 2));
         this.addComponent(new WorldPosition(0, 0));
         this.addComponent(new BoardPosition(x, y));
-        this.addComponent(new ExplosionSpawn(100, 2));
+        this.addComponent(new ExplosionSpawn(100, CharacterScript.ITEM_POWER_LIST[1]));
         this.addComponent(new Visibility());
-        this.addComponent(new SoundTrigger("Explosion.wav", 100));
+        this.addComponent(new SoundTrigger(CharacterScript.ITEM_SOUND_LIST[1], 100));
 
         this.addComponent(new BehaviourComponent(new Behaviour() {
 

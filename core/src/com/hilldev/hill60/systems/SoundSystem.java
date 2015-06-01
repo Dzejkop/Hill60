@@ -2,11 +2,12 @@ package com.hilldev.hill60.systems;
 
 import java.util.List;
 
-import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.SoundTrigger;
 import com.hilldev.hill60.components.WorldPosition;
 import com.hilldev.hill60.objects.GameObject;
+import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.objects.SoundWave;
 
 public class SoundSystem extends AEntitySystem {
@@ -38,14 +39,16 @@ public class SoundSystem extends AEntitySystem {
 
             if(soundTrigger.triggered == true) {
                 if (soundTrigger.sound.isEmpty() == false) {
-                	
-                    Music sound;
+                	Player player=(Player) engine.findObject("Player");
+                	int soundID=-1;
+                    Sound sound;
                     sound = engine.getResourceManager().getSound(soundTrigger.sound);
-
-                    if (sound.isPlaying() == false)
-                        sound.play();
-
-                    engine.createObject(new SoundWave(engine, soundTrigger.volume, p.x, p.y));
+                    WorldPosition pos = player.getComponent(WorldPosition.class);
+                    double distance=Math.sqrt((p.x-pos.x)*(p.x-pos.x)+(p.y-pos.y)*(p.y-pos.y));
+                    if (distance<1000)
+                    if (soundTrigger.soundID <=0)
+                        soundID = (int)sound.play((float)(1-distance/1000));
+                    engine.createObject(new SoundWave(engine, soundTrigger.volume, p.x, p.y,soundID, sound ,player));
                 }
 
                 soundTrigger.triggered = false;

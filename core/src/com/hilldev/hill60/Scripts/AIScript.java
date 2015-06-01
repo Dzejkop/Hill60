@@ -1,27 +1,18 @@
 package com.hilldev.hill60.Scripts;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.BinaryHeap;
 import com.badlogic.gdx.utils.IntArray;
 import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.IEngine;
-import com.hilldev.hill60.InputManager;
 import com.hilldev.hill60.components.*;
-import com.hilldev.hill60.objects.BigBomb;
 import com.hilldev.hill60.objects.Enemy;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.BoardSystem;
-import com.hilldev.hill60.systems.RenderingSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.badlogic.gdx.ai.*;
 
 public class AIScript implements Behaviour {
 
@@ -474,7 +465,7 @@ public class AIScript implements Behaviour {
         public static Path plot(final IEngine engine, Vector2 startPoint, Vector2 endPoint) {
             List<Vector2> n = new ArrayList<>();
 
-            BoardSystem board = engine.getSystem(BoardSystem.class);
+            //BoardSystem board = engine.getSystem(BoardSystem.class);
 
             int w = BoardSystem.BOARD_WIDTH;
             int h = BoardSystem.BOARD_HEIGHT;
@@ -538,7 +529,7 @@ public class AIScript implements Behaviour {
         public Astar (int width, int height) {
             this.width = width;
             this.height = height;
-            open = new BinaryHeap(width * 4, false);
+            open = new BinaryHeap<PathNode>(width * 4, false);
             nodes = new PathNode[width * height];
         }
 
@@ -566,7 +557,7 @@ public class AIScript implements Behaviour {
             open.add(root, 0);
 
             int lastColumn = width - 1, lastRow = height - 1;
-            int i = 0;
+            //int i = 0;
             while (open.size > 0) {
                 PathNode node = open.pop();
                 if (node.x == targetX && node.y == targetY) {
@@ -588,7 +579,7 @@ public class AIScript implements Behaviour {
                 }
                 if (y < lastRow) addNode(node, x, y + 1, 10);
                 if (y > 0) addNode(node, x, y - 1, 10);
-                i++;
+                //i++;
             }
             return path;
         }
@@ -635,7 +626,7 @@ public class AIScript implements Behaviour {
             return height;
         }
 
-        static private class PathNode extends BinaryHeap.Node {
+        public static class PathNode extends BinaryHeap.Node {
             int runID, closedID, x, y, pathCost;
             PathNode parent;
 

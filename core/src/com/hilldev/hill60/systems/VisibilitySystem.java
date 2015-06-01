@@ -58,7 +58,7 @@ public class VisibilitySystem extends AEntitySystem {
         int taxiDist = xDist + yDist;
 
         //Visibility.Type isVisible = Visibility.Type.Invisible;
-        v.visible*=0.995f;
+        v.visible*=0.99f;
 
         // If neighbouring player
         if(taxiDist == 0 || taxiDist == 1 || (taxiDist == 2 && (xDist == 1 && yDist == 1))) {

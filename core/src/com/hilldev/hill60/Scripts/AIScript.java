@@ -19,6 +19,8 @@ import com.hilldev.hill60.systems.RenderingSystem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import com.badlogic.gdx.ai.*;
 
 public class AIScript implements Behaviour {
@@ -97,6 +99,8 @@ public class AIScript implements Behaviour {
     int sinceLastPerceptionCheck = 0;
     int perceptionCheckLimit = 50;
 
+    String wanderingDirection = "Left";
+
     @Override
     public void run() {
 
@@ -104,6 +108,7 @@ public class AIScript implements Behaviour {
         stop();
         logPosition();
 
+        // Perform a perception check every now and then
         sinceLastPerceptionCheck++;
         if(sinceLastPerceptionCheck >= perceptionCheckLimit) {
             perceptionCheck();
@@ -114,7 +119,7 @@ public class AIScript implements Behaviour {
 
         }
         else if(currentMode == Mode.Wandering) {
-
+            wander();
         }
         else if(currentMode == Mode.HearsPlayer) {
             characterScript.inSneakMode = true;
@@ -151,6 +156,54 @@ public class AIScript implements Behaviour {
 
         if(canSeePlayer) {
             switchMode(Mode.SeesPlayer);
+        }
+
+        if(!canSeePlayer && !canHearPlayer) {
+            switchMode(Mode.Wandering);
+        }
+    }
+
+    int sinceLastChangeInDirection = 0;
+    int changeInDirectionInterval = 100;
+    private void wander() {
+
+        sinceLastChangeInDirection++;
+        if(sinceLastChangeInDirection >= changeInDirectionInterval) {
+            sinceLastChangeInDirection = 0;
+            wanderingDirection = chooseWanderingDirection();
+        }
+
+        BoardPosition bPos = parent.getComponent(BoardPosition.class);
+        if(wanderingDirection.equals("Left")) {
+            goLeft();
+            characterScript.getItem("Shovel").use("left", bPos.x, bPos.y, engine);
+        } else if(wanderingDirection.equals("Right")) {
+            goRight();
+            characterScript.getItem("Shovel").use("right", bPos.x, bPos.y, engine);
+        } else if(wanderingDirection.equals("Up")) {
+            goUp();
+            characterScript.getItem("Shovel").use("up", bPos.x, bPos.y, engine);
+        } else if(wanderingDirection.equals("Down")) {
+            goDown();
+            characterScript.getItem("Shovel").use("down", bPos.x, bPos.y, engine);
+        } else {
+            wanderingDirection = chooseWanderingDirection();
+        }
+    }
+
+    private String chooseWanderingDirection() {
+        Random random = new Random();
+
+        int n = random.nextInt()%101;
+
+        if(n < 25) {
+            return "Left";
+        } else if(n < 50) {
+            return "Right";
+        } else if(n < 75) {
+            return "Up";
+        } else {
+            return "Down";
         }
     }
 
@@ -320,6 +373,9 @@ public class AIScript implements Behaviour {
         BoardPosition pos = parent.getComponent(BoardPosition.class);
 
         BoardSystem board = engine.getSystem(BoardSystem.class);
+
+        //Make sure the distance is right
+        if(distanceToPlayer() > 10) return false;
 
         // First condition if is in a straight line of sight
         if(pos.x != playerPos.x && pos.y != playerPos.y) return false;

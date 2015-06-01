@@ -1,6 +1,7 @@
 package com.hilldev.hill60.systems;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -67,13 +68,15 @@ public class RenderGUISystem extends AEntitySystem {
 			Sprite sprite2;
 			Sprite sprite = engine.getResourceManager().getSprite("BlackTile");
 			if(hud.won){
-				sprite2 = engine.getResourceManager().getSprite("X");		
+				sprite2 = engine.getResourceManager().getSprite("Victory");
+                sprite2.setColor(Color.valueOf("C5A833"));
 			}else{
-				sprite2 = engine.getResourceManager().getSprite("BlackTile");
+				sprite2 = engine.getResourceManager().getSprite("GameOver");
+                sprite2.setColor(Color.valueOf("800000"));
 			}
 
-			sprite2.scale(screenWidth/200);
-			sprite2.setPosition(screenWidth/2-sprite2.getWidth(), screenHeight/2-sprite2.getHeight());
+			//sprite2.scale(1);
+			sprite2.setPosition(screenWidth/2-(sprite2.getWidth()/2), screenHeight/2-(sprite2.getHeight()/2));
 			sprite.scale(screenWidth);
 			sprite.draw(batch,1-hud.alpha);
 			sprite2.draw(batch,1-hud.alpha);

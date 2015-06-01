@@ -32,7 +32,6 @@ public class Item {
 	public void use(String facingDirection, int x, int y, IEngine engine) {
 		cooldown = maxCooldown;
 		isReady = false;
-		System.out.println(facingDirection);
 		switch (name) {
 		case "Shovel": {
 			BoardSystem boardSystem = engine.getSystem(BoardSystem.class);

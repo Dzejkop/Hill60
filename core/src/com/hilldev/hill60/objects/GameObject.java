@@ -41,6 +41,10 @@ public class GameObject {
         component.setParent(this);
         componentList.add(component);
     }
+    
+    public void deleteComponent(AComponent component) {
+        componentList.remove(component);
+    }
 
     // Checks if the object has a component of such type
     @SuppressWarnings("rawtypes")

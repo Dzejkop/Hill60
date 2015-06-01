@@ -1,5 +1,6 @@
 package com.hilldev.hill60.components;
 
+import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.objects.GameObject;
 
 import java.util.ArrayList;
@@ -32,6 +33,10 @@ public class BehaviourComponent extends AComponent {
     public void add(Behaviour b) {
         behaviours.add(b);
         if(parent != null) b.create(this);
+    }
+    
+    public void clear(){
+    	behaviours.clear();
     }
 
     public void run() {

@@ -17,7 +17,7 @@ public class VisibilitySystem extends AEntitySystem {
 
     GameObject viewer = null;
 
-    boolean DEBUG_MODE = false;
+    public static boolean DEBUG_MODE = false;
 
     @Override
     public void update() {

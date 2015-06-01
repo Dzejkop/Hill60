@@ -15,13 +15,18 @@ public class HudManager extends GameObject {
 	public ItemIcon smallBombIcon;
 	public ItemIcon mediumBombIcon;
 	public Player player;
+	public boolean endScreen;
+	public boolean won;
+	public float alpha;
 
 	public HudManager(IEngine engine) {
 		super(engine);
 
         // Get the player
         player = (Player)engine.findObject("Player");
-
+        endScreen=false;
+        won=false;
+        this.tag = "HUD";
 		itemDisplay = new ItemDisplay(engine);
 		shovelIcon = new ItemIcon(engine, "ShovelIcon");
 		bigBombIcon = new ItemIcon(engine, "BigBomb");

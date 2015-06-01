@@ -16,7 +16,9 @@ public class MousePointer extends GameObject {
 
         this.addComponent(new WorldPosition(0, 0, false));
         this.addComponent(new BoardPosition(0, 0));
-        this.addComponent(new SpriteRenderer(manager.getSprite("X"), 0, 0, 0.1f, 5));
+
+        // Removing sprite renderer as it's not required and annoying
+        //this.addComponent(new SpriteRenderer(manager.getSprite("X"), 0, 0, 0.1f, 5));
 
         this.addComponent(new BehaviourComponent(new Behaviour() {
 

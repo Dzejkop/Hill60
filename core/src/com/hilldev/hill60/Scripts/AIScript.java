@@ -178,7 +178,7 @@ public class AIScript implements Behaviour {
             goDown();
             characterScript.getItem("Shovel").use("down", bPos.x, bPos.y, engine);
         } else {
-            wanderingDirection = chooseWanderingDirection();
+            // Linger around, do nothing
         }
     }
 
@@ -187,21 +187,20 @@ public class AIScript implements Behaviour {
 
         int n = random.nextInt()%101;
 
-        if(n < 25) {
+        if(n < 20) {
             return "Left";
-        } else if(n < 50) {
+        } else if(n < 40) {
             return "Right";
-        } else if(n < 75) {
+        } else if(n < 60) {
             return "Up";
-        } else {
+        } else if(n < 80){
             return "Down";
+        } else {
+            return "None";
         }
     }
 
     private void onTileChange() {
-
-        Debug.log("Changing tile");
-
         perceptionCheck();
 
         decideBehaviour();

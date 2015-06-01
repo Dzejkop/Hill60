@@ -87,7 +87,7 @@ public class RenderingSystem extends AEntitySystem {
             }
         }
 
-        if(added == false) {
+        if(!added) {
             layerList.add(obj);
         }
     }

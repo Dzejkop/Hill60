@@ -108,10 +108,7 @@ public class AIScript implements Behaviour {
         }
 
         characterScript.inSneakMode = false;
-        if(currentMode == Mode.Idle) {
-
-        }
-        else if(currentMode == Mode.Wandering) {
+        if(currentMode == Mode.Wandering) {
             wander();
         }
         else if(currentMode == Mode.HearsPlayer) {
@@ -126,7 +123,7 @@ public class AIScript implements Behaviour {
         }
         else if(currentMode == Mode.HeardPlayer) {
             characterScript.inSneakMode = true;
-            goTo((int)rememberedPosition.x, (int)rememberedPosition.y);
+            goTo((int) rememberedPosition.x, (int) rememberedPosition.y);
         }
         else if(currentMode == Mode.SeesPlayer) {
             if(distanceToPlayer() < 4) {
@@ -135,9 +132,6 @@ public class AIScript implements Behaviour {
             } else {
                 walkThePath(player.getComponent(BoardPosition.class).getVector());
             }
-        }
-        else if(currentMode == Mode.RunningAway) {
-
         }
 
     }
@@ -377,11 +371,8 @@ public class AIScript implements Behaviour {
         // Calculate distance
         float dist = distance(playerPos.getVector(), pos.getVector());
         float hearingDistance = 9;
-        if(dist < hearingDistance && playerScript.isSneaking() == false) {
-            return true;
-        }
+        return dist < hearingDistance && playerScript.isSneaking() == false;
 
-        return false;
     }
 
     public boolean canSeePlayer() {
@@ -554,7 +545,7 @@ public class AIScript implements Behaviour {
         public Astar (int width, int height) {
             this.width = width;
             this.height = height;
-            open = new BinaryHeap<PathNode>(width * 4, false);
+            open = new BinaryHeap<>(width * 4, false);
             nodes = new PathNode[width * height];
         }
 

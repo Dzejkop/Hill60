@@ -3,7 +3,6 @@ package com.hilldev.hill60.systems;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Game;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BehaviourComponent;
 import com.hilldev.hill60.components.Collider;
@@ -13,7 +12,7 @@ import com.hilldev.hill60.objects.HUD.HudManager;
 
 public class GameStateSystem extends AEntitySystem {
 
-	List<Character> characterList = new ArrayList<Character>();
+	List<Character> characterList = new ArrayList<>();
 	HudManager hud;
 
     enum GameState {
@@ -53,7 +52,7 @@ public class GameStateSystem extends AEntitySystem {
 
 		}
 		hud = (HudManager)engine.findObject("HudManager");
-		List<Character> deleteList = new ArrayList<Character>();
+		List<Character> deleteList = new ArrayList<>();
 		if (characterList.size() > 1)
 			for (Character obj : characterList) {
 				if (!obj.isAlive) {
@@ -61,7 +60,7 @@ public class GameStateSystem extends AEntitySystem {
 					obj.deleteComponent(col);
 					obj.isActive = false;
 					obj.getComponent(BehaviourComponent.class).clear();
-					if (obj.tag == "Player") {
+					if (obj.tag.equals("Player")) {
                         gameState = GameState.Lost;
 						hud.endScreen = true;
 						hud.won = false;
@@ -86,7 +85,7 @@ public class GameStateSystem extends AEntitySystem {
 
 	@Override
 	protected boolean meetsConditions(GameObject obj) {
-		return (obj.tag == "Enemy" || obj.tag == "Player");
+		return (obj.tag.equals("Enemy") || obj.tag.equals("Player"));
 	}
 
 	@Override

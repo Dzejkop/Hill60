@@ -1,5 +1,6 @@
 package com.hilldev.hill60.objects.Walls;
 
+import com.badlogic.gdx.graphics.Color;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
 import com.hilldev.hill60.components.ExplosionResistance;
@@ -20,6 +21,6 @@ public class DirtWall extends Wall {
         this.addComponent(new ExplosionResistance(1));
         this.addComponent(new Visibility());
         
-        this.getComponent(SpriteRenderer.class).setColor(1, 0, 0);
+        this.getComponent(SpriteRenderer.class).color = Color.valueOf("A16F1F");
     }
 }

@@ -35,7 +35,7 @@ public class PhysicsSystem extends AEntitySystem {
 				for (GameObject o2 : list) {
 
 					// Make sure it's a different object
-					if (o1.equals(o2) == false && canCollide(o2)) {
+					if (!o1.equals(o2) && canCollide(o2)) {
 						if (checkCollision(o1, o2)) {
 							collisonHandling(o1, o2);
 						}
@@ -66,12 +66,8 @@ public class PhysicsSystem extends AEntitySystem {
 		float distanceX = ((c1.width + c2.width) / 2 + Math.abs(v.x));
 		float distanceY = ((c1.height + c2.height) / 2)+ Math.abs(v.y);
 
-		if (xO2 + distanceX > xO1 && xO2 - distanceX < xO1
-				&& yO2 + distanceY > yO1 && yO2 - distanceY < yO1) {
-			return true;
-		} else {
-			return false;
-		}
+        return xO2 + distanceX > xO1 && xO2 - distanceX < xO1
+                && yO2 + distanceY > yO1 && yO2 - distanceY < yO1;
 	}
 
 	private void collisonHandling(GameObject obj1, GameObject obj2) {

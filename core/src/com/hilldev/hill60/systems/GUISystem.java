@@ -86,10 +86,8 @@ public class GUISystem extends AEntitySystem {
 
 	@Override
 	protected boolean meetsConditions(GameObject obj) {
-		if (obj.hasComponent(GuiSprite.class)&&obj.isActive)
-			return true;
-		return false;
-	}
+        return obj.hasComponent(GuiSprite.class) && obj.isActive;
+    }
 
 	@Override
 	protected void processObject(GameObject obj) {

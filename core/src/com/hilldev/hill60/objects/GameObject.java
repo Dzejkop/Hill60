@@ -27,7 +27,7 @@ public class GameObject {
     public GameObject(IEngine engine) {
     	
         objectID = ID++;    // Unique id
-        componentList = new ArrayList<AComponent>();
+        componentList = new ArrayList<>();
 
         this.engine = engine;
     }

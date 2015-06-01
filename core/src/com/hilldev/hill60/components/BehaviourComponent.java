@@ -13,11 +13,11 @@ public class BehaviourComponent extends AComponent {
     private List<Behaviour> behaviours;
 
     public BehaviourComponent() {
-        behaviours = new ArrayList<Behaviour>();
+        behaviours = new ArrayList<>();
     }
 
     public BehaviourComponent(Behaviour b) {
-        behaviours = new ArrayList<Behaviour>();
+        behaviours = new ArrayList<>();
         add(b);
     }
 

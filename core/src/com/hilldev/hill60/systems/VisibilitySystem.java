@@ -66,7 +66,7 @@ public class VisibilitySystem extends AEntitySystem {
         }
         // Is away from the viewer but in a straight line
         else if((xDist != 0 && yDist == 0) || (yDist != 0 && xDist == 0)) {
-            if(isBlockedByWall(board, objectPos, viewerPos) == false) v.visible=1;
+            if(!isBlockedByWall(board, objectPos, viewerPos)) v.visible=1;
         }
 
         //if(DEBUG_MODE) v.visible = 1;

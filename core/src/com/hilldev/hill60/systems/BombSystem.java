@@ -138,8 +138,7 @@ public class BombSystem extends AEntitySystem {
     }
 
     private boolean canBeSpawned(int x, int y, int power) {
-        if(getResistanceAt(x, y) <= power) return true;
-        return false;
+        return getResistanceAt(x, y) <= power;
     }
 
     private int getResistanceAt(int x, int y) {

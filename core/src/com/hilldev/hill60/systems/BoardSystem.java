@@ -100,10 +100,10 @@ public class BoardSystem extends AEntitySystem {
 				newY = (int) ((worldPos.y-50)/tileSize);
 		}
 
-        if(newX != boardPos.x || newY != boardPos.y || boardPos.placedOnBoard == false) {
+        if(newX != boardPos.x || newY != boardPos.y || !boardPos.placedOnBoard) {
             // Object is switching position or is not on board
 
-            if(boardPos.placedOnBoard == false) {
+            if(!boardPos.placedOnBoard) {
                 if(isOnBoard(newX, newY)) board[newX][newY].insert(obj);
 
                 boardPos.x = newX;
@@ -126,7 +126,7 @@ public class BoardSystem extends AEntitySystem {
 
     public List<GameObject> getObjectsAt(int x, int y) {
 
-        if(isOnBoard(x, y) == false) return null;
+        if(!isOnBoard(x, y)) return null;
 
         return board[x][y].objects;
     }
@@ -135,7 +135,7 @@ public class BoardSystem extends AEntitySystem {
     	
         BoardPosition boardPosition;
 
-        if(isOnBoard(x, y) == false) return null;
+        if(!isOnBoard(x, y)) return null;
 
         for(GameObject o : board[x][y].objects) {
             if(meetsConditions(o) && o.tag.equals("Wall")) {

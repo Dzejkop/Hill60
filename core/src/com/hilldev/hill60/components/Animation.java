@@ -55,11 +55,11 @@ public class Animation {
                 if (currentFrame >= spritesInAnimation.size()) {
                     currentFrame = 0;
 
-                    if (isRepeating == false) isActive = false;
+                    if (!isRepeating) isActive = false;
                 } else if (currentFrame < 0) {
                     currentFrame = spritesInAnimation.size()-1;
 
-                    if (isRepeating == false) isActive = false;
+                    if (!isRepeating) isActive = false;
                 }
             }
         }

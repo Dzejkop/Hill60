@@ -37,8 +37,8 @@ public class SoundSystem extends AEntitySystem {
 
 			SoundTrigger soundTrigger = obj.getComponent(SoundTrigger.class);
 
-            if(soundTrigger.triggered == true) {
-                if (soundTrigger.sound.isEmpty() == false) {
+            if(soundTrigger.triggered) {
+                if (!soundTrigger.sound.isEmpty()) {
                 	Player player=(Player) engine.findObject("Player");
                 	if (player!=null){
                 	int soundID=-1;

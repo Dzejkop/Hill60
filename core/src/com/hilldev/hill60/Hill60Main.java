@@ -1,7 +1,6 @@
 package com.hilldev.hill60;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 
 public class Hill60Main extends Game {
 

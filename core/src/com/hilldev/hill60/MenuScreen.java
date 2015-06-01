@@ -68,11 +68,11 @@ public class MenuScreen implements Screen {
 		batch.begin();
 		
 		font.setColor(Color.valueOf("800000"));
-		font.draw(batch, "Hill60", -65, 200);
+		font.draw(batch, "Hill 60", -80, 200);
 		
 		int i = 0;
 		for (String menuEntry : menuEntries) {
-			if(i == selection) font.setColor(Color.OLIVE);
+			if(i == selection) font.setColor(Color.valueOf("C5A833"));
 			else font.setColor(Color.WHITE);
 			font.draw(batch, menuEntry, -65, menuEntries.size()*30 - i*60);
 			i++;

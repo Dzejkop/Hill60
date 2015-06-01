@@ -13,7 +13,7 @@ import java.util.List;
 public class CharacterScript implements Behaviour {
 
 	// Hardcoded values
-	public static final float RUN_STEP_VOLUME = 10; // How loud each step is
+	public static final float RUN_STEP_VOLUME = 25; // How loud each step is
 	public static final int RUN_STEP_INTERVAL = 15; // How often the step sound
 													// is played
 	public static final float RUN_SPEED = 4; // How fast the character runs

@@ -17,6 +17,9 @@ public class GameScreen implements Screen, IEngine {
     // Singleton
     static GameScreen instance;
     
+    // 
+    Hill60Main game;
+    
     // Game objects
     private List<GameObject> gameObjects;
 
@@ -36,9 +39,9 @@ public class GameScreen implements Screen, IEngine {
     // DEBUG
     public Player player;
 
-    public GameScreen() {
+    public GameScreen(Hill60Main gam) {
         instance = this;
-
+        game=gam;
         systems = new ArrayList<>();
         gameObjects = new ArrayList<>();
         destructionQueue = new ArrayList<>();
@@ -71,7 +74,8 @@ public class GameScreen implements Screen, IEngine {
         systems.add(new VisibilitySystem(this));
         systems.add(new AnimationSystem(this));
         systems.add(new RenderGUISystem(this));
-
+        systems.add(new CheckingGameStateSystem(this));
+        
         start();
 		
 		createTheBoard();

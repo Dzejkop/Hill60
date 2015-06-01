@@ -4,6 +4,7 @@ import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.BoardPosition;
 import com.hilldev.hill60.components.ExplosionComponent;
 import com.hilldev.hill60.components.ExplosionResistance;
+import com.hilldev.hill60.objects.Character;
 import com.hilldev.hill60.objects.GameObject;
 
 import java.util.List;
@@ -38,7 +39,13 @@ public class ExplosionSystem extends AEntitySystem {
         if(objectList == null) return;
         
         for(GameObject o : objectList) {
-            if(obj != o && o.hasComponent(ExplosionResistance.class)) engine.destroyObject(o);
+            if(obj != o){
+            	if(o.hasComponent(ExplosionResistance.class)) engine.destroyObject(o);
+            	if(o.tag=="Player"||o.tag=="Enemy"){
+            		Character object = (Character)o;
+            		object.isAlive=false;
+            	}
+            }
         }
     }
 }

@@ -16,6 +16,7 @@ public class HudManagerScript implements Behaviour {
     public ItemIcon smallBombIcon;
     public ItemIcon mediumBombIcon;
     public Player player;
+    private float alpha;
 
     HudManager parent;
 
@@ -51,33 +52,40 @@ public class HudManagerScript implements Behaviour {
 
     @Override
     public void run() {
-    	float alpha;
+        setAllInactive();
+        if(parent.endScreen){
+           if(itemDisplay.isActive){
+           	   itemDisplay.isActive=false;  
+         	   alpha=1;
+           }else{
+        	   if (alpha>0.01)
+        	   alpha-=0.01;
+        	   else alpha=0;
+           }
+    	   parent.alpha=alpha;
+        }else
         switch (player.playerScript.getCurrentItem()){
             case "Shovel":
             	alpha= player.characterScript.getItem(CharacterScript.ITEM_LIST[0]).getAlpha();
             	alpha=getProperAlpha(alpha);
-                setAllInactive();
                 shovelIcon.getComponent(GuiSprite.class).alpha= alpha;
                 shovelIcon.isActive=true;
                 break;
             case "SmallBomb":
             	alpha= player.characterScript.getItem(CharacterScript.ITEM_LIST[1]).getAlpha();
             	alpha=getProperAlpha(alpha);
-                setAllInactive();
                 smallBombIcon.getComponent(GuiSprite.class).alpha=alpha;
                 smallBombIcon.isActive=true;
                 break;
             case "MediumBomb":
             	alpha= player.characterScript.getItem(CharacterScript.ITEM_LIST[2]).getAlpha();
             	alpha=getProperAlpha(alpha);
-                setAllInactive();
                 mediumBombIcon.getComponent(GuiSprite.class).alpha=alpha;
                 mediumBombIcon.isActive=true;
                 break;
             case "BigBomb":
             	alpha= player.characterScript.getItem(CharacterScript.ITEM_LIST[3]).getAlpha();
             	alpha=getProperAlpha(alpha);
-                setAllInactive();
         		bigBombIcon.getComponent(GuiSprite.class).alpha=alpha;
                 bigBombIcon.isActive=true;
                 break;

@@ -3,14 +3,12 @@ package com.hilldev.hill60.Scripts;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.BinaryHeap;
 import com.badlogic.gdx.utils.IntArray;
-import com.hilldev.hill60.Debug;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.*;
 import com.hilldev.hill60.objects.Enemy;
 import com.hilldev.hill60.objects.Player;
 import com.hilldev.hill60.systems.BoardSystem;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -234,7 +232,8 @@ public class AIScript implements Behaviour {
         decideBehaviour();
     }
 
-    private void putBigBomb() {
+    @SuppressWarnings("unused")
+	private void putBigBomb() {
         Item bigBomb = characterScript.getItem("BigBomb");
 
         BoardPosition bPos = parent.getComponent(BoardPosition.class);
@@ -278,15 +277,15 @@ public class AIScript implements Behaviour {
     }
 
     private void perceptionCheck() {
-        Debug.log("Perception check");
+        //Debug.log("Perception check");
         sinceLastPerceptionCheck = 0;
         canSeePlayer = canSeePlayer();
         canHearPlayer = canHearPlayer();
 
         decideBehaviour();
 
-        Debug.log("Can see player? " + canSeePlayer);
-        Debug.log("Can hear player? " + canHearPlayer);
+        //Debug.log("Can see player? " + canSeePlayer);
+        //Debug.log("Can hear player? " + canHearPlayer);
     }
 
     private void terminateMovement() {

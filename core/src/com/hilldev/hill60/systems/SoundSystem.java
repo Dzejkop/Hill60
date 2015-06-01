@@ -40,6 +40,7 @@ public class SoundSystem extends AEntitySystem {
             if(soundTrigger.triggered == true) {
                 if (soundTrigger.sound.isEmpty() == false) {
                 	Player player=(Player) engine.findObject("Player");
+                	if (player!=null){
                 	int soundID=-1;
                     Sound sound;
                     sound = engine.getResourceManager().getSound(soundTrigger.sound);
@@ -48,7 +49,7 @@ public class SoundSystem extends AEntitySystem {
                     if (distance<1000)
                     if (soundTrigger.soundID <=0)
                         soundID = (int)sound.play((float)(1-distance/1000));
-                    engine.createObject(new SoundWave(engine, soundTrigger.volume, p.x, p.y,soundID, sound ,player));
+                    engine.createObject(new SoundWave(engine, soundTrigger.volume, p.x, p.y,soundID, sound ,player));}
                 }
 
                 soundTrigger.triggered = false;

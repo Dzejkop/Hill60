@@ -2,10 +2,12 @@ package com.hilldev.hill60.systems;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.components.GuiSprite;
 import com.hilldev.hill60.objects.GameObject;
+import com.hilldev.hill60.objects.HUD.HudManager;
 
 public class RenderGUISystem extends AEntitySystem {
 	private static final int MAX_LAYER = 1;
@@ -13,7 +15,6 @@ public class RenderGUISystem extends AEntitySystem {
 	public int screenHeight;
 	boolean renderGui;
 	SpriteBatch batch;
-
 	public RenderGUISystem(IEngine engine) {
 		super(engine);
 	}
@@ -41,6 +42,7 @@ public class RenderGUISystem extends AEntitySystem {
 
 	@Override
 	public void update() {
+		int j=0;
 		if (renderGui) {
 			for (int i = 0; i <= MAX_LAYER; i++)
 				for (GameObject obj : engine.getObjectList())
@@ -55,8 +57,27 @@ public class RenderGUISystem extends AEntitySystem {
 							guiSprite.sprite.setPosition(x, y);
 							guiSprite.sprite.draw(batch,guiSprite.alpha);
 							batch.end();
+							j++;
 						}
 					}
+		}
+		if (j==0){
+			HudManager hud=(HudManager)engine.findObject("HudManager");
+			batch.begin();
+			Sprite sprite2;
+			Sprite sprite = engine.getResourceManager().getSprite("BlackTile");
+			if(hud.won){
+				sprite2 = engine.getResourceManager().getSprite("X");		
+			}else{
+				sprite2 = engine.getResourceManager().getSprite("BlackTile");
+			}
+
+			sprite2.scale(screenWidth/200);
+			sprite2.setPosition(screenWidth/2-sprite2.getWidth(), screenHeight/2-sprite2.getHeight());
+			sprite.scale(screenWidth);
+			sprite.draw(batch,1-hud.alpha);
+			sprite2.draw(batch,1-hud.alpha);
+			batch.end();
 		}
 
 	}

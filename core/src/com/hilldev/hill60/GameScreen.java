@@ -97,11 +97,11 @@ public class GameScreen implements Screen, IEngine {
         Random r = new Random();
         
         // Creating wall circles
-        int circles = Math.abs(r.nextInt()%10)+10;
+        int circles = Math.abs(r.nextInt()%10)+15;
         for(int i=0; i<circles; i++) {
         	int x = Math.abs(r.nextInt()%BoardSystem.BOARD_WIDTH);
         	int y = Math.abs(r.nextInt()%BoardSystem.BOARD_HEIGHT);
-        	int circleSize = Math.abs(r.nextInt()%7)+3;
+        	int circleSize = Math.abs(r.nextInt()%10)+5;
         	
         	for(int j=0; j<circleSize; j++) {
         		char wallType;
@@ -129,10 +129,9 @@ public class GameScreen implements Screen, IEngine {
         }
         
         // Removing some random walls
-        int density = Math.abs(r.nextInt()%3);
         for(int x=0; x<BoardSystem.BOARD_WIDTH; x++)
         	for(int y=0; y<BoardSystem.BOARD_HEIGHT; y++)
-        		if(Math.abs(r.nextInt()%3) == density)
+        		if(Math.abs(r.nextInt()%5) == 0)
         			boardMap[x][y] = 'F';
         
         // Clearing the corners

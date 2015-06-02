@@ -1,4 +1,4 @@
-package com.hilldev.hill60.Scripts;
+package com.hilldev.hill60.scripts;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;

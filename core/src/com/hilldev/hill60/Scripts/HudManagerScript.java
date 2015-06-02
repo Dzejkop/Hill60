@@ -1,4 +1,4 @@
-package com.hilldev.hill60.Scripts;
+package com.hilldev.hill60.scripts;
 
 import com.hilldev.hill60.components.BehaviourComponent;
 import com.hilldev.hill60.components.GuiSprite;

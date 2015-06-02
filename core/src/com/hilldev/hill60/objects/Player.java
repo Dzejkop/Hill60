@@ -2,7 +2,7 @@ package com.hilldev.hill60.objects;
 
 import com.hilldev.hill60.IEngine;
 import com.hilldev.hill60.ResourceManager;
-import com.hilldev.hill60.Scripts.PlayerScript;
+import com.hilldev.hill60.scripts.PlayerScript;
 import com.hilldev.hill60.components.*;
 
 public class Player extends Character {

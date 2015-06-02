@@ -1,7 +1,7 @@
 package com.hilldev.hill60.objects.HUD;
 
 import com.hilldev.hill60.IEngine;
-import com.hilldev.hill60.Scripts.HudManagerScript;
+import com.hilldev.hill60.scripts.HudManagerScript;
 import com.hilldev.hill60.components.BehaviourComponent;
 import com.hilldev.hill60.objects.GameObject;
 import com.hilldev.hill60.objects.Player;
